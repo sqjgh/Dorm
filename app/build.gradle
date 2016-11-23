@@ -31,4 +31,6 @@ dependencies {
     //OKHTTP
     compile 'com.squareup.okhttp3:okhttp:3.4.2'
     compile 'com.google.code.gson:gson:2.8.0'
+    // 左右侧滑设置菜单
+    compile 'com.github.mzule.fantasyslide:library:1.0.4'
 }
