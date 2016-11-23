@@ -34,7 +34,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="18dp"
                 android:text="段子数据"
-                android:textColor="#333"
                 android:textSize="20sp"/>
 
             <TextView
@@ -45,7 +44,6 @@
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@id/card_name"
                 android:text="数据个数"
-                android:textColor="#878787"
                 android:textSize="20sp"/>
 
             <!--<LinearLayout-->
