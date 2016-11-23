@@ -17,4 +17,5 @@
         tools:context=".MyActivity"/>
 
     <include layout="@layout/buttons"/>
+
 </FrameLayout>

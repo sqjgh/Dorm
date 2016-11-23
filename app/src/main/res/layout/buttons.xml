@@ -7,7 +7,7 @@
               android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/left"
+        android:id="@+id/unlike"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
@@ -16,7 +16,7 @@
         android:onClick="left"/>
 
     <ImageView
-        android:id="@+id/info"
+        android:id="@+id/chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -24,7 +24,7 @@
         android:background="@drawable/home_buttons_info"/>
 
     <ImageView
-        android:id="@+id/right"
+        android:id="@+id/like"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="10dp"

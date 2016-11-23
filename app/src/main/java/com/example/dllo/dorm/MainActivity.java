@@ -1,12 +1,11 @@
 package com.example.dllo.dorm;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
@@ -14,41 +13,43 @@ import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ArrayList<CardMode> al;
     private CardAdapter adapter;
     private int i;
     private SwipeFlingAdapterView flingContainer;
     private List<List<String>> list = new ArrayList<>();
-    private ImageView left, right;
+    private ImageView unLike, like, chat;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        left = (ImageView) findViewById(R.id.left);
-        right = (ImageView) findViewById(R.id.right);
-        left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                left(); //方法
-            }
-        });
+    protected int getLayout() {
+        return R.layout.activity_main;
+    }
 
-        right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                right();
-            }
-        });
+    @Override
+    protected void initData() {
+        //探探添加数据
+        cycleAddUrls();
+
+    }
+
+    @Override
+    protected void initViews() {
+        unLike = bindView(R.id.unlike);
+        like = bindView(R.id.like);
+        chat = bindView(R.id.chat);
+        setClick(this, unLike, like, chat);
+    }
+
+    private void cycleAddUrls() {
         al = new ArrayList<>();
         for (int i = 0; i < imageUrls.length; i++) {
             List<String> s = new ArrayList<>();
             s.add(imageUrls[i]);
             list.add(s);
         }
-//        List<String> ;
+        /***********************/
         al.add(new CardMode("段子1", 21, list.get(0)));
         al.add(new CardMode("段子2", 21, list.get(1)));
         al.add(new CardMode("段子3", 21, list.get(2)));
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         al.add(new CardMode("段子13", 21, list.get(12)));
         al.add(new CardMode("段子14", 21, list.get(13)));
         al.add(new CardMode("段子15", 21, list.get(14)));
-
+        /**************************/
         adapter = new CardAdapter(this, al);
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
         flingContainer.setAdapter(adapter);
@@ -105,23 +106,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
                 makeToast(MainActivity.this, "点击图片");
             }
         });
+
     }
 
+
+
+
+    //探探btn监听
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.left:
+                imgMoveToLeft();
+                break;
+            case R.id.right:
+                imgMoveToRight();
+                break;
+            case R.id.info:
+                Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    //toast方法  没啥用 直接打toast也行
     static void makeToast(Context ctx, String s) {
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
 
-    public void left() {
+    //最上面的图片左划切换
+    public void imgMoveToLeft() {
         flingContainer.getTopCardListener().selectLeft();
     }
 
-    public void right() {
+    //最上面的图片右划切换
+    public void imgMoveToRight() {
         flingContainer.getTopCardListener().selectRight();
     }
 
@@ -178,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
             "http://img.my.csdn.net/uploads/201308/31/1377949441_8987.jpg",
             "http://img.my.csdn.net/uploads/201308/31/1377949441_5454.jpg",
             "http://img.my.csdn.net/uploads/201308/31/1377949454_6367.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949442_4562.jpg"};
+            "http://img.my.csdn.net/uploads/201308/31/1377949442_4562.jpg"
+    };
+
 
 }
