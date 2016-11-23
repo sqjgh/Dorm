@@ -46,35 +46,6 @@
                 android:text="数据个数"
                 android:textSize="20sp"/>
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginRight="15dp"-->
-                <!--android:orientation="horizontal">-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="25dp"-->
-                    <!--android:layout_height="25dp"-->
-                    <!--android:background="@mipmap/card_pic"/>-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/card_image_num"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_marginLeft="4dp"-->
-                    <!--android:text="4"-->
-                    <!--android:textColor="#878787"-->
-                    <!--android:textSize="17sp"/>-->
-
-                <!--<ImageView-->
-                    <!--android:layout_width="25dp"-->
-                    <!--android:layout_height="25dp"-->
-                    <!--android:layout_marginLeft="8dp"-->
-                    <!--android:background="@mipmap/card_des"/>-->
-            <!--</LinearLayout>-->
         </RelativeLayout>
     </RelativeLayout>
 

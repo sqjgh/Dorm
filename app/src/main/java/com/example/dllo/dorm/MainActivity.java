@@ -116,20 +116,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-
-
-
     //探探btn监听
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.left:
+            case R.id.unlike:
                 imgMoveToLeft();
                 break;
-            case R.id.right:
+            case R.id.like:
                 imgMoveToRight();
                 break;
-            case R.id.info:
+            case R.id.chat:
                 Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
                 break;
         }
