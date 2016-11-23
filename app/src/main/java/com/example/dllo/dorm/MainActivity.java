@@ -1,6 +1,8 @@
 package com.example.dllo.dorm;
 
 import android.content.Context;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,6 +23,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private SwipeFlingAdapterView flingContainer;
     private List<List<String>> list = new ArrayList<>();
     private ImageView unLike, like, chat;
+    private ImageView leftSlide;
+    private ImageView rightSlide;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected int getLayout() {
@@ -29,8 +34,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initData() {
-        //探探添加数据
+        // 探探添加数据
         cycleAddUrls();
+        // 左右导航栏
+        initSlide();
+
+
+    }
+
+    private void initSlide() {
 
     }
 
@@ -39,8 +51,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         unLike = bindView(R.id.unlike);
         like = bindView(R.id.like);
         chat = bindView(R.id.chat);
-        setClick(this, unLike, like, chat);
+        leftSlide = (ImageView) findViewById(R.id.left_slide);
+        rightSlide = (ImageView) findViewById(R.id.right_slide);
+        drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
+        setClick(this, unLike, like, chat,leftSlide,rightSlide);
     }
+
 
     private void cycleAddUrls() {
         al = new ArrayList<>();
@@ -128,6 +144,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.chat:
                 Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.left_slide:
+                drawerLayout.openDrawer(GravityCompat.START);
+                break;
+            case R.id.right_slide:
+                drawerLayout.openDrawer(GravityCompat.END);
                 break;
         }
     }

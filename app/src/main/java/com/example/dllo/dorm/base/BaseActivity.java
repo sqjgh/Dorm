@@ -1,11 +1,8 @@
 package com.example.dllo.dorm.base;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 /**
  * Created by dllo on 16/10/21.
@@ -19,15 +16,19 @@ public abstract class BaseActivity extends AppCompatActivity{
         setContentView(getLayout());
 
         //透明状态栏
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window window = getWindow();
-            // Translucent status bar
-            window.setFlags(
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-//透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            Window window = getWindow();
+//            // Translucent status bar
+//            window.setFlags(
+//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        }
+////透明状态栏
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // 布局文件最外层需要加上以下两行, 以保障界面不会到状态栏上
+        // android:clipToPadding="true"
+        // android:fitsSystemWindows="true"
+
 //透明导航栏
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
