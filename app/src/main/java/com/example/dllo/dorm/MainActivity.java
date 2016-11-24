@@ -1,6 +1,10 @@
 package com.example.dllo.dorm;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
+import com.example.dllo.dorm.firstpage.im.ChatInfoActivity;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 
@@ -22,10 +27,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int i;
     private SwipeFlingAdapterView flingContainer;
     private List<List<String>> list = new ArrayList<>();
-    private ImageView unLike, like, chat;
+    private ImageView unLike, like;
     private ImageView leftSlide;
     private ImageView rightSlide;
     private DrawerLayout drawerLayout;
+    private FloatingActionButton mFloatingActionButton;
 
     @Override
     protected int getLayout() {
@@ -50,11 +56,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void initViews() {
         unLike = bindView(R.id.unlike);
         like = bindView(R.id.like);
-        chat = bindView(R.id.chat);
+        mFloatingActionButton = bindView(R.id.main_chat);
         leftSlide = (ImageView) findViewById(R.id.left_slide);
         rightSlide = (ImageView) findViewById(R.id.right_slide);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
-        setClick(this, unLike, like, chat,leftSlide,rightSlide);
+        setClick(this, unLike, like, mFloatingActionButton,leftSlide,rightSlide);
     }
 
 
@@ -142,8 +148,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.like:
                 imgMoveToRight();
                 break;
-            case R.id.chat:
+            case R.id.main_chat:
                 Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
+                initChat();
                 break;
             case R.id.left_slide:
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -181,7 +188,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.right_test05:
                 Toast.makeText(this, "右侧测试05", Toast.LENGTH_SHORT).show();
                 break;
+
         }
+    }
+
+    private void initChat() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options =
+                    ActivityOptions.makeSceneTransitionAnimation(this, mFloatingActionButton, mFloatingActionButton.getTransitionName());
+            startActivity(new Intent(this, ChatInfoActivity.class), options.toBundle());
+        } else {
+            startActivity(new Intent(this, ChatInfoActivity.class));
+        }
+
+
     }
 
     //toast方法  没啥用 直接打toast也行

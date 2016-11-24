@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.github.mzule.fantasyslide.FantasyDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.mzule.fantasyslide.FantasyDrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main_slide"
@@ -47,6 +48,18 @@
             tools:context=".MyActivity" />
 
         <include layout="@layout/buttons" />
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/main_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@mipmap/weixin"
+            android:transitionName="@string/other_transition_name"
+            tools:targetApi="lollipop"
+            app:layout_anchorGravity="bottom|left"
+            android:layout_gravity="top|center_horizontal"/>
 
     </FrameLayout>
 
