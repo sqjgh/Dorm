@@ -59,20 +59,51 @@
         android:background="@color/colorPrimary"
         app:maxTranslationX="66dp">
 
+
+        <LinearLayout
+            android:layout_marginTop="100dp"
+            android:id="@+id/userInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_horizontal"
+            android:onClick="onClick"
+            android:orientation="vertical">
+
+            <com.example.dllo.dorm.tools.circleimage.CircleImageView
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/me"
+                app:civ_border_color="@drawable/menu_text_color"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户昵称"
+                android:textColor="@drawable/menu_text_color"
+                android:textSize="18sp" />
+        </LinearLayout>
         <!-- 这里是 SideBar 的子视图-->
+
         <TextView
+            android:id="@+id/left_test01"
             style="@style/MenuText"
             android:text="左侧测试01" />
 
         <TextView
+            android:id="@+id/left_test02"
             style="@style/MenuText"
             android:text="设置测试02" />
 
         <TextView
+            android:id="@+id/left_test03"
             style="@style/MenuText"
             android:text="添加测试03" />
 
         <TextView
+            android:id="@+id/left_test04"
             style="@style/MenuText"
             android:text="登出测试04" />
     </com.github.mzule.fantasyslide.SideBar>
@@ -85,12 +116,29 @@
         android:layout_gravity="end"
         android:background="@color/colorPrimary"
         android:gravity="center_vertical|right"
-        app:maxTranslationX="-33dp">
+        app:maxTranslationX="-25dp">
 
         <!-- 这里是 SideBar 的子视图-->
         <TextView
+            android:id="@+id/right_test01"
             style="@style/MenuText"
             android:text="右侧测试01" />
+        <TextView
+            android:id="@+id/right_test02"
+            style="@style/MenuText"
+            android:text="右侧测试02" />
+        <TextView
+            android:id="@+id/right_test03"
+            style="@style/MenuText"
+            android:text="右侧测试03" />
+        <TextView
+            android:id="@+id/right_test04"
+            style="@style/MenuText"
+            android:text="右侧测试04" />
+        <TextView
+            android:id="@+id/right_test05"
+            style="@style/MenuText"
+            android:text="右侧测试05" />
     </com.github.mzule.fantasyslide.SideBar>
 
 

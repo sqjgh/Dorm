@@ -151,6 +151,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.right_slide:
                 drawerLayout.openDrawer(GravityCompat.END);
                 break;
+            case R.id.userInfo:
+                Toast.makeText(this, "个人中心", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.left_test01:
+                Toast.makeText(this, "测试01", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.left_test02:
+                Toast.makeText(this, "测试02", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.left_test03:
+                Toast.makeText(this, "测试03", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.left_test04:
+                Toast.makeText(this, "测试04", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.right_test01:
+                Toast.makeText(this, "右侧测试01", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.right_test02:
+                Toast.makeText(this, "右侧测试02", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.right_test03:
+                Toast.makeText(this, "右侧测试03", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.right_test04:
+                Toast.makeText(this, "右侧测试04", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.right_test05:
+                Toast.makeText(this, "右侧测试05", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
