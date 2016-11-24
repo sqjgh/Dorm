@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/NoTitleBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".welcome.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -20,6 +20,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".firstpage.im.ChatInfoActivity"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".welcome.WelcomeActivity"/>
     </application>
+
 
 </manifest>
