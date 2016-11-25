@@ -90,28 +90,28 @@ public class OkHttpManager {
         });
     }
 
-    public <Bean> void get(String url, final Class<Bean> clazz, //这里的Bean就是泛型的名字
-                           final ResponseCallBack<Bean> resourceCallback) {
+    public <Bean> void get(String url, final Class<Bean> clazz,   //这里的Bean就是泛型的名字
+                           final ResponseCallBack<Bean> responseCallBack) {
         //构建Request对象
         final Request request = new Request.Builder().url(url).build();
         //发起网络请求
-        sendHttpRequest(request, clazz, resourceCallback);
+        sendHttpRequest(request,clazz,responseCallBack);
     }
 
     //请求成功Runnable和请求失败Runnable的父类
     abstract class HTTPRunnable<Bean> implements Runnable {
         protected ResponseCallBack<Bean> mResponseCallBack;
 
-        public HTTPRunnable(ResponseCallBack<Bean> mResponseCallBack){
-            mResponseCallBack = mResponseCallBack;
+        public HTTPRunnable(ResponseCallBack<Bean> responseCallBack) {
+            mResponseCallBack = responseCallBack;
         }
     }
 
-    class ErrorRunnable<Bean> extends HTTPRunnable<Bean>{
+    class ErrorRunnable<Bean> extends HTTPRunnable<Bean> {
 
         private Exception mException;
 
-        public ErrorRunnable(ResponseCallBack responseCallBack,Exception e) {
+        public ErrorRunnable(ResponseCallBack<Bean> responseCallBack, Exception e) {
             super(responseCallBack);
             mException = e;
         }
@@ -130,10 +130,10 @@ public class OkHttpManager {
             super(responseCallBack);
             this.mBean = bean;
         }
+
         @Override
         public void run() {
-
+            mResponseCallBack.OnResponse(mBean);
         }
     }
-
 }

@@ -1,8 +1,11 @@
 package com.example.dllo.dorm;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -11,6 +14,9 @@ import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
+import com.example.dllo.dorm.tools.okhttp.ContentBean;
+import com.example.dllo.dorm.tools.okhttp.HttpUtil;
+import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +24,8 @@ import java.util.List;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ArrayList<CardMode> al;
-    private CardAdapter adapter;
+    private ArrayList<String> mImageUrls;
+    private ArrayList<String> mContents;
     private int i;
     private SwipeFlingAdapterView flingContainer;
     private List<List<String>> list = new ArrayList<>();
@@ -27,6 +34,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView rightSlide;
     private DrawerLayout drawerLayout;
 
+    private CardAdapter adapter;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 2) {
+                mContents = (ArrayList<String>) msg.obj;
+                //这里的j应该是小于图片的个数
+                for (int j = 0; j < 15; j++) {
+                    al.add(new CardMode(mContents.get(j) + j, 21, list.get(j)));
+                }
+                adapter.setCardList(al);
+            } else if (msg.what == 1) {
+                mImageUrls = (ArrayList<String>) msg.obj;
+            }
+        }
+    };
+
     @Override
     protected int getLayout() {
         return R.layout.activity_main;
@@ -34,6 +59,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initData() {
+
+        mImageUrls = new ArrayList<>();
+        mContents = new ArrayList<>();
+
         // 探探添加数据
         cycleAddUrls();
         // 左右导航栏
@@ -50,39 +79,52 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void initViews() {
         unLike = bindView(R.id.unlike);
         like = bindView(R.id.like);
-        chat = bindView(R.id.chat);
+        chat = bindView(R.id.refresh);
         leftSlide = (ImageView) findViewById(R.id.left_slide);
         rightSlide = (ImageView) findViewById(R.id.right_slide);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
-        setClick(this, unLike, like, chat,leftSlide,rightSlide);
+        setClick(this, unLike, like, chat, leftSlide, rightSlide);
     }
 
 
     private void cycleAddUrls() {
-        al = new ArrayList<>();
-        for (int i = 0; i < imageUrls.length; i++) {
+
+        for (int i = 0; i < imageUrlss.length; i++) {
             List<String> s = new ArrayList<>();
-            s.add(imageUrls[i]);
+            s.add(imageUrlss[i]);
             list.add(s);
         }
+
+
         /***********************/
-        al.add(new CardMode("段子1", 21, list.get(0)));
-        al.add(new CardMode("段子2", 21, list.get(1)));
-        al.add(new CardMode("段子3", 21, list.get(2)));
-        al.add(new CardMode("段子4", 21, list.get(3)));
-        al.add(new CardMode("段子5", 21, list.get(4)));
-        al.add(new CardMode("段子6", 21, list.get(5)));
-        al.add(new CardMode("段子7", 21, list.get(6)));
-        al.add(new CardMode("段子8", 21, list.get(7)));
-        al.add(new CardMode("段子9", 21, list.get(8)));
-        al.add(new CardMode("段子10", 21, list.get(9)));
-        al.add(new CardMode("段子11", 21, list.get(10)));
-        al.add(new CardMode("段子12", 21, list.get(11)));
-        al.add(new CardMode("段子13", 21, list.get(12)));
-        al.add(new CardMode("段子14", 21, list.get(13)));
-        al.add(new CardMode("段子15", 21, list.get(14)));
-        /**************************/
-        adapter = new CardAdapter(this, al);
+
+        al = new ArrayList<>();
+
+        HttpUtil.getContent("1", new ResponseCallBack<ContentBean>() {
+            @Override
+            public void OnResponse(ContentBean contentBean) {
+                Log.d("MainActivity", Thread.currentThread().getName());
+                List<ContentBean.ItemsBean> items = contentBean.getItems();
+
+                al.clear();
+
+                for (ContentBean.ItemsBean item : items) {
+                    ArrayList<String> arrayList = new ArrayList<String>();
+                    arrayList.add("http://pic.qiushibaike.com/system/pictures/11804/" + item.getId() + "/medium/app" + item.getId() + ".webp");
+                    al.add(new CardMode(item.getContent(), 1, arrayList));
+                }
+                adapter.setCardList(al);
+
+            }
+
+            @Override
+            public void onError(Exception throwable) {
+
+            }
+        });
+
+        adapter = new CardAdapter(MainActivity.this);
+
         flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
         flingContainer.setAdapter(adapter);
 
@@ -93,19 +135,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 adapter.notifyDataSetChanged();
             }
 
-            @Override
+            @Override  //左滑监听
             public void onLeftCardExit(Object dataObject) {
-                makeToast(MainActivity.this, "不喜欢");
+//                makeToast(MainActivity.this, "不喜欢");
             }
 
-            @Override
+            @Override  //右滑监听
             public void onRightCardExit(Object dataObject) {
-                makeToast(MainActivity.this, "喜欢");
+//                makeToast(MainActivity.this, "喜欢");
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                al.add(new CardMode("没数据的时候", 1, list.get(itemsInAdapter % imageUrls.length - 1)));
+                al.add(new CardMode("请尝试刷新", 1, list.get(itemsInAdapter % imageUrlss.length)));
                 adapter.notifyDataSetChanged();
                 i++;
             }
@@ -132,6 +174,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+
     //探探btn监听
     @Override
     public void onClick(View v) {
@@ -142,8 +185,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.like:
                 imgMoveToRight();
                 break;
-            case R.id.chat:
-                Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
+            case R.id.refresh:
+                Toast.makeText(this, "刷新", Toast.LENGTH_SHORT).show();
+                getInterestingContent();
                 break;
             case R.id.left_slide:
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -170,10 +214,47 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    public final String[] imageUrls = new String[]{
-            "http://img.my.csdn.net/uploads/201309/01/1378037235_3453.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037235_7476.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037235_9280.jpg",
+
+    //http的get请求
+    private void getInterestingContent() {
+
+        HttpUtil.getContent("1", new ResponseCallBack<ContentBean>() {
+            @Override
+            public void OnResponse(ContentBean contentBean) {
+
+                List<ContentBean.ItemsBean> items = contentBean.getItems();
+
+                mImageUrls = new ArrayList<>();
+                for (int j = 0; j < items.size(); j++) {
+                    String imageUrlId = toString().valueOf(items.get(j).getId());
+                    String imageUrl = "http://pic.qiushibaike.com/system/pictures/11804/" + imageUrlId + "/medium/app" + imageUrlId + ".webp";
+                    mImageUrls.add(imageUrl);
+                }
+
+                mContents = new ArrayList<>();
+                for (int i = 0; i < items.size(); i++) {
+                    String content = items.get(i).getContent();
+                    mContents.add(content);
+                }
+
+            }
+
+            @Override
+            public void onError(Exception throwable) {
+
+            }
+        });
+
+
+    }
+
+    //这是个放图片的数组
+
+
+    public final String[] imageUrlss = new String[]{
+            "http://pic.qiushibaike.com/system/pictures/11804/118044808/medium/app118044808.webp",
+            "http://pic.qiushibaike.com/system/pictures/11804/118047100/medium/app118047100.webp",
+            "http://pic.qiushibaike.com/system/pictures/11804/118047025/medium/app118047025.webp",
             "http://img.my.csdn.net/uploads/201309/01/1378037234_3539.jpg",
             "http://img.my.csdn.net/uploads/201309/01/1378037234_6318.jpg",
             "http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg",
