@@ -16,6 +16,9 @@ public class CardMode {
         this.images = images;
     }
 
+    public CardMode() {
+    }
+
     public String getName() {
         return name;
     }

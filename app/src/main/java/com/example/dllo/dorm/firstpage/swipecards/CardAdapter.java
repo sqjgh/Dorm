@@ -16,18 +16,22 @@ import java.util.List;
 /**
  * Created by zhaojun on 16/11/22.
  */
-public class CardAdapter extends BaseAdapter{
+public class CardAdapter extends BaseAdapter {
     private Context mContext;
     private List<CardMode> mCardList;
 
-    public CardAdapter(Context mContext, List<CardMode> mCardList) {
+    public CardAdapter(Context mContext) {
         this.mContext = mContext;
-        this.mCardList = mCardList;
+    }
+
+    public void setCardList(List<CardMode> cardList) {
+        mCardList = cardList;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return mCardList.size();
+        return mCardList != null ? mCardList.size() : 0;
     }
 
     @Override
@@ -50,8 +54,6 @@ public class CardAdapter extends BaseAdapter{
             holder = new ViewHolder();
             holder.mCardImageView = (ImageView) convertView.findViewById(R.id.helloText);
             holder.mCardName = (TextView) convertView.findViewById(R.id.card_name);
-//            holder.mCardImageNum = (TextView) convertView.findViewById(R.id.card_image_num);
-            holder.mCardYear = (TextView) convertView.findViewById(R.id.card_year);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -60,14 +62,11 @@ public class CardAdapter extends BaseAdapter{
                 .load(mCardList.get(position).getImages().get(0))
                 .into(holder.mCardImageView);
         holder.mCardName.setText(mCardList.get(position).getName());
-        holder.mCardYear.setText(String.valueOf(mCardList.get(position).getYear()));
         return convertView;
     }
 
     class ViewHolder {
         TextView mCardName;
-        TextView mCardYear;
-        TextView mCardImageNum;
         ImageView mCardImageView;
     }
 }
