@@ -3,44 +3,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/main_scroll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-        >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/grid_iv"
-                android:layout_width="match_parent"
-                android:layout_height="3000dp"
-                android:layout_marginTop="0dp"
-                android:background="#99ff0000"
-                android:scaleType="fitXY"
-                android:src="@mipmap/test"/>
-            <!--<android.support.v4.view.ViewPager-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:id="@+id/guide"-->
-            <!--&gt;-->
-
-            <!--</android.support.v4.view.ViewPager>-->
-        </RelativeLayout>
-
-    </ScrollView>
-    <LinearLayout
+    <ImageView
+        android:id="@+id/grid_iv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="自己的东西"/>
-    </LinearLayout>
+        android:layout_height="2000dp"
+        android:layout_marginBottom="-2000dp"
+        android:background="#99ff0000"
+        android:scaleType="fitXY"
+        android:src="@mipmap/test"/>
 
 </RelativeLayout>
