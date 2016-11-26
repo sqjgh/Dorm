@@ -1,8 +1,6 @@
 package com.example.dllo.dorm;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -36,21 +34,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private CardAdapter adapter;
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 2) {
-                mContents = (ArrayList<String>) msg.obj;
-                //这里的j应该是小于图片的个数
-                for (int j = 0; j < 15; j++) {
-                    al.add(new CardMode(mContents.get(j) + j, 21, list.get(j)));
-                }
-                adapter.setCardList(al);
-            } else if (msg.what == 1) {
-                mImageUrls = (ArrayList<String>) msg.obj;
-            }
-        }
-    };
 
     @Override
     protected int getLayout() {
@@ -67,7 +50,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         cycleAddUrls();
         // 左右导航栏
         initSlide();
-
 
     }
 
@@ -89,9 +71,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void cycleAddUrls() {
 
-        for (int i = 0; i < imageUrlss.length; i++) {
+        for (int i = 0; i < 50; i++) {
             List<String> s = new ArrayList<>();
-            s.add(imageUrlss[i]);
+            s.add("http://cdnq.duitang.com/uploads/item/201505/06/20150506144122_uvGVP.thumb.700_0.jpeg");
             list.add(s);
         }
 
@@ -103,14 +85,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         HttpUtil.getContent("1", new ResponseCallBack<ContentBean>() {
             @Override
             public void OnResponse(ContentBean contentBean) {
-                Log.d("MainActivity", Thread.currentThread().getName());
-                List<ContentBean.ItemsBean> items = contentBean.getItems();
 
+                List<ContentBean.ItemsBean> items = contentBean.getItems();
+                Log.d("yyyyy", "items.get(i).getId():" + items.get(i).getId());
                 al.clear();
 
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
-                    arrayList.add("http://pic.qiushibaike.com/system/pictures/11804/" + item.getId() + "/medium/app" + item.getId() + ".webp");
+                    int id = item.getId();
+                    Log.d("ididididid", "id:" + id);
+                    String str = "http://pic.qiushibaike.com/system/pictures/11805/" + id + "/medium/app" + item.getId() + ".webp";
+                    Log.d("yyyyyyMainActivity", str);
+                    arrayList.add(str);
                     al.add(new CardMode(item.getContent(), 1, arrayList));
                 }
                 adapter.setCardList(al);
@@ -147,7 +133,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                al.add(new CardMode("请尝试刷新", 1, list.get(itemsInAdapter % imageUrlss.length)));
+                al.add(new CardMode("请尝试刷新", 1, list.get(itemsInAdapter % 50)));
                 adapter.notifyDataSetChanged();
                 i++;
             }
@@ -203,12 +189,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
 
-    //最上面的图片左划切换
+    //图片左划切换
     public void imgMoveToLeft() {
         flingContainer.getTopCardListener().selectLeft();
     }
 
-    //最上面的图片右划切换
+    //图片右划切换
     public void imgMoveToRight() {
         flingContainer.getTopCardListener().selectRight();
     }
@@ -221,22 +207,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         HttpUtil.getContent("1", new ResponseCallBack<ContentBean>() {
             @Override
             public void OnResponse(ContentBean contentBean) {
-
+                Log.d("MainActivity", Thread.currentThread().getName());
                 List<ContentBean.ItemsBean> items = contentBean.getItems();
 
-                mImageUrls = new ArrayList<>();
-                for (int j = 0; j < items.size(); j++) {
-                    String imageUrlId = toString().valueOf(items.get(j).getId());
-                    String imageUrl = "http://pic.qiushibaike.com/system/pictures/11804/" + imageUrlId + "/medium/app" + imageUrlId + ".webp";
-                    mImageUrls.add(imageUrl);
-                }
+                al.clear();
 
-                mContents = new ArrayList<>();
-                for (int i = 0; i < items.size(); i++) {
-                    String content = items.get(i).getContent();
-                    mContents.add(content);
+                for (ContentBean.ItemsBean item : items) {
+                    ArrayList<String> arrayList = new ArrayList<String>();
+                    arrayList.add("http://pic.qiushibaike.com/system/pictures/11805/" + item.getId() + "/medium/app" + item.getId() + ".webp");
+                    al.add(new CardMode(item.getContent(), 1, arrayList));
                 }
-
+                adapter.setCardList(al);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -245,66 +227,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
-
     }
 
     //这是个放图片的数组
 
 
-    public final String[] imageUrlss = new String[]{
-            "http://pic.qiushibaike.com/system/pictures/11804/118044808/medium/app118044808.webp",
-            "http://pic.qiushibaike.com/system/pictures/11804/118047100/medium/app118047100.webp",
-            "http://pic.qiushibaike.com/system/pictures/11804/118047025/medium/app118047025.webp",
-            "http://img.my.csdn.net/uploads/201309/01/1378037234_3539.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037234_6318.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037194_2965.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037193_1687.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037193_1286.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037192_8379.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037178_9374.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037177_1254.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037177_6203.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037152_6352.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037151_9565.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037151_7904.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037148_7104.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037129_8825.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037128_5291.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037128_3531.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037127_1085.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037095_7515.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037094_8001.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037093_7168.jpg",
-            "http://img.my.csdn.net/uploads/201309/01/1378037091_4950.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949643_6410.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949642_6939.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949630_4505.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949630_4593.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949629_7309.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949629_8247.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949615_1986.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949614_8482.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949614_3743.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949614_4199.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949599_3416.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949599_5269.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949598_7858.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949598_9982.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949578_2770.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949578_8744.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949577_5210.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949577_1998.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949482_8813.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949481_6577.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949480_4490.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949455_6792.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949455_6345.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949442_4553.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949441_8987.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949441_5454.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949454_6367.jpg",
-            "http://img.my.csdn.net/uploads/201308/31/1377949442_4562.jpg"
-    };
+
 
 
 }

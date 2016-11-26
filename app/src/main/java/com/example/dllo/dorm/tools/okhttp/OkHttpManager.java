@@ -11,6 +11,7 @@ import java.util.HashMap;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -92,8 +93,16 @@ public class OkHttpManager {
 
     public <Bean> void get(String url, final Class<Bean> clazz,   //这里的Bean就是泛型的名字
                            final ResponseCallBack<Bean> responseCallBack) {
+
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("Source","android_10.5.2");
+        hashMap.put("Model","Android/vbox86p/vbox86p:4.2.2/JDQ39E/eng.work");
+        hashMap.put("Uuid","IMEI_a249a2561c53a155d881a5785711bd9e");
+        hashMap.put("Deviceidinfo","{\"DEVICEID\":\"864895024458794\",\"RANDOM\":\"\",\"ANDROID_ID\":\"2c905f3c72e33272\",\"SIMNO\":\"89014103211118510720\",\"IMSI\":\"\",\"SERIAL\":\"\",\"MAC\":\"AC:87:A3:24:E1:C7\",\"SDK_INT\":17}");
+        hashMap.put("Connection","Keep-Alive");
+
         //构建Request对象
-        final Request request = new Request.Builder().url(url).build();
+        final Request request = new Request.Builder().headers(Headers.of(hashMap)).url(url).build();
         //发起网络请求
         sendHttpRequest(request,clazz,responseCallBack);
     }
