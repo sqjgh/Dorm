@@ -1,10 +1,8 @@
 package com.example.dllo.dorm;
 
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +19,7 @@ import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
+import com.example.dllo.dorm.tools.toast.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,17 +133,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override  //左滑监听
             public void onLeftCardExit(Object dataObject) {
-//                makeToast(MainActivity.this, "不喜欢");
+                ToastUtil.showShortToast("不喜欢");
             }
 
             @Override  //右滑监听
             public void onRightCardExit(Object dataObject) {
-//                makeToast(MainActivity.this, "喜欢");
+                ToastUtil.showShortToast("喜欢");
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                al.add(new CardMode("请尝试刷新", 1, list.get(itemsInAdapter % 50)));
+                al.add(new CardMode("请刷新尝试", 1, list.get(itemsInAdapter % 50)));
                 adapter.notifyDataSetChanged();
                 i++;
             }
@@ -165,7 +164,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                makeToast(MainActivity.this, "点击图片");
+                ToastUtil.showShortToast("点击图片");
             }
         });
 
@@ -186,7 +185,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
                 initChat();
             case R.id.refresh:
-                Toast.makeText(this, "刷新", Toast.LENGTH_SHORT).show();
+                ToastUtil.showShortToast("加载成功");
                 getInterestingContent();
                 break;
             case R.id.left_slide:
@@ -243,11 +242,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
 
 
-    }
-
-    //toast方法  没啥用 直接打toast也行
-    static void makeToast(Context ctx, String s) {
-        Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
 
     //图片左划切换
