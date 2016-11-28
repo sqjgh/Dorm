@@ -103,8 +103,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
                     int id = item.getId();
-                    Log.d("ididididid", "id:" + id);
-                    String str = "http://pic.qiushibaike.com/system/pictures/11805/" + id + "/medium/app" + item.getId() + ".webp";
+
+                    String str = "http://pic.qiushibaike.com/system/pictures/11806/" + id + "/medium/app" + item.getId() + ".webp";
                     Log.d("yyyyyyMainActivity", str);
                     arrayList.add(str);
                     al.add(new CardMode(item.getContent(), 1, arrayList));
@@ -266,7 +266,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
-                    arrayList.add("http://pic.qiushibaike.com/system/pictures/11805/" + item.getId() + "/medium/app" + item.getId() + ".webp");
+                    arrayList.add("http://pic.qiushibaike.com/system/pictures/11806/" + item.getId() + "/medium/app" + item.getId() + ".webp");
                     al.add(new CardMode(item.getContent(), 1, arrayList));
                 }
                 adapter.setCardList(al);
