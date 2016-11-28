@@ -195,6 +195,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 drawerLayout.openDrawer(GravityCompat.END);
                 break;
             case R.id.userInfo:
+
+                Intent intent = new Intent(MainActivity.this,SetUpActivity.class);
+                startActivity(intent);
                 Toast.makeText(this, "个人中心", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test01:
