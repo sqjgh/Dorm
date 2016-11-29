@@ -27,6 +27,7 @@
         <activity android:name=".welcome.GuideActivity"/>
         <activity android:name=".SetUpActivity"/>
         <activity android:name=".game.GameActivity"/>
+        <activity android:name=".firstpage.im.ChatInfoActivity"/>
 
 
 

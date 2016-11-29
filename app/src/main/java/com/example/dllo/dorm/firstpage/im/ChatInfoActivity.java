@@ -20,57 +20,46 @@ import com.example.dllo.dorm.base.BaseActivity;
  * Created by Wanghuan on 16/11/24.
  */
 public class ChatInfoActivity extends BaseActivity {
-    FloatingActionButton mFloatingActionButton;
-    TextView mTextView;
-    ImageView mIVClose;
-    RelativeLayout mRelativeLayout;
+    private RelativeLayout otherRlContainer;
+    private FloatingActionButton otherFabCircle;
+    private TextView otherTvContainer;
+
+    @Override
+    protected int getLayout() {
+        return R.layout.im_info;
+    }
+
+    @Override
+    protected void initViews() {
+        otherRlContainer = bindView(R.id.other_rl_container);
+        otherFabCircle = bindView(R.id.other_fab_circle);
+        otherTvContainer = bindView(R.id.other_tv_container);
+
+    }
 
     @Override
     protected void initData() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-            initEnterData();
-            initExitData();
-
+            setupEnterAnimation(); // 入场动画
+            setupExitAnimation(); // 退场动画
         } else {
-
-            initWork();
+            initViews();
         }
 
-
     }
 
-    private void initWork() {
-
-        Animation animation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        animation.setDuration(300);
-        mTextView.startAnimation(animation);
-        mIVClose.setAnimation(animation);
-        mTextView.setVisibility(View.VISIBLE);
-        //mIVClose.setVisibility(View.VISIBLE);
-
-    }
-
-    // 退出动画
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void initExitData() {
+    private void setupExitAnimation() {
         Fade fade = new Fade();
-        getWindow().setReenterTransition(fade);
-        fade.setDuration(300);
+        getWindow().setReturnTransition(fade);
+        fade.setDuration(0);
 
     }
 
-    // 入场动画
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void initEnterData() {
+    private void setupEnterAnimation() {
         Transition transition = TransitionInflater.from(this)
                 .inflateTransition(R.transition.arc_motion);
-
-//        Scene scene = getContentScene();
-//        transition = TransitionInflater.from(this).inflateTransitionManager()
-
         getWindow().setSharedElementEnterTransition(transition);
-
         transition.addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {
@@ -80,8 +69,7 @@ public class ChatInfoActivity extends BaseActivity {
             @Override
             public void onTransitionEnd(Transition transition) {
                 transition.removeListener(this);
-                animShow();
-
+                animateRevealShow();
             }
 
             @Override
@@ -103,11 +91,11 @@ public class ChatInfoActivity extends BaseActivity {
 
     }
 
-    // 动画展示
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void animShow() {
-
-        GuiUtils.animateRevealShow(this, mRelativeLayout, mFloatingActionButton.getWidth() / 2, R.color.colorPrimaryDark,
+    private void animateRevealShow() {
+        GuiUtils.animateRevealShow(
+                this, otherRlContainer,
+                otherFabCircle.getWidth() / 2, R.color.colorAccent,
                 new GuiUtils.OnRevealAnimationListener() {
                     @Override
                     public void onRevealHide() {
@@ -116,60 +104,26 @@ public class ChatInfoActivity extends BaseActivity {
 
                     @Override
                     public void onRevealShow() {
-
+                        initTheViews();
                     }
                 });
 
+
     }
 
+    private void initTheViews() {
+        Animation animation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
+        animation.setDuration(300);
+        otherTvContainer.startAnimation(animation);
+        otherTvContainer.setVisibility(View.VISIBLE);
 
-    @Override
-    protected void initViews() {
-
-
-        mFloatingActionButton = bindView(R.id.other_fab_circle);
-//        mTextView = bindView(R.id.other_rl_container);
-        mIVClose = bindView(R.id.other_iv_close);
-        mRelativeLayout = bindView(R.id.other_rl_container);
-
-
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    onBackPressed();
-                } else {
-                    defaultBackPressed();
-                }
-            }
-        });
-        mIVClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    onBackPressed();
-                } else {
-                    defaultBackPressed();
-                }
-
-            }
-        });
     }
 
-
-
-    @Override
-    protected int getLayout() {
-        return R.layout.im_info;
-    }
-
-    // 退出事件
     @Override
     public void onBackPressed() {
         GuiUtils.animateRevealHide(
-                this, mRelativeLayout,
-                mFloatingActionButton.getWidth() / 2, R.color.colorAccent,
+                this, otherRlContainer,
+                otherFabCircle.getWidth() / 2, R.color.colorAccent,
                 new GuiUtils.OnRevealAnimationListener() {
                     @Override
                     public void onRevealHide() {
@@ -185,6 +139,8 @@ public class ChatInfoActivity extends BaseActivity {
 
     private void defaultBackPressed() {
         super.onBackPressed();
+
     }
+
 
 }
