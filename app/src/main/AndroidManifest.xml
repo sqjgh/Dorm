@@ -26,6 +26,7 @@
         <activity android:name=".LoginActivity"/>
         <activity android:name=".welcome.GuideActivity"/>
         <activity android:name=".SetUpActivity"/>
+        <activity android:name=".game.GameActivity"/>
 
 
 
