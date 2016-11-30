@@ -97,15 +97,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void OnResponse(ContentBean contentBean) {
 
                 List<ContentBean.ItemsBean> items = contentBean.getItems();
-                Log.d("yyyyy", "items.get(i).getId():" + items.get(i).getId());
+
                 al.clear();
 
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
                     int id = item.getId();
 
-                    String str = "http://pic.qiushibaike.com/system/pictures/11806/" + id + "/medium/app" + item.getId() + ".webp";
-                    Log.d("yyyyyyMainActivity", str);
+                    String str = "http://pic.qiushibaike.com/system/pictures/11808/" + id + "/medium/app" + item.getId() + ".webp";
+
                     arrayList.add(str);
                     al.add(new CardMode(item.getContent(), 1, arrayList));
                 }
@@ -269,7 +269,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
-                    arrayList.add("http://pic.qiushibaike.com/system/pictures/11806/" + item.getId() + "/medium/app" + item.getId() + ".webp");
+                    arrayList.add("http://pic.qiushibaike.com/system/pictures/11808/" + item.getId() + "/medium/app" + item.getId() + ".webp");
                     al.add(new CardMode(item.getContent(), 1, arrayList));
                 }
                 adapter.setCardList(al);

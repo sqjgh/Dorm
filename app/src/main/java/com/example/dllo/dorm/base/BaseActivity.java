@@ -38,11 +38,11 @@ public abstract class BaseActivity extends AppCompatActivity{
         initData();
     }
 
-    protected abstract void initData();
+    protected abstract int getLayout();
 
     protected abstract void initViews();
 
-    protected abstract int getLayout();
+    protected abstract void initData();
 
     protected <T extends View> T bindView(int id){
         return (T) findViewById(id);
