@@ -19,10 +19,13 @@ import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
+import com.example.dllo.dorm.tools.timeform.TimeUtil;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.R.attr.data;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -74,9 +77,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         leftSlide = (ImageView) findViewById(R.id.left_slide);
         rightSlide = (ImageView) findViewById(R.id.right_slide);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
-        refresh= bindView(R.id.refresh);
+        refresh = bindView(R.id.refresh);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
-        setClick(this, unLike, like, mFloatingActionButton,leftSlide,rightSlide,refresh);
+        setClick(this, unLike, like, mFloatingActionButton, leftSlide, rightSlide, refresh);
 
     }
 
@@ -164,10 +167,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                ToastUtil.showShortToast("点击图片");
+                //TODO 获取到时间戳 明天继续
+            //2016年11月30号下午6点整     1480500015
+                String date = TimeUtil.getDate();
+                Log.d("sssss", "data:" + data);
+                ToastUtil.showShortToast("点击图片事件" + "   " + date);
+
             }
         });
-
     }
 
 
@@ -196,7 +203,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.userInfo:
 
-                Intent intent = new Intent(MainActivity.this,SetUpActivity.class);
+                Intent intent = new Intent(MainActivity.this, SetUpActivity.class);
                 startActivity(intent);
                 Toast.makeText(this, "个人中心", Toast.LENGTH_SHORT).show();
                 break;
@@ -255,7 +262,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-
     //http的get请求
     private void getInterestingContent() {
 
@@ -283,11 +289,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
 
     }
-
-    //这是个放图片的数组
-
-
-
 
 
 }
