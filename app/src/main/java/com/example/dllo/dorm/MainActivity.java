@@ -16,6 +16,7 @@ import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.firstpage.im.ChatInfoActivity;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
+import com.example.dllo.dorm.game.GameActivity;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
@@ -229,7 +230,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(this, "右侧测试03", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test04:
-                Toast.makeText(this, "右侧测试04", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "欢迎进入 2048 @_@", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(MainActivity.this,GameActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.right_test05:
                 Toast.makeText(this, "右侧测试05", Toast.LENGTH_SHORT).show();
