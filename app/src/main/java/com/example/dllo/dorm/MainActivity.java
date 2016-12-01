@@ -26,8 +26,6 @@ import com.example.dllo.dorm.tools.toast.ToastUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.data;
-
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -45,7 +43,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private CardAdapter adapter;
     private ImageView refresh;
-
+    //2016年11月30号下午6点整     1480500015   当时是11808   一天是86400
+    private static final int COMPARE_TIME = 1480500015;
+    private static int URL_TIME = 11808;
 
     @Override
     protected int getLayout() {
@@ -57,6 +57,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mImageUrls = new ArrayList<>();
         mContents = new ArrayList<>();
+
+        //URL的即时时间
+        String dateStr = TimeUtil.getDate();
+        Integer dateInt = Integer.valueOf(dateStr);
+        int i = (dateInt - COMPARE_TIME) / 86400;
+        URL_TIME += i;
 
         // 探探添加数据
         cycleAddUrls();
@@ -104,11 +110,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 al.clear();
 
+
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
                     int id = item.getId();
-
-                    String str = "http://pic.qiushibaike.com/system/pictures/11808/" + id + "/medium/app" + item.getId() + ".webp";
+                    Log.d("ttttt", "URL_TIME:" + URL_TIME);
+                    String str = "http://pic.qiushibaike.com/system/pictures/"+URL_TIME+"/" + id + "/medium/app" + item.getId() + ".webp";
 
                     arrayList.add(str);
                     al.add(new CardMode(item.getContent(), 1, arrayList));
@@ -168,12 +175,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                //TODO 获取到时间戳 明天继续
-            //2016年11月30号下午6点整     1480500015
-                String date = TimeUtil.getDate();
-                Log.d("sssss", "data:" + data);
-                ToastUtil.showShortToast("点击图片事件" + "   " + date);
 
+
+                ToastUtil.showShortToast("点击图片事件");
             }
         });
     }
@@ -231,7 +235,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.right_test04:
                 Toast.makeText(this, "欢迎进入 2048 @_@", Toast.LENGTH_SHORT).show();
-                Intent intent1 = new Intent(MainActivity.this,GameActivity.class);
+                Intent intent1 = new Intent(MainActivity.this, GameActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.right_test05:
@@ -278,7 +282,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
-                    arrayList.add("http://pic.qiushibaike.com/system/pictures/11808/" + item.getId() + "/medium/app" + item.getId() + ".webp");
+                    arrayList.add("http://pic.qiushibaike.com/system/pictures/"+URL_TIME+"/" + item.getId() + "/medium/app" + item.getId() + ".webp");
                     al.add(new CardMode(item.getContent(), 1, arrayList));
                 }
                 adapter.setCardList(al);
