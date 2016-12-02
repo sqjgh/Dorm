@@ -29,7 +29,6 @@ public class ChatRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         notifyItemInserted(arrayList.size());
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == CHAT_SELF){
@@ -69,7 +68,7 @@ public class ChatRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     class ViewHolderOthers extends RecyclerView.ViewHolder {
 
-        private final TextView chatOthersTV;
+        private TextView chatOthersTV;
 
         public ViewHolderOthers(View itemView) {
             super(itemView);
@@ -79,7 +78,7 @@ public class ChatRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     class ViewHolderSelf extends RecyclerView.ViewHolder {
 
-        private final TextView chatSelfTV;
+        private TextView chatSelfTV;
 
         public ViewHolderSelf(View itemView) {
             super(itemView);

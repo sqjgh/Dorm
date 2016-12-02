@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Created by zhaojun on 16/11/22.
+ * //TODO 通用ViewHolder
  */
 public class CardAdapter extends BaseAdapter {
     private Context mContext;

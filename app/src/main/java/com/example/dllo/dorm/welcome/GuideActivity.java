@@ -2,18 +2,14 @@ package com.example.dllo.dorm.welcome;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseActivity;
+
 import java.util.ArrayList;
 
 /**
@@ -50,7 +46,6 @@ public class GuideActivity extends BaseActivity {
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
         objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
         objectAnimator.start();
-
     }
 
     @Override
@@ -68,7 +63,6 @@ public class GuideActivity extends BaseActivity {
     @Override
     protected void initViews() {
 //        mViewPager = bindView(R.id.guide);
-
         mImageView = bindView(R.id.grid_iv);
         mImageView.setEnabled(false);
 

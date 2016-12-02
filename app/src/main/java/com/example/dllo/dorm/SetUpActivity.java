@@ -21,9 +21,6 @@ public class SetUpActivity  extends BaseActivity implements View.OnClickListener
     @Override
     protected void initViews() {
         setLogin = bindView(R.id.my_login);
-
-
-
         setLogin.setOnClickListener(this);
     }
 

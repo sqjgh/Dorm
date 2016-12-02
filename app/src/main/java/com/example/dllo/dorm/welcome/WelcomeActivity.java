@@ -61,4 +61,5 @@ public class WelcomeActivity  extends BaseActivity{
     protected int getLayout() {
         return R.layout.welcome;
     }
+
 }
