@@ -20,9 +20,11 @@ import com.example.dllo.dorm.firstpage.chat.SqjTestChat;
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
+import com.example.dllo.dorm.game.GameActivity;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
+import com.example.dllo.dorm.tools.timeform.TimeUtil;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
@@ -48,13 +50,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView rightSlide;
     private DrawerLayout drawerLayout;
     private FloatingActionButton mFloatingActionButton;
-
     private CardAdapter adapter;
     private ImageView refresh;
     private ImageView chat;
     private TextView exitID;
     private int a;
     private int NORMAL_INTENT = 0;
+    //2016年11月30号下午6点整     1480500015   当时是11808   一天是86400
+    private static final int COMPARE_TIME = 1480500015;
+    private static int URL_TIME = 11808;
+
 
     @Override
     protected int getLayout() {
@@ -67,12 +72,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageUrls = new ArrayList<>();
         mContents = new ArrayList<>();
 
+        //URL的即时时间
+        String dateStr = TimeUtil.getDate();
+        Integer dateInt = Integer.valueOf(dateStr);
+        int i = (dateInt - COMPARE_TIME) / 86400;
+        URL_TIME += i;
+
         // 探探添加数据
         cycleAddUrls();
 
 
     }
-
 
 
     @Override
@@ -85,9 +95,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         leftSlide = (ImageView) findViewById(R.id.left_slide);
         rightSlide = (ImageView) findViewById(R.id.right_slide);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
-        refresh= bindView(R.id.refresh);
+        refresh = bindView(R.id.refresh);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
-        setClick(this,chat,exitID, unLike, like, mFloatingActionButton,leftSlide,rightSlide,refresh);
+        setClick(this, chat, exitID, unLike, like, mFloatingActionButton, leftSlide, rightSlide, refresh);
 
     }
 
@@ -107,10 +117,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 List<ContentBean.ItemsBean> items = contentBean.getItems();
                 al.clear();
 
+
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
                     int id = item.getId();
-                    String str = "http://pic.qiushibaike.com/system/pictures/11805/" + id + "/medium/app" + item.getId() + ".webp";
+
+                    Log.d("ttttt", "URL_TIME:" + URL_TIME);
+                    String str = "http://pic.qiushibaike.com/system/pictures/" + URL_TIME + "/"
+                            + id + "/medium/app" + item.getId() + ".webp";
                     arrayList.add(str);
                     al.add(new CardMode(item.getContent(), 1, arrayList));
                 }
@@ -169,10 +183,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                ToastUtil.showShortToast("点击图片");
+
+
+                ToastUtil.showShortToast("点击图片事件");
             }
         });
-
     }
 
 
@@ -209,7 +224,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.userInfo:
 
-                Intent intent = new Intent(MainActivity.this,SetUpActivity.class);
+                Intent intent = new Intent(MainActivity.this, SetUpActivity.class);
                 startActivity(intent);
                 Toast.makeText(this, "个人中心", Toast.LENGTH_SHORT).show();
                 break;
@@ -235,7 +250,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(this, "右侧测试03", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test04:
-                Toast.makeText(this, "右侧测试04", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "欢迎进入 2048 @_@", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.right_test05:
                 Toast.makeText(this, "右侧测试05", Toast.LENGTH_SHORT).show();
@@ -252,13 +269,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 try {
                     List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
 
-                    if (groupList.size() != 0){
+                    if (groupList.size() != 0) {
                         Log.d("ChoseActivity", groupList.get(0).getGroupId());
                         String inputGroupID = groupList.get(0).getGroupId();
                         Intent intent1 = new Intent(MainActivity.this, SqjTestChat.class);
                         intent1.putExtra("groupID", inputGroupID);
                         startActivity(intent1);
-                    }else {
+                    } else {
                         Intent intent1 = new Intent(MainActivity.this, ChoseActivity.class);
                         startActivity(intent1);
                     }
@@ -284,7 +301,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Log.d("MyConnectionListener", "连接成功");
             // 自动跳转此账号所在的群
 
-            if (a == NORMAL_INTENT){ // 防止多次触发"连接成功"
+            if (a == NORMAL_INTENT) { // 防止多次触发"连接成功"
                 groupList();
             }
             a++;
@@ -296,20 +313,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 @Override
                 public void run() {
-                    if(error == EMError.USER_REMOVED){
+                    if (error == EMError.USER_REMOVED) {
                         // 显示帐号已经被移除
                         Log.d("MyConnectionListener", "账号已经被移除");
-                    }else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                    } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
                         // 显示帐号在其他设备登录
                     } else {
-                        if (NetUtils.hasNetwork(MainActivity.this)){
+                        if (NetUtils.hasNetwork(MainActivity.this)) {
                             // 账号没有登录
                             Log.d("MyConnectionListener", "连接不到聊天服务器");
                             Intent intent1 = new Intent(MainActivity.this, LoginTestActivity.class);
                             startActivity(intent1);
-                        }
-
-                        else{
+                        } else {
 
                             Log.d("MyConnectionListener", "当前网络不可用，请检查网络设置");
                         }
@@ -344,7 +359,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-
     //http的get请求
     private void getInterestingContent() {
 
@@ -358,7 +372,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
-                    arrayList.add("http://pic.qiushibaike.com/system/pictures/11805/" + item.getId() + "/medium/app" + item.getId() + ".webp");
+                    arrayList.add("http://pic.qiushibaike.com/system/pictures/" + URL_TIME + "/" + item.getId() + "/medium/app" + item.getId() + ".webp");
                     al.add(new CardMode(item.getContent(), 1, arrayList));
                 }
                 adapter.setCardList(al);
@@ -372,9 +386,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
 
     }
-
-
-
-
 
 }

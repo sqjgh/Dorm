@@ -13,6 +13,8 @@ import com.hyphenate.chat.EMOptions;
 import java.util.Iterator;
 import java.util.List;
 
+import cn.bmob.v3.Bmob;
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -21,19 +23,21 @@ import static android.content.ContentValues.TAG;
 
 public class MyApp extends Application {
     private static Context sContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
         sContext = this;
-        initEasemob();
+        initHuanXin();
+        Bmob.initialize(this, "dac159e490244ebe205e22e4d31d60a2");
 
     }
 
-    public static Context getContext(){
+    public static Context getContext() {
         return sContext;
     }
 
-    private void initEasemob() {
+    private void initHuanXin() {
         EMOptions options = new EMOptions();
 // 默认添加好友时，是不需要验证的，改成需要验证
         options.setAcceptInvitationAlways(false);
@@ -46,7 +50,7 @@ public class MyApp extends Application {
 // 为了防止环信SDK被初始化2次，加此判断会保证SDK被初始化1次
 // 默认的APP会在以包名为默认的process name下运行，如果查到的process name不是APP的process name就立即返回
 
-        if (processAppName == null ||!processAppName.equalsIgnoreCase(this.getPackageName())) {
+        if (processAppName == null || !processAppName.equalsIgnoreCase(this.getPackageName())) {
             Log.e(TAG, "enter the service process!");
 
             // 则此application::onCreate 是被service 调用的，直接返回

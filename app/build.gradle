@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.example.dllo.dorm"
-        minSdkVersion 18
+        minSdkVersion 21
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -17,17 +17,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     // 环信
     sourceSets{
-        main{
+        main(){
             // 设置Jni so 文件路径, 如果有jniLibs 目录就不需要设置, 好像手动创建的jnilabs目录无效
             jniLibs.srcDirs = ['libs']
         }
+        // Bmob
+        main.jniLibs.srcDirs = ['libs']
     }
+
+
+
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -37,11 +43,20 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.5.2'
     //OKHTTP
     compile 'com.squareup.okhttp3:okhttp:3.4.2'
-    compile 'com.google.code.gson:gson:2.8.0'
+//    compile 'com.google.code.gson:gson:2.8.0'
     // 左右侧滑设置菜单
     compile 'com.github.mzule.fantasyslide:library:1.0.4'
     // 图片圆形处理
     compile 'de.hdodenhof:circleimageview:2.1.0'
-
     compile 'com.android.support:design:24.2.1'
+    // Bmob
+    compile files('libs/BmobSDK_3.5.2_20161027.jar')
+    compile files('libs/gson-2.6.2.jar')
+    compile files('libs/okhttp-3.3.1.jar')
+    compile files('libs/okio-1.7.0.jar')
+    compile files('libs/org.apache.http.legacy.jar')
+    compile files('libs/rxandroid-1.2.0.jar')
+    compile files('libs/rxjava-1.1.6.jar')
+    //EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

@@ -30,20 +30,24 @@
 
         <activity android:name=".MainActivity"
                   android:launchMode="singleTop">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            </intent-filter> 
         </activity>
+
         <activity android:name=".welcome.WelcomeActivity"/>
         <activity android:name=".LoginActivity"/>
         <activity android:name=".welcome.GuideActivity"/>
         <activity android:name=".SetUpActivity"/>
+
         <activity android:name=".firstpage.chat.LoginTestActivity"/>
         <activity android:name=".firstpage.chat.ChoseActivity"/>
         <activity android:name=".firstpage.chat.SqjTestChat"/>
+        <activity android:name=".firstpage.chat.ChatInfoActivity"/>
+        <activity android:name=".game.GameActivity"/>
+
 
 
 
