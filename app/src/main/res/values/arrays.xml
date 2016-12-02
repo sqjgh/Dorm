@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="languages">
+        <item>顺丰</item>
+        <item>京东 </item>
+        <item>申通</item>
+        <item>圆通</item>
+        <item>韵达</item>
+        <item>中通</item>
+        <item>汇通</item>
+        <item>国通</item>
+        <item>德邦</item>
+        <item>天天</item>
+        <item>EMS</item>
+        <item>TNT</item>
+
+
+
+    </string-array>
+</resources>

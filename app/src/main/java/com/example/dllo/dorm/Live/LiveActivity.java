@@ -1,4 +1,4 @@
-package com.example.dllo.dorm.Live;
+package com.example.dllo.dorm.live;
 
 import com.example.dllo.dorm.base.BaseActivity;
 
