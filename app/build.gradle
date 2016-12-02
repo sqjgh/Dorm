@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.example.dllo.dorm"
-        minSdkVersion 21
+        minSdkVersion 18
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -42,6 +42,7 @@ dependencies {
     // 图片圆形处理
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:design:24.2.1'
+
     // Bmob
     compile files('libs/BmobSDK_3.5.2_20161027.jar')
     compile files('libs/gson-2.6.2.jar')
@@ -52,4 +53,8 @@ dependencies {
     compile files('libs/rxjava-1.1.6.jar')
     //EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
+
+    // 文字转拼音
+    compile 'com.belerweb:pinyin4j:2.5.0'
+
 }

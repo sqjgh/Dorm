@@ -39,6 +39,7 @@
         <activity android:name=".SetUpActivity"/>
         <activity android:name=".game.GameActivity"/>
         <activity android:name=".firstpage.im.ChatInfoActivity"/>
+        <activity android:name=".express.ExpressActivity"/>
 
     </application>
 

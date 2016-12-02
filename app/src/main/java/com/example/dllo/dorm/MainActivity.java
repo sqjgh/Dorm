@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.dllo.dorm.base.BaseActivity;
+import com.example.dllo.dorm.express.ExpressActivity;
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.firstpage.im.ChatInfoActivity;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
@@ -231,7 +232,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(this, "右侧测试02", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test03:
-                Toast.makeText(this, "右侧测试03", Toast.LENGTH_SHORT).show();
+
+                Intent intent2 = new Intent(MainActivity.this, ExpressActivity.class);
+                startActivity(intent2);
+                Toast.makeText(this, "查快递啦", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test04:
                 Toast.makeText(this, "欢迎进入 2048 @_@", Toast.LENGTH_SHORT).show();
