@@ -10,7 +10,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * 2048的每个Item
@@ -27,6 +31,9 @@ public class Game2048Item extends View {
      */
     private Rect mBound;
 
+//    private ArrayList<Integer> mArrayList = new ArrayList<>();
+
+
     public Game2048Item(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mPaint = new Paint();
@@ -42,18 +49,23 @@ public class Game2048Item extends View {
     }
 
     public void setNumber(int number) {
+        Log.d("wwww", "number:" + number);
         mNumber = number;
         mNumberVal = mNumber + "";
         mPaint.setTextSize(30.0f);
         mBound = new Rect();
         mPaint.getTextBounds(mNumberVal, 0, mNumberVal.length(), mBound);
-        invalidate();
+        invalidate();  //刷新界面
+
     }
+
 
 
     public int getNumber() {
         return mNumber;
     }
+
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -122,6 +134,8 @@ public class Game2048Item extends View {
         float x = (getWidth() - mBound.width()) / 2;
         float y = getHeight() / 2 + mBound.height() / 2;
         canvas.drawText(mNumberVal, x, y, mPaint);
+        Log.d("wwwww", mNumberVal);
+
     }
 
 }
