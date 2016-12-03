@@ -93,6 +93,11 @@ public class SqjTestChat extends BaseActivity implements View.OnClickListener,EM
                 }).start();
                 break;
             case R.id.send_chat:
+                ChatBean chatBean = new ChatBean();
+                chatBean.setMsg(etChat.getText().toString());
+                chatBean.setType(CHAT_SELF);
+                arrayList.add(chatBean);
+                chatRVAdapter.setArrayList(arrayList);
                 sendMessage();
                 break;
 
@@ -115,13 +120,7 @@ public class SqjTestChat extends BaseActivity implements View.OnClickListener,EM
             public void onSuccess() {
                 Log.d("ChatActivity", "消息发送成功");
                 ToastUtil.showShortToast("消息发送成功");
-                ChatBean chatBean = new ChatBean();
-                chatBean.setMsg(etChat.getText().toString());
-                chatBean.setType(CHAT_SELF);
-                arrayList.add(chatBean);
 
-                chatRVAdapter = new ChatRVAdapter();
-                chatRVAdapter.setArrayList(arrayList);
 
                 Log.d("SqjTestChat", "zzzzzzzzzzzzzzzzzzzzzzzz");
             }
@@ -143,16 +142,14 @@ public class SqjTestChat extends BaseActivity implements View.OnClickListener,EM
     @Override
     public void onMessageReceived(List<EMMessage> list) {
         for (final EMMessage message : list) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+
                     ChatBean chatBean = new ChatBean();
                     chatBean.setMsg(((EMTextMessageBody)message.getBody()).getMessage());
                     chatBean.setType(CHAT_OTHERS);
                     arrayList.add(chatBean);
                     chatRVAdapter.setArrayList(arrayList);
-                }
-            });
+
+
         }
     }
 

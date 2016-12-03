@@ -42,12 +42,11 @@
         <activity android:name=".welcome.GuideActivity"/>
         <activity android:name=".SetUpActivity"/>
 
-        <activity android:name=".firstpage.chat.LoginTestActivity"/>
-        <activity android:name=".firstpage.chat.ChoseActivity"/>
+        <activity android:name=".firstpage.chat.JoinGroupActivity"/>
         <activity android:name=".firstpage.chat.SqjTestChat"/>
         <activity android:name=".firstpage.chat.ChatInfoActivity"/>
-        <activity android:name=".game.GameActivity"/>
-
+        <activity android:name=".game.game2048.GameActivity"/>
+        <activity android:name=".welcome.loginmvp.MainActivity"/>
 
 
 

@@ -1,4 +1,4 @@
-package com.example.dllo.dorm.game;
+package com.example.dllo.dorm.game.game2048;
 
 /**
  * Created by Wanghuan on 16/11/29.
@@ -44,7 +44,7 @@ public class Game2048Item extends View {
     public void setNumber(int number) {
         mNumber = number;
         mNumberVal = mNumber + "";
-        mPaint.setTextSize(30.0f);
+        mPaint.setTextSize(50.0f);
         mBound = new Rect();
         mPaint.getTextBounds(mNumberVal, 0, mNumberVal.length(), mBound);
         invalidate();

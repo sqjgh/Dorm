@@ -1,7 +1,8 @@
 package com.example.dllo.dorm;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,10 +10,8 @@ import android.widget.TextView;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.Values;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 import cn.bmob.v3.BmobUser;
 
@@ -23,32 +22,33 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
     private ImageView setIcon, setName, setMy, setNetWork, setUp;
     private TextView setLogin;
 
-//    private String historyPassword = "";
+    private boolean BMOB_OUT = false;
+    private boolean HUANXIN_OUT = false;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        //EventBus注册
-        EventBus.getDefault().register(this);
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected void initData() {
 
-        //尝试自动登录
-        BmobUser bmobUser = BmobUser.getCurrentUser();
-        if (bmobUser != null) {
-            ToastUtil.showShortToast("尝试自动登录");
-            String username = bmobUser.getUsername();
-            Values.USER_NAME = username;
-        }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (Values.USER_NAME != ""){
+            setLogin.setText(Values.USER_NAME);
+        }else {
+            setLogin.setText("点击登录");
+        }
     }
 
     @Override
     protected void initViews() {
         setLogin = bindView(R.id.my_login);
-        setLogin.setOnClickListener(this);
+
+        setClick(this, setLogin);
+
     }
 
     @Override
@@ -61,29 +61,72 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
      *
      * @param v The view that was clicked.
      */
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.my_login:
-                Intent intent = new Intent(SetUpActivity.this, LoginActivity.class);
-                startActivity(intent);
+
+                if (Values.USER_NAME != ""){
+                // 退出环信账号
+                EMClient.getInstance().logout(true, new EMCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        // TODO Auto-generated method stub
+                        HUANXIN_OUT = true;
+                        if (HUANXIN_OUT && BMOB_OUT) {
+                            Looper.prepare();
+                            ToastUtil.showShortToast("登出账号成功");
+                            Looper.loop();
+                            Values.USER_NAME = "";
+                            Intent intent = new Intent(SetUpActivity.this, com.example.dllo.dorm.welcome.loginmvp.MainActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onProgress(int progress, String status) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onError(int code, String message) {
+                        // TODO Auto-generated method stub
+                        Log.d("SetUpActivity", "登出账号失败, 请重试");
+                        ToastUtil.showShortToast("登出账号失败, 请重试");
+                    }
+                });
+
+                // 退出Bmob账号
+                MyUser.logOut();
+                BmobUser currentUser = BmobUser.getCurrentUser();
+                if (currentUser == null){
+                    BMOB_OUT = true;
+                    if (BMOB_OUT && HUANXIN_OUT){
+                        Log.d("SetUpActivity", "登出账号成功");
+                        Values.USER_NAME = "";
+                        Intent intent = new Intent(SetUpActivity.this, com.example.dllo.dorm.welcome.loginmvp.MainActivity.class);
+                        startActivity(intent);
+                    }
+
+
+                }else {
+                    Log.d("SetUpActivity", "登出账号失败");
+                            ToastUtil.showShortToast("登出账号失败, 请重试");
+                }
                 break;
+                }else {
+                    Intent intent = new Intent(SetUpActivity.this, com.example.dllo.dorm.welcome.loginmvp.MainActivity.class);
+                    startActivity(intent);
+                }
         }
 
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN , sticky = true)
-    public void getEventContent (EventContent event){  //切记 这里一定是public  不然找不到
-        String userName =event.getUserName();
-        String userPassword = event.getUserPassword();
-        Values.USER_NAME = userName;
-//        historyPassword = userPassword;
-        setLogin.setText(Values.USER_NAME);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 }

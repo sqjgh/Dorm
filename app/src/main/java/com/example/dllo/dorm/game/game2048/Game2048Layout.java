@@ -1,4 +1,4 @@
-package com.example.dllo.dorm.game;
+package com.example.dllo.dorm.game.game2048;
 
 /**
  * Created by Wanghuan on 16/11/29.
@@ -53,6 +53,7 @@ public class Game2048Layout extends RelativeLayout {
      */
     private int mScore;
 
+
     public interface OnGame2048Listener {
         void onScoreChange(int score);
 
@@ -88,7 +89,15 @@ public class Game2048Layout extends RelativeLayout {
     /**
      * 根据用户运动，整体进行移动合并值等
      */
+
+
+    ArrayList<Integer> arrayList = new ArrayList<>();
+
     private void action(ACTION action) {
+            arrayList.clear();
+        for (int i = 0; i < 16; i++) {
+            arrayList.add(i,0);
+        }
         // 行|列
         for (int i = 0; i < mColumn; i++) {
             List<Game2048Item> row = new ArrayList<Game2048Item>();
@@ -102,6 +111,8 @@ public class Game2048Layout extends RelativeLayout {
                 // 记录不为0的数字
                 if (item.getNumber() != 0) {
                     row.add(item);
+                    arrayList.set(index,item.getNumber());
+                    Log.d("得到", "下标" + index + "数字" + item.getNumber());
                 }
             }
 
@@ -109,8 +120,9 @@ public class Game2048Layout extends RelativeLayout {
             for (int j = 0; j < mColumn && j < row.size(); j++) {
                 int index = getIndexByAction(action, i, j);
                 Game2048Item item = mGame2048Items[index];
-
+//                Log.d("得到下标的数字", "row.get(j).getNumber():" + row.get(j).getNumber());
                 if (item.getNumber() != row.get(j).getNumber()) {
+
                     isMoveHappen = true;
                 }
             }
@@ -352,11 +364,11 @@ public class Game2048Layout extends RelativeLayout {
         if (!isFull()) {
             if (isMoveHappen || isMergeHappen) {
                 Random random = new Random();
-                int next = random.nextInt(16);
+                int next = random.nextInt(mColumn*mColumn);
                 Game2048Item item = mGame2048Items[next];
 
                 while (item.getNumber() != 0) {
-                    next = random.nextInt(16);
+                    next = random.nextInt(mColumn*mColumn);
                     item = mGame2048Items[next];
                 }
 
@@ -367,6 +379,25 @@ public class Game2048Layout extends RelativeLayout {
 
         }
     }
+
+
+    /**
+     * 回退一步
+     */
+    public void backStep() {
+
+        for (int i = 0; i < 16; i++) {
+            mGame2048Items[i].setNumber(arrayList.get(i));
+        }
+
+        mScore = 0;
+        if (mGame2048Listener != null) {
+            mGame2048Listener.onScoreChange(mScore);
+        }
+
+    }
+
+
 
     /**
      * 重新开始游戏

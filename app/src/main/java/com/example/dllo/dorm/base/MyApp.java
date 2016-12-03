@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
-import com.example.dllo.dorm.Values;
+import com.example.dllo.dorm.tools.toast.ToastUtil;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 
@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 
 import static android.content.ContentValues.TAG;
 
@@ -29,8 +30,20 @@ public class MyApp extends Application {
         super.onCreate();
         sContext = this;
         initHuanXin();
-        Bmob.initialize(this, "dac159e490244ebe205e22e4d31d60a2");
+        initBmob();
+    }
 
+    private void initBmob() {
+        Bmob.initialize(this, "dac159e490244ebe205e22e4d31d60a2");
+        //尝试自动登录
+        BmobUser bmobUser = BmobUser.getCurrentUser();
+        if (bmobUser != null) {
+            String username = bmobUser.getUsername();
+            ToastUtil.showShortToast("欢迎回来" + username);
+            Values.USER_NAME = username;
+        }else {
+            Values.USER_NAME = "";
+        }
     }
 
     public static Context getContext() {

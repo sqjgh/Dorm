@@ -72,7 +72,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4.51"
+        android:layout_weight="5.34"
         android:orientation="vertical">
 
         <LinearLayout
@@ -206,13 +206,6 @@
                 android:text="关于同床"/>
         </LinearLayout>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/setup_quit_out"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@mipmap/quitout"/>
 
 
 </LinearLayout>

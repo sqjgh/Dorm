@@ -1,72 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical" android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@mipmap/background_setup"
-    >
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/background_setup">
 
     <LinearLayout
-        android:layout_marginTop="200dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#ffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-            android:text="账号"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:id="@+id/id"
-            android:textColor="#ffff"
-            android:hint="手机号/QQ"/>
+        <RelativeLayout
+            android:id="@+id/login_login"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.81"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/ll_id_login"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="38dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/phone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="+86"
+                    android:textSize="18dp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_id_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="输入11位手机号码"
+                        android:imeActionId="@+id/login"
+                        android:imeOptions="actionUnspecified"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_password_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/ll_id_login"
+                android:layout_alignStart="@+id/ll_id_login"
+                android:layout_below="@+id/ll_id_login"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="63dp"
+                    android:src="@mipmap/passwordlock" />
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_password_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.10"
+                        android:hint="输入密码(密码长度大于6位)"
+                        android:imeActionId="@+id/login"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/ll_id_login"
+                android:layout_alignStart="@+id/ll_password_login"
+                android:layout_below="@id/ll_password_login"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorTabLayout"
+                android:text="登录"
+                android:textColor="#FFF" />
+
+            <TextView
+                android:id="@+id/code_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/btn_login"
+                android:layout_below="@+id/btn_login"
+                android:padding="15dp"
+                android:text="注册账号"
+                android:textColor="@color/colorTabLayout"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/warn_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/ll_id_login"
+                android:text="手机号为11位数字"
+                android:textColor="@color/colorTabLayout"
+                android:textSize="10dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/warn_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/ll_id_login"
+                android:text="密码为6位以上数字或字母"
+                android:textColor="@color/colorTabLayout"
+                android:textSize="10dp"
+                android:visibility="gone" />
+
+
+
+
+
+
+
+            <!--以下为注册   123123213423432874682364987264987236498723649872638974698237469872364987236489726394876928374698723-->
+
+            <LinearLayout
+                android:id="@+id/ll_id_register"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:orientation="horizontal"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:layout_width="38dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/phone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="+86"
+                    android:textSize="18dp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_id_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="输入11位手机号码"
+                        android:imeActionId="@+id/login"
+                        android:imeOptions="actionUnspecified"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_password_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/ll_id_register"
+                android:layout_alignStart="@+id/ll_id_register"
+                android:layout_below="@+id/ll_id_register"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/passwordlock" />
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_password_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.10"
+                        android:hint="输入密码(密码长度大于6位)"
+                        android:imeActionId="@+id/login"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/ll_id_register"
+                android:layout_alignStart="@+id/ll_password_register"
+                android:background="@color/colorTabLayout"
+                android:text="注册"
+                android:textColor="#FFF"
+                android:visibility="invisible"
+                android:layout_alignTop="@+id/btn_login" />
+
+
+            <TextView
+                android:id="@+id/warn_id_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/ll_id_register"
+                android:text="手机号为11位数字"
+                android:textColor="@color/colorTabLayout"
+                android:textSize="10dp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/warn_password_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/ll_id_register"
+                android:text="密码为6位以上数字或字母"
+                android:textColor="@color/colorTabLayout"
+                android:textSize="10dp"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+
+        </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/back_login"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_gravity="center">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:src="@mipmap/back" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#ffff"
-            android:text="密码"/>
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="6位以上"
-            android:id="@+id/password"
-            android:textColor="#ffff"
-            android:password="true"/>
-
-
-    </LinearLayout>
-
-
-    <Button
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登录"
-        android:id="@+id/user_login"
-        android:textColor="#e78829"
-        android:textSize="35sp"/>
-    <TextView
-        android:id="@+id/user_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="新用户?请注册   "/>
-
-
-
-
-</LinearLayout>
+</RelativeLayout>

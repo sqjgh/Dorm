@@ -6,5 +6,5 @@ package com.example.dllo.dorm.base;
 
 public class Values {
     public static String USER_NAME = "";
-
+    public static boolean AUTO_LOGIN = false;
 }

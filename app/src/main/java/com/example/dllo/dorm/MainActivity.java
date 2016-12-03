@@ -14,13 +14,12 @@ import android.widget.Toast;
 
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.firstpage.chat.ChatInfoActivity;
-import com.example.dllo.dorm.firstpage.chat.ChoseActivity;
-import com.example.dllo.dorm.firstpage.chat.LoginTestActivity;
+import com.example.dllo.dorm.firstpage.chat.JoinGroupActivity;
 import com.example.dllo.dorm.firstpage.chat.SqjTestChat;
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
-import com.example.dllo.dorm.game.GameActivity;
+import com.example.dllo.dorm.game.game2048.GameActivity;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
@@ -87,17 +86,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initViews() {
-        exitID = bindView(R.id.chat_exit_ID);
+
         unLike = bindView(R.id.unlike);
         like = bindView(R.id.like);
-        chat = bindView(R.id.chat_test);
         mFloatingActionButton = bindView(R.id.main_chat);
         leftSlide = (ImageView) findViewById(R.id.left_slide);
         rightSlide = (ImageView) findViewById(R.id.right_slide);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
         refresh = bindView(R.id.refresh);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
-        setClick(this, chat, exitID, unLike, like, mFloatingActionButton, leftSlide, rightSlide, refresh);
+        setClick(this, unLike, like, mFloatingActionButton, leftSlide, rightSlide, refresh);
 
     }
 
@@ -195,14 +193,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            // 注销环信账号
-            case R.id.chat_exit_ID:
-                EMClient.getInstance().logout(true);
-                break;
-            // 聊天跳转
-            case R.id.chat_test:
                 //注册一个监听连接状态的listener
-                EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+//                EMClient.getInstance().addConnectionListener(new MyConnectionListener());
             case R.id.unlike:
                 imgMoveToLeft();
                 break;
@@ -210,6 +202,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 imgMoveToRight();
                 break;
             case R.id.main_chat:
+                // 聊天跳转
                 Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
                 initChat();
             case R.id.refresh:
@@ -270,13 +263,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
 
                     if (groupList.size() != 0) {
-                        Log.d("ChoseActivity", groupList.get(0).getGroupId());
+                        Log.d("JoinGroupActivity", groupList.get(0).getGroupId());
                         String inputGroupID = groupList.get(0).getGroupId();
                         Intent intent1 = new Intent(MainActivity.this, SqjTestChat.class);
                         intent1.putExtra("groupID", inputGroupID);
                         startActivity(intent1);
                     } else {
-                        Intent intent1 = new Intent(MainActivity.this, ChoseActivity.class);
+                        Intent intent1 = new Intent(MainActivity.this, JoinGroupActivity.class);
                         startActivity(intent1);
                     }
 
@@ -322,8 +315,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         if (NetUtils.hasNetwork(MainActivity.this)) {
                             // 账号没有登录
                             Log.d("MyConnectionListener", "连接不到聊天服务器");
-                            Intent intent1 = new Intent(MainActivity.this, LoginTestActivity.class);
-                            startActivity(intent1);
                         } else {
 
                             Log.d("MyConnectionListener", "当前网络不可用，请检查网络设置");

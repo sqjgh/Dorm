@@ -21,13 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#f29039e1">
-            <ImageView
-                android:id="@+id/chat_test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"
-                android:layout_marginLeft="100dp"
-                android:layout_alignBottom="@+id/left_slide" />
+
             <ImageView
                 android:id="@+id/left_slide"
                 android:layout_width="wrap_content"
@@ -42,12 +36,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
                 android:src="@mipmap/ic_launcher" />
-            <TextView
-                android:id="@+id/chat_exit_ID"
-                android:layout_toRightOf="@id/chat_test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="注销环信账号"/>
 
 
         </RelativeLayout>

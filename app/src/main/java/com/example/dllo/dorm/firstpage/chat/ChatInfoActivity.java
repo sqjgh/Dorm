@@ -33,7 +33,6 @@ public class ChatInfoActivity extends BaseActivity {
         otherRlContainer = bindView(R.id.other_rl_container);
         otherFabCircle = bindView(R.id.other_fab_circle);
         otherTvContainer = bindView(R.id.other_tv_container);
-
     }
 
     @Override
@@ -41,8 +40,8 @@ public class ChatInfoActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setupEnterAnimation(); // 入场动画
             setupExitAnimation(); // 退场动画
-        } else {
-            initViews();
+        }else {
+            otherFabCircle.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -120,20 +119,24 @@ public class ChatInfoActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        GuiUtils.animateRevealHide(
-                this, otherRlContainer,
-                otherFabCircle.getWidth() / 2, R.color.colorAccent,
-                new GuiUtils.OnRevealAnimationListener() {
-                    @Override
-                    public void onRevealHide() {
-                        defaultBackPressed();
-                    }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            GuiUtils.animateRevealHide(
+                    this, otherRlContainer,
+                    otherFabCircle.getWidth() / 2, R.color.colorAccent,
+                    new GuiUtils.OnRevealAnimationListener() {
+                        @Override
+                        public void onRevealHide() {
+                            defaultBackPressed();
+                        }
 
-                    @Override
-                    public void onRevealShow() {
+                        @Override
+                        public void onRevealShow() {
 
-                    }
-                });
+                        }
+                    });
+        }else {
+            defaultBackPressed();
+        }
     }
 
     private void defaultBackPressed() {

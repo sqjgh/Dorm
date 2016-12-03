@@ -2,14 +2,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" >
 
-    <com.example.dllo.dorm.game.Game2048Layout
+    <com.example.dllo.dorm.game.game2048.Game2048Layout
         android:id="@+id/id_game2048"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
         android:background="#ffffff"
         android:padding="10dp" >
-    </com.example.dllo.dorm.game.Game2048Layout>
+    </com.example.dllo.dorm.game.game2048.Game2048Layout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,4 +31,17 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/chongzhiyouxi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chongzhi"/>
+
+    <Button
+        android:id="@+id/fanhuishangyibu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fanhui"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/chongzhiyouxi" />
 </RelativeLayout>

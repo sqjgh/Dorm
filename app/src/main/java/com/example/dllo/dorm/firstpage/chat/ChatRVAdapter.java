@@ -26,7 +26,6 @@ public class ChatRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.arrayList = arrayList;
         notifyDataSetChanged();
         Log.d("ChatRVAdapter", "zoule");
-        notifyItemInserted(arrayList.size());
     }
 
     @Override

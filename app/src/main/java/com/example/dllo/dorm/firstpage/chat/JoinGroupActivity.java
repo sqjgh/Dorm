@@ -20,7 +20,7 @@ import java.util.List;
  * Created by SongQingJun on 16/11/29.
  */
 
-public class ChoseActivity extends BaseActivity implements View.OnClickListener {
+public class JoinGroupActivity extends BaseActivity implements View.OnClickListener {
 
     private EditText join;
     private Button joinBtn;
@@ -58,13 +58,13 @@ public class ChoseActivity extends BaseActivity implements View.OnClickListener 
                 try {
                     List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
 //                    for (int i = 0; i < groupList.size(); i++) {
-//                        Log.d("ChoseActivity", groupList.get(i).getGroupId());
+//                        Log.d("JoinGroupActivity", groupList.get(i).getGroupId());
 //                    }
                     // 加入群组聊天
 //                    String inputGroupID = join.getText().toString();
-                    Log.d("ChoseActivity", groupList.get(0).getGroupId());
+                    Log.d("JoinGroupActivity", groupList.get(0).getGroupId());
                     String inputGroupID = groupList.get(0).getGroupId();
-                    Intent intent1 = new Intent(ChoseActivity.this, SqjTestChat.class);
+                    Intent intent1 = new Intent(JoinGroupActivity.this, SqjTestChat.class);
                     intent1.putExtra("groupID", inputGroupID);
                     startActivity(intent1);
 
@@ -85,7 +85,7 @@ public class ChoseActivity extends BaseActivity implements View.OnClickListener 
             case R.id.btn_group_number:
                 // 加入群组聊天
                 String inputGroupID = join.getText().toString();
-                Intent intent1 = new Intent(ChoseActivity.this, SqjTestChat.class);
+                Intent intent1 = new Intent(JoinGroupActivity.this, SqjTestChat.class);
                 intent1.putExtra("groupID", inputGroupID);
                 startActivity(intent1);
 
@@ -113,7 +113,7 @@ public class ChoseActivity extends BaseActivity implements View.OnClickListener 
                             EMGroup emGroup = EMClient.getInstance().groupManager().createGroup("test01", "你好test01", people, "forTest", option);
                             Log.d("ECMainActivity", emGroup.getGroupId());
                             ToastUtil.showShortToast("群组创建成功");
-                            Intent intent = new Intent(ChoseActivity.this, SqjTestChat.class);
+                            Intent intent = new Intent(JoinGroupActivity.this, SqjTestChat.class);
                             intent.putExtra("groupID", emGroup.getGroupId());
                             startActivity(intent);
                         } catch (HyphenateException e) {
