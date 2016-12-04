@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.dllo.dorm.account.AccountActivity;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.express.ExpressActivity;
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
@@ -82,9 +83,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         like = bindView(R.id.like);
 
         mFloatingActionButton = bindView(R.id.main_chat);
-        leftSlide = (ImageView) findViewById(R.id.left_slide);
-        rightSlide = (ImageView) findViewById(R.id.right_slide);
-        drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
+        leftSlide = bindView(R.id.left_slide);
+        rightSlide = bindView(R.id.right_slide);
         refresh = bindView(R.id.refresh);
         drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
         setClick(this, unLike, like, mFloatingActionButton, leftSlide, rightSlide, refresh);
@@ -233,17 +233,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.right_test03:
 
-                Intent intent2 = new Intent(MainActivity.this, ExpressActivity.class);
-                startActivity(intent2);
+                Intent intentExpress = new Intent(MainActivity.this, ExpressActivity.class);
+                startActivity(intentExpress);
                 Toast.makeText(this, "查快递啦", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test04:
                 Toast.makeText(this, "欢迎进入 2048 @_@", Toast.LENGTH_SHORT).show();
-                Intent intent1 = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent1);
+                Intent intentGame = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(intentGame);
                 break;
             case R.id.right_test05:
-                Toast.makeText(this, "右侧测试05", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "记账本", Toast.LENGTH_SHORT).show();
+                Intent intentAccount = new Intent(MainActivity.this, AccountActivity.class);
+                startActivity(intentAccount);
                 break;
 
         }

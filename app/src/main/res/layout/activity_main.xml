@@ -151,7 +151,7 @@
         <TextView
             android:id="@+id/right_test05"
             style="@style/MenuText"
-            android:text="右侧测试05" />
+            android:text="记账本" />
     </com.github.mzule.fantasyslide.SideBar>
 
 

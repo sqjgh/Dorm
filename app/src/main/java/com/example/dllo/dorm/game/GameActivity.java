@@ -2,7 +2,6 @@ package com.example.dllo.dorm.game;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -61,7 +60,7 @@ public class GameActivity extends BaseActivity implements Game2048Layout.OnGame2
 
         //每次GameOver时候的评分
         int chart = Integer.valueOf(mScore.getText().toString());
-        Log.d("rrrrr", "chart:" + chart);
+
         //每次的评分加到集合
         List<ChartBean> chartBeanList = new ArrayList<>();
         ChartBean bean = new ChartBean();
@@ -104,7 +103,6 @@ public class GameActivity extends BaseActivity implements Game2048Layout.OnGame2
     //显示历史评分
     private void showChart() {
 
-        Log.d("ssssss", "走了吗");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("最高评分").setIcon(R.mipmap.ic_launcher);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_chart_view, null);
@@ -114,11 +112,11 @@ public class GameActivity extends BaseActivity implements Game2048Layout.OnGame2
         BaseSingleton.getIntstance().queryAllData(new BaseSingleton.OnQueryListenerAll<ChartBean>() {
             @Override
             public void onQuery(List<ChartBean> chartBeen) {
-                Log.d("ssssss--", "走了吗");
+
                 ArrayList<Integer> arrayList = new ArrayList<>();
                 for (int i = 0; i < chartBeen.size(); i++) {
                     int chart = chartBeen.get(i).getChart();
-                    Log.d("sssssss", "chart:" + chart);
+
                     arrayList.add(chart);
                 }
                 Collections.sort(arrayList);  //集合排序
