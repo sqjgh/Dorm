@@ -5,5 +5,5 @@ package com.example.dllo.dorm.tools.okhttp;
  */
 
 public class ExpressNetApi {
-    public static final String Base_URL = "http://api.avatardata.cn/ExpressNumber/Lookup?key=3b61c0d3fee0428a9b7d1fb41ab72ba4&company=";
+    public static final String Base_URL = "http://api.avatardata.cn/ExpressNumber/Lookup?key=395222cb34694cf39ee49523cdb2c4a5&company=";
 }
