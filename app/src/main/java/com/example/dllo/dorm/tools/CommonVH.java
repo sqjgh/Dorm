@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+
 
 
 /**
@@ -92,14 +92,9 @@ public class CommonVH extends RecyclerView.ViewHolder {
     }
 
 
-    // 设置图片
-    public CommonVH setImage(int id, String img) {
-        ImageView imageView = getView(id);
-        Picasso.with(mContext).load(img).into(imageView);
-        return this;
 
 
-    }
+
 
 
     public CommonVH setViewClick(int id, View.OnClickListener listener) {

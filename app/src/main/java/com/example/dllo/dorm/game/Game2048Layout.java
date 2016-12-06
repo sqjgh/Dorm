@@ -88,7 +88,14 @@ public class Game2048Layout extends RelativeLayout {
     /**
      * 根据用户运动，整体进行移动合并值等
      */
+    ArrayList<Integer> arrayList = new ArrayList<>();
+    int backScore = 0;
+
     private void action(ACTION action) {
+        arrayList.clear();
+        for (int i = 0; i < 16; i++) {
+            arrayList.add(i,0);
+        }
         // 行|列
         for (int i = 0; i < mColumn; i++) {
             List<Game2048Item> row = new ArrayList<Game2048Item>();
@@ -102,6 +109,7 @@ public class Game2048Layout extends RelativeLayout {
                 // 记录不为0的数字
                 if (item.getNumber() != 0) {
                     row.add(item);
+                    arrayList.set(index,item.getNumber());
                 }
             }
 
@@ -172,7 +180,8 @@ public class Game2048Layout extends RelativeLayout {
 
                 int val = item1.getNumber() + item2.getNumber();
                 item1.setNumber(val);
-
+                //滑动之前的分数
+                backScore =mScore ;
                 // 加分
                 mScore += val;
                 if (mGame2048Listener != null) {
@@ -382,6 +391,21 @@ public class Game2048Layout extends RelativeLayout {
         isMoveHappen = isMergeHappen = true;
         generateNum();
     }
+
+    /**
+     * 回退
+     */
+    public void backStep(){
+        for (int i = 0; i < 16; i++) {
+            mGame2048Items[i].setNumber(arrayList.get(i));
+        }
+        mScore = backScore;
+        if (mGame2048Listener != null) {
+            mGame2048Listener.onScoreChange(mScore);
+        }
+    }
+
+
 
     class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {
 

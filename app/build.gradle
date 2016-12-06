@@ -54,7 +54,12 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
 
 
-    //毕加索
-    compile 'com.squareup.picasso:picasso:2.5.2'
+
+
+
+    //liteOrm
+    compile files('libs/lite-orm-1.9.2.jar')
+
+
 
 }

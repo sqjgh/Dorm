@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
+                android:layout_height="fill_parent">
 
     <com.example.dllo.dorm.game.Game2048Layout
         android:id="@+id/id_game2048"
@@ -8,7 +8,7 @@
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
         android:background="#ffffff"
-        android:padding="10dp" >
+        android:padding="10dp">
     </com.example.dllo.dorm.game.Game2048Layout>
 
     <LinearLayout
@@ -18,17 +18,45 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:background="#EEE4DA"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="Score:"
+            android:textColor="#EA7821"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/id_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="4dp"
-            android:text="Score: 0"
+            android:text="0"
             android:textColor="#EA7821"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/game_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_game2048"
+        android:layout_margin="20dp"
+        android:text="back"
+        android:textColor="#EA7821"/>
+
+    <Button
+        android:id="@+id/game_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/id_game2048"
+        android:layout_margin="20dp"
+        android:text="history"
+        android:textColor="#EA7821"/>
 
 </RelativeLayout>
