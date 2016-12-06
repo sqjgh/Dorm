@@ -18,6 +18,7 @@ import com.example.dllo.dorm.firstpage.im.ChatInfoActivity;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 import com.example.dllo.dorm.game.GameActivity;
+import com.example.dllo.dorm.todayinhistory.HistoryActivity;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
@@ -226,7 +227,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(this, "测试04", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test01:
-                Toast.makeText(this, "右侧测试01", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(MainActivity.this,HistoryActivity.class);
+                startActivity(intent3);
+                Toast.makeText(this, "搜搜", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test02:
                 Toast.makeText(this, "右侧测试02", Toast.LENGTH_SHORT).show();
