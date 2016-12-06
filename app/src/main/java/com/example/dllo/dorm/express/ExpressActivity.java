@@ -9,20 +9,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseActivity;
-import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 import com.example.dllo.dorm.tools.ChangeChinese;
-import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.InfoBean;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.OkHttpClient;
 
 /**
  * Created by Wanghuan on 16/12/1.
@@ -36,9 +29,7 @@ public class ExpressActivity extends BaseActivity {
     private ExpressAdapter mExpressAdapter;
     private Context mContext;
 
-    private String COMPANY_INFO;
 
-    private int NUMBER_INFO;
     private ChangeChinese mChangeChinese;
     private Spinner mSpinner;
 
@@ -52,18 +43,21 @@ public class ExpressActivity extends BaseActivity {
                 String num = mEditText.getText().toString();
                 String compny = mChangeChinese.getSpelling(mSpinner.getSelectedItem().toString());
 
-                initInfo(num,compny);
+                initInfo(num, compny);
             }
         });
 
     }
 
-    private void initInfo(String num,String company) {
+    private void initInfo(String num, String company) {
         Log.d("ExpressActivity", company);
         HttpUtil.getInfo(company, num, new ResponseCallBack<InfoBean>() {
             @Override
             public void OnResponse(InfoBean infoBean) {
                 Log.d("ExpressActivity", infoBean.getReason());
+                String s = infoBean.getReason().toString();
+                Toast.makeText(ExpressActivity.this, s, Toast.LENGTH_SHORT).show();
+
 
                 mExpressAdapter = new ExpressAdapter(mContext);
                 mExpressAdapter.setInfoBeen(infoBean);

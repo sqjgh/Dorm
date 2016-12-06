@@ -174,10 +174,18 @@
                 />
 
             <TextView
-                android:layout_width="280dp"
+                android:layout_width="256dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="清理缓存"/>
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:text="lala"
+                android:id="@+id/setup_clean_tv"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                />
 
         </LinearLayout>
 

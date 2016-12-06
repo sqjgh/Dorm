@@ -2,12 +2,17 @@ package com.example.dllo.dorm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dllo.dorm.base.BaseActivity;
+import com.example.dllo.dorm.base.MyApp;
 import com.example.dllo.dorm.base.Values;
+import com.example.dllo.dorm.tools.DataCleanManager;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,6 +27,9 @@ import cn.bmob.v3.BmobUser;
 public class SetUpActivity extends BaseActivity implements View.OnClickListener {
     private ImageView setIcon, setName, setMy, setNetWork, setUp;
     private TextView setLogin;
+    private LinearLayout mLinearLayout;
+    private TextView mTextView;
+    private String mCacheSize;
 
 //    private String historyPassword = "";
 
@@ -57,14 +65,29 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
 //                }
 //            });
         }
+        mTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SetUpActivity.this, "缓存大小", Toast.LENGTH_SHORT).show();
+
+                mTextView.setText(mCacheSize);
+            }
+        });
+
+
 
     }
 
     @Override
     protected void initViews() {
 
+        mLinearLayout = bindView(R.id.setup_clean);
         setLogin = bindView(R.id.my_login);
+        mTextView = bindView(R.id.setup_clean_tv);
+
         setLogin.setOnClickListener(this);
+        mLinearLayout.setOnClickListener(this);
+
     }
 
     @Override
@@ -86,13 +109,38 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
                 Intent intent = new Intent(SetUpActivity.this, LoginActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.setup_clean_tv:
+                showSize();
+
+                break;
+            case R.id.setup_clean:
+               // cleanManager();
+                break;
+
         }
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN , sticky = true)
-    public void getEventContent (EventContent event){  //切记 这里一定是public  不然找不到
-        String userName =event.getUserName();
+    private void showSize() {
+        try {
+            mCacheSize = DataCleanManager.getCacheSize(MyApp.getContext().getCacheDir());
+            Log.d("SetUpActivity----", mCacheSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void cleanManager() {
+        DataCleanManager.cleanInternalCache(SetUpActivity.this);
+
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void getEventContent(EventContent event) {  //切记 这里一定是public  不然找不到
+        String userName = event.getUserName();
         String userPassword = event.getUserPassword();
         Values.USER_NAME = userName;
 //        historyPassword = userPassword;
