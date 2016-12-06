@@ -20,4 +20,13 @@
         <item name="android:onClick">onClick</item>
         <item name="android:drawablePadding">10dp</item>
     </style>
+
+    <!--popWindow主题-->
+    <style name="popwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/popup_show</item>
+        <!-- 指定显示时的动画xml -->
+        <item name="android:windowExitAnimation">@anim/popup_gone</item>
+        <!-- 指定消失时的动画xml -->
+    </style>
+
 </resources>

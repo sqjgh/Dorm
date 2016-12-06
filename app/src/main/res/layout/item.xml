@@ -2,12 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-
-                android:layout_marginTop="60dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginBottom="20dp"
+             android:background="#ffff"
+             android:layout_marginBottom="20dp"
+             android:layout_marginLeft="20dp"
+             android:layout_marginRight="20dp"
+             android:layout_marginTop="60dp"
     >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,10 +38,9 @@
                 android:id="@+id/card_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="18dp"
+                android:layout_margin="10dp"
                 android:textColor="#000000"
-                android:textSize="15sp"/>
+                android:textSize="10sp"/>
 
 
         </RelativeLayout>
@@ -49,27 +49,27 @@
             android:id="@+id/item_swipe_left_indicator"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:alpha="0"
-            android:background="@mipmap/home_card_like"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/helloText"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:layout_alignTop="@+id/helloText"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp" />
+            android:alpha="0"
+            android:background="@mipmap/home_card_like"/>
 
         <View
             android:id="@+id/item_swipe_right_indicator"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/item_swipe_left_indicator"
             android:layout_gravity="right"
-            android:alpha="0"
-            android:background="@mipmap/home_card_dislike"
+            android:layout_marginEnd="11dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_alignTop="@+id/item_swipe_left_indicator"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="11dp" />
+            android:alpha="0"
+            android:background="@mipmap/home_card_dislike"/>
     </RelativeLayout>
 
 </FrameLayout>

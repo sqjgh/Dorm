@@ -94,7 +94,7 @@ public class Game2048Layout extends RelativeLayout {
     private void action(ACTION action) {
         arrayList.clear();
         for (int i = 0; i < 16; i++) {
-            arrayList.add(i,0);
+            arrayList.add(i, 0);
         }
         // 行|列
         for (int i = 0; i < mColumn; i++) {
@@ -109,7 +109,7 @@ public class Game2048Layout extends RelativeLayout {
                 // 记录不为0的数字
                 if (item.getNumber() != 0) {
                     row.add(item);
-                    arrayList.set(index,item.getNumber());
+                    arrayList.set(index, item.getNumber());
                 }
             }
 
@@ -181,7 +181,7 @@ public class Game2048Layout extends RelativeLayout {
                 int val = item1.getNumber() + item2.getNumber();
                 item1.setNumber(val);
                 //滑动之前的分数
-                backScore =mScore ;
+                backScore = mScore;
                 // 加分
                 mScore += val;
                 if (mGame2048Listener != null) {
@@ -395,16 +395,22 @@ public class Game2048Layout extends RelativeLayout {
     /**
      * 回退
      */
-    public void backStep(){
-        for (int i = 0; i < 16; i++) {
-            mGame2048Items[i].setNumber(arrayList.get(i));
-        }
-        mScore = backScore;
-        if (mGame2048Listener != null) {
-            mGame2048Listener.onScoreChange(mScore);
+    public void backStep() {
+
+        boolean b = (arrayList.size()==0);
+
+        if (b) {  //此处为了解决直接点击数组越界
+            return;
+        } else {
+            for (int i = 0; i < 16; i++) {
+                mGame2048Items[i].setNumber(arrayList.get(i));
+            }
+            mScore = backScore;
+            if (mGame2048Listener != null) {
+                mGame2048Listener.onScoreChange(mScore);
+            }
         }
     }
-
 
 
     class MyGestureDetector extends GestureDetector.SimpleOnGestureListener {

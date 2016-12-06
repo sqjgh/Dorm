@@ -41,6 +41,9 @@
         <activity android:name=".firstpage.im.ChatInfoActivity"/>
         <activity android:name=".express.ExpressActivity"/>
         <activity android:name=".todayinhistory.HistoryActivity"/>
+        <activity android:name=".account.AccountActivity"/>
+        <activity android:name=".account.AddAccountActivity"/>
+
 
     </application>
 

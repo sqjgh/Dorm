@@ -1,7 +1,6 @@
 package com.example.dllo.dorm;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,9 +16,9 @@ import com.example.dllo.dorm.tools.toast.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import cn.bmob.v3.BmobUser;
+
 
 /**
  * Created by Wanghuan on 16/11/26.
@@ -31,15 +30,6 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
     private TextView mTextView;
     private String mCacheSize;
 
-//    private String historyPassword = "";
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        //EventBus注册
-        EventBus.getDefault().register(this);
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     protected void initData() {
 
@@ -48,22 +38,7 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
         if (bmobUser != null) {
             ToastUtil.showShortToast("尝试自动登录");
             String username = bmobUser.getUsername();
-            Values.USER_NAME = username;
-        } else {
-//            bmobUser = new BmobUser();
-//            bmobUser.setUsername(Values.USER_NAME);
-//            bmobUser.setPassword(historyPassword);
-//            bmobUser.login(new SaveListener<BmobUser>() {
-//                @Override
-//                public void done(BmobUser bmobUser, BmobException e) {
-//                    if (e == null) {
-//                        ToastUtil.showShortToast("登录成功");
-//                    } else {
-//                        Toast.makeText(SetUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                        Log.d("MainActivity", e.getMessage());
-//                    }
-//                }
-//            });
+
         }
         mTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +58,7 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
 
         mLinearLayout = bindView(R.id.setup_clean);
         setLogin = bindView(R.id.my_login);
-        mTextView = bindView(R.id.setup_clean_tv);
+        mTextView = bindView(R.id.setup_clean);
 
         setLogin.setOnClickListener(this);
         mLinearLayout.setOnClickListener(this);
@@ -92,8 +67,6 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected int getLayout() {
-
-
         return R.layout.activity_setup;
     }
 
@@ -109,17 +82,16 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
                 Intent intent = new Intent(SetUpActivity.this, LoginActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.setup_clean_tv:
+            case R.id.setup_clean:
                 showSize();
 
                 break;
-            case R.id.setup_clean:
-               // cleanManager();
-                break;
+
 
         }
 
     }
+
 
     private void showSize() {
         try {
@@ -134,22 +106,7 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
 
     private void cleanManager() {
         DataCleanManager.cleanInternalCache(SetUpActivity.this);
-
-
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void getEventContent(EventContent event) {  //切记 这里一定是public  不然找不到
-        String userName = event.getUserName();
-        String userPassword = event.getUserPassword();
-        Values.USER_NAME = userName;
-//        historyPassword = userPassword;
-        setLogin.setText(Values.USER_NAME);
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 }
