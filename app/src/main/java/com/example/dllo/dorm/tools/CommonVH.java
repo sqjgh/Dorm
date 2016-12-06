@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 
 /**
  * Created by wanghuan on 16/11/31.
@@ -21,10 +23,15 @@ public class CommonVH extends RecyclerView.ViewHolder {
     // 用它来存放所有的View, key就是View的id
     private SparseArray<View> views;
     private View itemView; // 行布局
+    private Context mContext;
 
     public CommonVH(View itemView) {
+
         super(itemView);
+
+        mContext = itemView.getContext();
         this.itemView = itemView;
+
         views = new SparseArray<>();
     }
 
@@ -86,10 +93,9 @@ public class CommonVH extends RecyclerView.ViewHolder {
 
 
     // 设置图片
-
-    public CommonVH setImage(int id, int imgId) {
+    public CommonVH setImage(int id, String img) {
         ImageView imageView = getView(id);
-        imageView.setImageResource(imgId);
+        Picasso.with(mContext).load(img).into(imageView);
         return this;
 
 

@@ -57,4 +57,7 @@ dependencies {
     // 文字转拼音
     compile 'com.belerweb:pinyin4j:2.5.0'
 
+    //毕加索
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
 }
