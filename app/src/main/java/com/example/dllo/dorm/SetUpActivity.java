@@ -10,12 +10,8 @@ import android.widget.Toast;
 
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.MyApp;
-import com.example.dllo.dorm.base.Values;
 import com.example.dllo.dorm.tools.DataCleanManager;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import cn.bmob.v3.BmobUser;
 
@@ -44,7 +40,6 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onClick(View v) {
                 Toast.makeText(SetUpActivity.this, "缓存大小", Toast.LENGTH_SHORT).show();
-
                 mTextView.setText(mCacheSize);
             }
         });
