@@ -9,41 +9,54 @@ import java.util.Date;
 
 public class TimeUtil {
     //获取系统当前时间(时间戳)
-    public static String getDate(){
-        long time=System.currentTimeMillis()/1000;//获取系统时间的10位的时间戳
-        String  str=String.valueOf(time);
+    public static String getDate() {
+        long time = System.currentTimeMillis() / 1000;//获取系统时间的10位的时间戳
+        String str = String.valueOf(time);
         return str;
     }
 
     //获取系统当前时间(标准格式时间)
-    public static String getTime(){
+    public static String getTime() {
         Date mDate = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
         String time = df.format(mDate);
         return time;
     }
 
-    //字符串转时间戳
-//    public static String getTime(String timeString){
-//        String timeStamp = null;
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 hh:mm");
-//        Date d;
-//        try{
-//            d = sdf.parse(timeString);
-//            long l = d.getTime();
-//            timeStamp = String.valueOf(l);
-//        } catch(ParseException e){
-//            e.printStackTrace();
-//        }
-//        return timeStamp;
-//    }
+    //获取系统当前时间(年)
+    public static int getTimeYear() {
+        Date mDate = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yy年MM月dd日");
+        String time = df.format(mDate);
 
-    //时间戳转字符串
-//    public static String getStrTime(String timeStamp){
-//        String timeString = null;
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 hh:mm");
-//        long  l = Long.valueOf(timeStamp);
-//        timeString = sdf.format(new Date(l));//单位秒
-//        return timeString;
-//    }
+        String year = time.substring(0, 2);
+
+        Integer intYear = Integer.valueOf(year);
+
+        return intYear;
+    }
+
+    //获取系统当前时间(年)
+    public static int getTimeMone() {
+        Date mDate = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yy年MM月dd日");
+        String time = df.format(mDate);
+
+        String mone = time.substring(3, 5);
+
+        Integer intMone = Integer.valueOf(mone);
+
+        return intMone;
+    }
+
+    //获取系统当前时间(年)
+    public static int getTimeDay() {
+        Date mDate = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yy年MM月dd日");
+        String time = df.format(mDate);
+
+        String day = time.substring(6, 8);
+        Integer intDay = Integer.valueOf(day);
+        return intDay;
+    }
 }

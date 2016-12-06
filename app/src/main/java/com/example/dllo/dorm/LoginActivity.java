@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.dllo.dorm.base.BaseActivity;
-import com.example.dllo.dorm.base.Values;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -81,8 +80,6 @@ public class LoginActivity extends BaseActivity {
             public void done(BmobUser bmobUser, BmobException e) {
                 if (e == null) {
                     ToastUtil.showShortToast("登录成功");
-
-                    Values.USER_NAME = mName;
 
                     EventContent event = new EventContent();
                     event.setUserName(mName);

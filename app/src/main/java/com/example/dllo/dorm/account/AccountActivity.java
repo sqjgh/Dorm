@@ -3,9 +3,11 @@ package com.example.dllo.dorm.account;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseActivity;
+import com.example.dllo.dorm.tools.timeform.TimeUtil;
 
 import java.util.ArrayList;
 
@@ -17,6 +19,7 @@ public class AccountActivity extends BaseActivity {
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
+    private String mTab;
 
     @Override
     protected int getLayout() {
@@ -33,15 +36,38 @@ public class AccountActivity extends BaseActivity {
     protected void initData() {
 
         ArrayList<String> arrayList = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            arrayList.add("第" + i + "月份");
+        int accountTimeYear = TimeUtil.getTimeYear();
+        int accountTimeMone = TimeUtil.getTimeMone();
+        int accountTimeDay = TimeUtil.getTimeDay();
+
+        for (int j = 0; j < 10; j++) {  //十年的日历
+            accountTimeYear += j;
+            for (int i = 1; i < 13; i++) { //12个月
+                accountTimeMone += 1;
+                if (12 < accountTimeMone) {
+                    accountTimeMone = 1;
+                }
+                for (int k = 1; k < 32; k++) {  //31天
+                    mTab = accountTimeYear + "年" + accountTimeMone + "月" + k + "日";
+                    arrayList.add(mTab);
+                }
+            }
         }
-        AccountAdapter accountAdapter = new AccountAdapter(getSupportFragmentManager(),arrayList);
+        AccountAdapter accountAdapter = new AccountAdapter(getSupportFragmentManager(), arrayList);
         mViewPager.setAdapter(accountAdapter);
-        mTabLayout.setTabTextColors(Color.BLACK,Color.RED);
+        mTabLayout.setTabTextColors(Color.BLACK, Color.RED);
         mTabLayout.setSelectedTabIndicatorColor(Color.RED);
         //tablayout滑动
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabLayout.setupWithViewPager(mViewPager);
+        for (int i = 0; i < 1000; i++) {
+           String pageTitle = (String) accountAdapter.getPageTitle(i);
+            String nowTime = TimeUtil.getTimeYear() + "年" + accountTimeMone + "月" + accountTimeDay + "日";
+            if (nowTime.equals(pageTitle)){
+                mViewPager.setCurrentItem(i,false);
+                break;
+            }
+
+        }
     }
 }

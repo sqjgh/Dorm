@@ -6,6 +6,7 @@ import android.widget.BaseAdapter;
 
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.CommonVH;
+import com.example.dllo.dorm.tools.timeform.TimeUtil;
 
 import java.util.ArrayList;
 
@@ -38,7 +39,8 @@ public class ChartAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         CommonVH viewHolder = CommonVH.getViewHolder(convertView, parent, R.layout.chart_item);
-        viewHolder.setText(R.id.player_name, "userName")
+        String time = TimeUtil.getTime();
+        viewHolder.setText(R.id.player_tiem, time)
                 .setText(R.id.player_chart, String.valueOf(mArrayList.get(position)))
                 .setText(R.id.player_ranking, "第" + (position + 1) + "名");
         return viewHolder.getItemView();

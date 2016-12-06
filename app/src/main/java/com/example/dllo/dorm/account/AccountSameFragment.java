@@ -1,13 +1,10 @@
 package com.example.dllo.dorm.account;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.dllo.dorm.R;
@@ -23,10 +20,10 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
 
     private TextView total;
     private Button addAccount;
-    private PopupWindow mPopupWindow;
+
 
     public static AccountSameFragment getInstence(int position) {
-        Log.d("aaaaa", "position:" + position);
+
         AccountSameFragment accountSameFragment = new AccountSameFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(KEY,position);
@@ -36,9 +33,6 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     protected void initData() {
-        mPopupWindow = new PopupWindow(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
         setClick(this,addAccount);
     }
 
@@ -60,20 +54,14 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
         //拿值
         Bundle argiment = getArguments();
         int pos = argiment.getInt(KEY);
-//        total.setText(pos);
-        Log.d("aaaaa", "pos:" + pos);
+
     }
 
     @Override
     public void onClick(View v) {
-        if (mPopupWindow.isShowing()) {
-
-        }else {
-            //设置动画
-            mPopupWindow.setAnimationStyle(R.style.popwindow_anim_style);
-            View view = LayoutInflater.from(context).inflate(R.layout.add_account_pop,null);
-            mPopupWindow.setContentView(view);
-            mPopupWindow.showAsDropDown(addAccount,0,-400);
-        }
+        Intent intent = new Intent(context,AddAccountActivity.class);
+        startActivity(intent);
     }
+
+
 }

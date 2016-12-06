@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.tools.liteorm.BaseSingleton;
+import com.example.dllo.dorm.tools.timeform.TimeUtil;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
 
 import java.util.ArrayList;
@@ -55,8 +56,12 @@ public class GameActivity extends BaseActivity implements Game2048Layout.OnGame2
         mScore.setText(String.valueOf(score));
     }
 
+    String instertTime = "";
     @Override
     public void onGameOver() {
+
+        String date = TimeUtil.getDate();
+        instertTime = date;
 
         //每次GameOver时候的评分
         int chart = Integer.valueOf(mScore.getText().toString());
@@ -81,7 +86,7 @@ public class GameActivity extends BaseActivity implements Game2048Layout.OnGame2
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
-        }).show();
+        }).setCancelable(false).show();
 
     }
 
@@ -136,11 +141,17 @@ public class GameActivity extends BaseActivity implements Game2048Layout.OnGame2
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ToastUtil.showShortToast("清空");
-//                BaseSingleton.getIntstance().deleteAllData();
+                BaseSingleton.getIntstance().deleteAllData();
             }
         });
 
         builder.show();
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        finish();
+//    }
 }
 
