@@ -1,6 +1,5 @@
 package com.example.dllo.dorm.todayinhistory;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -12,9 +11,6 @@ import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 /**
  * Created by Wanghuan on 16/12/6.
@@ -53,7 +49,7 @@ public class HistoryActivity extends BaseActivity {
                 Log.d("HistoryActivity------", keyWords);
 
               //  Toast.makeText(HistoryActivity.this, "mHistoryBean.getResult():" + mHistoryBean.getResult(), Toast.LENGTH_SHORT).show();
-                HttpUtil.gethistory(keyWords, new ResponseCallBack<HistoryBean>() {
+                HttpUtil.getHistory(keyWords, new ResponseCallBack<HistoryBean>() {
                     @Override
                     public void OnResponse(HistoryBean historyBean) {
                         mHistoryAdapter = new HistoryAdapter(HistoryActivity.this);
@@ -88,7 +84,7 @@ public class HistoryActivity extends BaseActivity {
 //
 //
 //        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
+//            e.printStackTrace();大连
 //        }
 //
 //        return xmlUTF8;

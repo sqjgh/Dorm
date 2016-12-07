@@ -7,6 +7,8 @@ import com.example.dllo.dorm.express.ExpressNetApi;
 import com.example.dllo.dorm.todayinhistory.HistoryBean;
 import com.example.dllo.dorm.todayinhistory.HistoryNetApi;
 import com.example.dllo.dorm.base.Values;
+import com.example.dllo.dorm.weather.WeatherBean;
+import com.example.dllo.dorm.weather.WeatherNetApi;
 
 
 /**
@@ -36,12 +38,21 @@ public class HttpUtil {
     }
 
 
-    public static  void gethistory( String keyWords ,ResponseCallBack<HistoryBean> historyCallBack){
+    public static  void getHistory(String keyWords , ResponseCallBack<HistoryBean> historyCallBack){
 
         String url = HistoryNetApi.Base_URL+keyWords;
 
         Log.d("HttpUtil__________", url);
         OkHttpManager.getInstance().get(url,HistoryBean.class,historyCallBack);
+
+
+    }
+    public static  void getWeather( String keyWords ,ResponseCallBack<WeatherBean> weatherCallBack){
+
+        String url = WeatherNetApi.Base_URL+keyWords;
+
+        Log.d("HttpUtil__________", url);
+        OkHttpManager.getInstance().get(url,WeatherBean.class,weatherCallBack);
 
 
     }

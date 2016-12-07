@@ -9,39 +9,29 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dllo.dorm.account.AccountActivity;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.Values;
-
 import com.example.dllo.dorm.express.ExpressActivity;
-
 import com.example.dllo.dorm.firstpage.chat.ChatInfoActivity;
-
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
+
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 
-
-import com.example.dllo.dorm.todayinhistory.HistoryActivity;
-
 import com.example.dllo.dorm.game.game2048.GameActivity;
-
+import com.example.dllo.dorm.todayinhistory.HistoryActivity;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
-import com.example.dllo.dorm.welcome.loginmvp.LoginMainActivity;
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMGroup;
-import com.hyphenate.exceptions.HyphenateException;
+import com.example.dllo.dorm.weather.WeatherActivity;
+
 
 import java.util.ArrayList;
 import java.util.List;
-
-//import com.example.dllo.dorm.firstpage.chat.SqjTestChat;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -57,10 +47,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView rightSlide;
     private DrawerLayout drawerLayout;
     private FloatingActionButton mFloatingActionButton;
+
     private CardAdapter adapter;
     private ImageView refresh;
-    private TextView usernameLeftSlide;
-
 
 
     @Override
@@ -78,62 +67,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         // 探探添加数据
         cycleAddUrls();
-        GroupID();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (Values.USER_NAME.equals("")){
-            usernameLeftSlide.setText("用户昵称");
-        }else {
-            usernameLeftSlide.setText(Values.USER_NAME);
-        }
-        Log.d("~~~~~~~~~~~~~~~~~~", Values.GROUP_ID);
-    }
-
-    /**
-     * 获得当前账号群组信息
-     */
-    public void GroupID() {
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                //从服务器获取自己加入的和创建的群组列表，此api获取的群组sdk会自动保存到内存和db。
-                try {
-                    List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
-                    if (groupList.size() > 0){
-                        Values.GROUP_ID = groupList.get(0).getGroupId();
-                        //根据群组ID从服务器获取群组基本信息
-                        EMGroup group = EMClient.getInstance().groupManager().getGroupFromServer(groupList.get(0).getGroupId() + "");
-                        Values.GROUP_MEMBERS = group.getMembers(); // 获取群成员
-                        Values.GROUP_OWNER = group.getOwner();// 获取群主
-                        Log.d("MainActivity11111", "Values.GROUP_MEMBERS:" + Values.GROUP_MEMBERS);
-                        Log.d("MainActivity11111", Values.GROUP_OWNER);
-                        if (Values.GROUP_OWNER == Values.USER_NAME){
-                            Values.OWNER = true;
-                        }
-                    }else {
-                        Values.GROUP_MEMBERS = null; // 群成员清空
-                        Values.GROUP_OWNER = "";// 群主清空
-                    }
-                } catch (HyphenateException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        // 左右导航栏
+        initSlide();
 
     }
 
+    private void initSlide() {
+
+    }
 
     @Override
     protected void initViews() {
-
         unLike = bindView(R.id.unlike);
         like = bindView(R.id.like);
-        usernameLeftSlide = bindView(R.id.username_left_slide);
+
         mFloatingActionButton = bindView(R.id.main_chat);
         leftSlide = bindView(R.id.left_slide);
         rightSlide = bindView(R.id.right_slide);
@@ -143,12 +90,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+
     private void cycleAddUrls() {
+
         for (int i = 0; i < 50; i++) {
             List<String> s = new ArrayList<>();
             s.add("http://cdnq.duitang.com/uploads/item/201505/06/20150506144122_uvGVP.thumb.700_0.jpeg");
             list.add(s);
         }
+
 
         al = new ArrayList<>();
 
@@ -157,13 +107,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void OnResponse(ContentBean contentBean) {
 
                 List<ContentBean.ItemsBean> items = contentBean.getItems();
+
                 al.clear();
 
 
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
                     int id = item.getId();
-
                     String temp = String.valueOf(id).substring(0, 5);
                     Log.d("Sysout", temp);
                     String str = Values.TT_IMAGE_URL_FRONT + temp + "/" + item.getId() + Values.TT_IMAGE_URL_CENTRE + item.getId() + Values.TT_IMAGE_URL_LAST;
@@ -243,8 +193,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-                //注册一个监听连接状态的listener
-//                EMClient.getInstance().addConnectionListener(new MyConnectionListener());
             case R.id.unlike:
                 imgMoveToLeft();
                 break;
@@ -252,9 +200,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 imgMoveToRight();
                 break;
             case R.id.main_chat:
-                // 聊天跳转
+                Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
                 initChat();
-                break;
             case R.id.refresh:
                 newToast();
                 break;
@@ -265,9 +212,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 drawerLayout.openDrawer(GravityCompat.END);
                 break;
             case R.id.userInfo:
-                // 个人中心
                 Intent intent = new Intent(MainActivity.this, SetUpActivity.class);
                 startActivity(intent);
+                Toast.makeText(this, "个人中心", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test01:
                 Toast.makeText(this, "测试01", Toast.LENGTH_SHORT).show();
@@ -287,7 +234,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(this, "搜搜", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test02:
-                Toast.makeText(this, "右侧测试02", Toast.LENGTH_SHORT).show();
+                Intent intent4 = new Intent(MainActivity.this, WeatherActivity.class);
+                startActivity(intent4);
+                Toast.makeText(this, "看天气撒", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test03:
 
@@ -319,19 +268,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }).start();
     }
 
-
     private void initChat() {
-        if (Values.USER_NAME.equals("")){
-            Intent intent = new Intent(MainActivity.this,LoginMainActivity.class);
-            startActivity(intent);
-        }else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ActivityOptions options =
-                        ActivityOptions.makeSceneTransitionAnimation(this, mFloatingActionButton, mFloatingActionButton.getTransitionName());
-                startActivity(new Intent(this, ChatInfoActivity.class), options.toBundle());
-            } else {
-                startActivity(new Intent(this, ChatInfoActivity.class));
-            }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options =
+                    ActivityOptions.makeSceneTransitionAnimation(this, mFloatingActionButton, mFloatingActionButton.getTransitionName());
+            startActivity(new Intent(this, ChatInfoActivity.class), options.toBundle());
+        } else {
+            startActivity(new Intent(this, ChatInfoActivity.class));
         }
 
 
@@ -357,18 +301,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         HttpUtil.getContent(String.valueOf(pageNum), new ResponseCallBack<ContentBean>() {
             @Override
             public void OnResponse(ContentBean contentBean) {
-
                 List<ContentBean.ItemsBean> items = contentBean.getItems();
 
                 al.clear();
 
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
-
                     String temp = String.valueOf(item.getId()).substring(0, 5);
                     Log.d("Sysout", temp);
                     arrayList.add(Values.TT_IMAGE_URL_FRONT + temp + "/" + item.getId() + Values.TT_IMAGE_URL_CENTRE + item.getId() + Values.TT_IMAGE_URL_LAST);
-
                     al.add(new CardMode(item.getContent(), 1, arrayList));
                 }
                 adapter.setCardList(al);
@@ -382,5 +323,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
 
     }
+
+
 
 }
