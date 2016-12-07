@@ -35,6 +35,8 @@ import com.example.dllo.dorm.weather.WeatherActivity;
 import com.example.dllo.dorm.welcome.loginmvp.LoginMainActivity;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMGroup;
+import com.hyphenate.exceptions.HyphenateException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,7 +157,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
         // 获得群组ID
-//        GroupID();
+        GroupID();
         // 获得昵称
         if (!Values.OBJECT_ID.equals("")){
             initNickname();
@@ -172,7 +174,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+    /**
+     * 获得当前账号群组信息
+     */
+    public void GroupID() {
 
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                //从服务器获取自己加入的和创建的群组列表，此api获取的群组sdk会自动保存到内存和db。
+                try {
+                    List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
+                    if (groupList.size() > 0){
+                        Values.GROUP_ID = groupList.get(0).getGroupId();
+                        //根据群组ID从服务器获取群组基本信息
+                        EMGroup group = EMClient.getInstance().groupManager().getGroupFromServer(groupList.get(0).getGroupId() + "");
+                        Values.GROUP_MEMBERS = group.getMembers(); // 获取群成员
+                        Values.GROUP_OWNER = group.getOwner();// 获取群主
+                        Log.d("MainActivity11111", "Values.GROUP_MEMBERS:" + Values.GROUP_MEMBERS);
+                        Log.d("MainActivity11111", Values.GROUP_OWNER);
+                        if (Values.GROUP_OWNER == Values.USER_NAME){
+                            Values.OWNER = true;
+                        }
+                    }else {
+                        Values.GROUP_MEMBERS = null; // 群成员清空
+                        Values.GROUP_OWNER = "";// 群主清空
+                    }
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
 
 
     private void myLogin(){
