@@ -31,11 +31,11 @@ public class ChatRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == CHAT_SELF){
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_self,parent,false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_self,parent,false);
             ViewHolderSelf viewHolder = new ViewHolderSelf(v);
             return viewHolder;
         }else {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_others,parent,false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat_others,parent,false);
             ViewHolderOthers viewHolder = new ViewHolderOthers(v);
             return viewHolder;
         }

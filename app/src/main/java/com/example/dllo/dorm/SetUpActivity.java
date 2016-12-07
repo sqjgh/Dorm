@@ -1,7 +1,6 @@
 package com.example.dllo.dorm;
 
 import android.content.Intent;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.Values;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
+import com.example.dllo.dorm.welcome.loginmvp.LoginMainActivity;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 
@@ -67,7 +67,7 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.my_login:
-
+                setLogin.setText("点击登录");
                 if (Values.USER_NAME != ""){
                 // 退出环信账号
                 EMClient.getInstance().logout(true, new EMCallBack() {
@@ -76,11 +76,9 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
                         // TODO Auto-generated method stub
                         HUANXIN_OUT = true;
                         if (HUANXIN_OUT && BMOB_OUT) {
-                            Looper.prepare();
                             ToastUtil.showShortToast("登出账号成功");
-                            Looper.loop();
                             Values.USER_NAME = "";
-                            Intent intent = new Intent(SetUpActivity.this, com.example.dllo.dorm.welcome.loginmvp.MainActivity.class);
+                            Intent intent = new Intent(SetUpActivity.this, LoginMainActivity.class);
                             startActivity(intent);
                         }
                     }
@@ -105,9 +103,9 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
                 if (currentUser == null){
                     BMOB_OUT = true;
                     if (BMOB_OUT && HUANXIN_OUT){
-                        Log.d("SetUpActivity", "登出账号成功");
+                        ToastUtil.showShortToast("登出账号成功");
                         Values.USER_NAME = "";
-                        Intent intent = new Intent(SetUpActivity.this, com.example.dllo.dorm.welcome.loginmvp.MainActivity.class);
+                        Intent intent = new Intent(SetUpActivity.this, LoginMainActivity.class);
                         startActivity(intent);
                     }
 
@@ -118,7 +116,7 @@ public class SetUpActivity extends BaseActivity implements View.OnClickListener 
                 }
                 break;
                 }else {
-                    Intent intent = new Intent(SetUpActivity.this, com.example.dllo.dorm.welcome.loginmvp.MainActivity.class);
+                    Intent intent = new Intent(SetUpActivity.this, LoginMainActivity.class);
                     startActivity(intent);
                 }
         }

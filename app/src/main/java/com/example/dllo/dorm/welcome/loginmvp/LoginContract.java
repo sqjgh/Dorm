@@ -38,16 +38,30 @@ public interface LoginContract {
          */
         void loginError(String msg);
 
+        /**
+         * 显示正在注册的画面
+         */
+        void showRegisterLoading();
+
+        /**
+         * 注册成功
+         */
+        void registerSuccess();
+
+        /**
+         * 注册失败 显示失败信息
+         * @param msg 失败信息
+         */
+        void registerError(String msg);
     }
 
     interface Presenter{
 
         /**
-         * 接收View层传过来的用户名和密码
+         * 接收View层传过来的用户名和密码  登录
          * @param userName 用户名
          * @param password 密码
          */
-
         void login(String userName, String password);
 
         /**
@@ -68,6 +82,28 @@ public interface LoginContract {
          * @param e 登录失败的异常信息
          */
         void loginError(Exception e);
+
+
+        /**
+         * 接收View层传过来的用户名和密码   注册
+         * @param userName 用户名
+         * @param password 密码
+         */
+        void register(String userName, String password);
+
+
+        /**
+         * 注册成功
+         */
+        void registerSuccess();
+
+        /**
+         * 登录失败
+         * @param e 登录失败的异常信息
+         */
+        void registerError(Exception e);
+
+
     }
 
     interface Model{
@@ -84,6 +120,19 @@ public interface LoginContract {
           * @param presenter
          */
         void setPresenter(Presenter presenter);
+
+        /**
+         *  进行注册
+         * @param userName 账号
+         * @param password
+         */
+        void register(String userName, String password);
+
+        /**
+         * 获得当前账号群组信息
+         */
+        void GroupID();
+
     }
 
 

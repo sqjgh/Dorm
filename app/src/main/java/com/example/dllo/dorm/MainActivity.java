@@ -13,9 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dllo.dorm.base.BaseActivity;
+import com.example.dllo.dorm.base.Values;
 import com.example.dllo.dorm.firstpage.chat.ChatInfoActivity;
-import com.example.dllo.dorm.firstpage.chat.JoinGroupActivity;
-import com.example.dllo.dorm.firstpage.chat.SqjTestChat;
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
@@ -25,15 +24,15 @@ import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
 import com.example.dllo.dorm.tools.timeform.TimeUtil;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
-import com.hyphenate.EMConnectionListener;
-import com.hyphenate.EMError;
+import com.example.dllo.dorm.welcome.loginmvp.LoginMainActivity;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.exceptions.HyphenateException;
-import com.hyphenate.util.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+//import com.example.dllo.dorm.firstpage.chat.SqjTestChat;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -58,6 +57,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     //2016年11月30号下午6点整     1480500015   当时是11808   一天是86400
     private static final int COMPARE_TIME = 1480500015;
     private static int URL_TIME = 11808;
+    private TextView usernameLeftSlide;
 
 
     @Override
@@ -81,6 +81,53 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         cycleAddUrls();
 
 
+
+        GroupID();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Values.USER_NAME.equals("")){
+            usernameLeftSlide.setText("用户昵称");
+        }else {
+            usernameLeftSlide.setText(Values.USER_NAME);
+        }
+    }
+
+    /**
+     * 获得当前账号群组信息
+     */
+    public void GroupID() {
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                //从服务器获取自己加入的和创建的群组列表，此api获取的群组sdk会自动保存到内存和db。
+                try {
+                    List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
+                    if (groupList.size() > 0){
+                        Values.GROUP_ID = groupList.get(0).getGroupId();
+                        //根据群组ID从服务器获取群组基本信息
+                        EMGroup group = EMClient.getInstance().groupManager().getGroupFromServer(groupList.get(0).getGroupId() + "");
+                        Values.GROUP_MEMBERS = group.getMembers(); // 获取群成员
+                        Values.GROUP_OWNER = group.getOwner();// 获取群主
+                        Log.d("MainActivity11111", "Values.GROUP_MEMBERS:" + Values.GROUP_MEMBERS);
+                        Log.d("MainActivity11111", Values.GROUP_OWNER);
+                        if (Values.GROUP_OWNER == Values.USER_NAME){
+                            Values.OWNER = true;
+                        }
+                    }else {
+                        Values.GROUP_MEMBERS = null; // 群成员清空
+                        Values.GROUP_OWNER = "";// 群主清空
+                    }
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 
 
@@ -89,6 +136,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         unLike = bindView(R.id.unlike);
         like = bindView(R.id.like);
+        usernameLeftSlide = bindView(R.id.username_left_slide);
         mFloatingActionButton = bindView(R.id.main_chat);
         leftSlide = (ImageView) findViewById(R.id.left_slide);
         rightSlide = (ImageView) findViewById(R.id.right_slide);
@@ -203,10 +251,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.main_chat:
                 // 聊天跳转
-                Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
                 initChat();
+                break;
             case R.id.refresh:
-                ToastUtil.showShortToast("加载成功");
+//                ToastUtil.showShortToast("加载成功");
                 getInterestingContent();
                 break;
             case R.id.left_slide:
@@ -219,7 +267,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 Intent intent = new Intent(MainActivity.this, SetUpActivity.class);
                 startActivity(intent);
-                Toast.makeText(this, "个人中心", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "个人中心", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test01:
                 Toast.makeText(this, "测试01", Toast.LENGTH_SHORT).show();
@@ -254,86 +302,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void groupList() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //从服务器获取自己加入的和创建的群组列表，此api获取的群组sdk会自动保存到内存和db。
-                try {
-                    List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
-
-                    if (groupList.size() != 0) {
-                        Log.d("JoinGroupActivity", groupList.get(0).getGroupId());
-                        String inputGroupID = groupList.get(0).getGroupId();
-                        Intent intent1 = new Intent(MainActivity.this, SqjTestChat.class);
-                        intent1.putExtra("groupID", inputGroupID);
-                        startActivity(intent1);
-                    } else {
-                        Intent intent1 = new Intent(MainActivity.this, JoinGroupActivity.class);
-                        startActivity(intent1);
-                    }
-
-                } catch (HyphenateException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        a = NORMAL_INTENT;
-    }
-
-    //实现ConnectionListener接口
-    private class MyConnectionListener implements EMConnectionListener {
-        @Override
-        public void onConnected() {
-            // 账号登录了
-            Log.d("MyConnectionListener", "连接成功");
-            // 自动跳转此账号所在的群
-
-            if (a == NORMAL_INTENT) { // 防止多次触发"连接成功"
-                groupList();
-            }
-            a++;
-        }
-
-        @Override
-        public void onDisconnected(final int error) {
-            runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (error == EMError.USER_REMOVED) {
-                        // 显示帐号已经被移除
-                        Log.d("MyConnectionListener", "账号已经被移除");
-                    } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
-                        // 显示帐号在其他设备登录
-                    } else {
-                        if (NetUtils.hasNetwork(MainActivity.this)) {
-                            // 账号没有登录
-                            Log.d("MyConnectionListener", "连接不到聊天服务器");
-                        } else {
-
-                            Log.d("MyConnectionListener", "当前网络不可用，请检查网络设置");
-                        }
-
-                    }
-                }
-            });
-        }
-    }
 
     private void initChat() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptions options =
-                    ActivityOptions.makeSceneTransitionAnimation(this, mFloatingActionButton, mFloatingActionButton.getTransitionName());
-            startActivity(new Intent(this, ChatInfoActivity.class), options.toBundle());
-        } else {
-            startActivity(new Intent(this, ChatInfoActivity.class));
+        if (Values.USER_NAME.equals("")){
+            Intent intent = new Intent(MainActivity.this,LoginMainActivity.class);
+            startActivity(intent);
+        }else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ActivityOptions options =
+                        ActivityOptions.makeSceneTransitionAnimation(this, mFloatingActionButton, mFloatingActionButton.getTransitionName());
+                startActivity(new Intent(this, ChatInfoActivity.class), options.toBundle());
+            } else {
+                startActivity(new Intent(this, ChatInfoActivity.class));
+            }
         }
 
 
@@ -356,7 +337,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         HttpUtil.getContent("1", new ResponseCallBack<ContentBean>() {
             @Override
             public void OnResponse(ContentBean contentBean) {
-                Log.d("MainActivity", Thread.currentThread().getName());
+                Log.d("LoginMainActivity", Thread.currentThread().getName());
                 List<ContentBean.ItemsBean> items = contentBean.getItems();
 
                 al.clear();

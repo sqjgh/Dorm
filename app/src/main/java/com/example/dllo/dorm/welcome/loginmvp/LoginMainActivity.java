@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by dllo on 16/11/22.
  */
 
-public class MainActivity extends AppCompatActivity {
+public class LoginMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .add(android.R.id.content,loginFragment)
                 .commit();
+
+
     }
-
-
 
 }

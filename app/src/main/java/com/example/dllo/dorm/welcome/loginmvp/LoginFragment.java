@@ -19,6 +19,8 @@ import static com.example.dllo.dorm.R.id.et_password_login;
 
 /**
  * Created by dllo on 16/11/22.
+ * 视图（View）：负责界面数据的展示，与用户进行交互
+ *          点击事件 视图显示隐藏等
  * V层
  */
 
@@ -36,6 +38,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     private boolean vis = false;
     private ImageView back;
     private String name;
+    private String password;
 
 
     @Override
@@ -73,8 +76,25 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         switch (v.getId()) {
             case R.id.btn_login:
                 name = usernameEt.getText().toString().trim();
-                String password = usernameEt.getText().toString().trim();
+                password = usernameEt.getText().toString().trim();
                 mPresenter.login(name, password); // 登录
+                break;
+            case R.id.code_login:
+                if (loginBtn.getVisibility() == View.VISIBLE){
+                    loginBtn.setVisibility(View.INVISIBLE);
+                    btnRegister.setVisibility(View.VISIBLE);
+                    registerTv.setText("取消注册");
+                }else {
+                    loginBtn.setVisibility(View.VISIBLE);
+                    btnRegister.setVisibility(View.INVISIBLE);
+                    registerTv.setText("新用户注册");
+                }
+                ToastUtil.showShortToast("s");
+                break;
+            case R.id.btn_register:
+                name = usernameEt.getText().toString().trim();
+                password = usernameEt.getText().toString().trim();
+                mPresenter.register(name, password);
                 break;
         }
 
@@ -105,8 +125,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void showLoading() {
         // TODO 这里可能会有问题
-        progressDialog = ProgressDialog.show(getContext(), "正在登录标题", "正在登录内容");
-
+        progressDialog = ProgressDialog.show(getContext(), "请稍后", "请稍后");
 
     }
 
@@ -116,8 +135,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void loginSuccess() {
         progressDialog.dismiss();
-//        ToastUtil.showShortToast("登录成功");
+        ToastUtil.showShortToast("登录成功");
         Values.USER_NAME = name;
+
     }
 
 
@@ -132,7 +152,34 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         ToastUtil.showShortToast(msg);
 
     }
+/***************************************************************************/
+    /**
+     * 显示正在注册的画面
+     */
+    @Override
+    public void showRegisterLoading() {
+        progressDialog.show();
+    }
 
+    /**
+     * 注册成功
+     */
+    @Override
+    public void registerSuccess() {
+        progressDialog.dismiss();
+        ToastUtil.showShortToast("注册并登录成功");
+    }
+
+    /**
+     * 注册失败 显示失败信息
+     *
+     * @param msg 失败信息
+     */
+    @Override
+    public void registerError(String msg) {
+        progressDialog.dismiss();
+        ToastUtil.showShortToast("注册失败");
+    }
 
 
 }

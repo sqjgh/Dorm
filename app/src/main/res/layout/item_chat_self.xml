@@ -3,11 +3,19 @@
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:src="@mipmap/ic_launcher"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chat_self_icon"/>
     <TextView
         android:textSize="18dp"
-        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:id="@+id/chat_self"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="自己说话"/>
+        android:text="自己说话"
+        android:layout_toStartOf="@+id/chat_self_icon" />
+
 </RelativeLayout>
