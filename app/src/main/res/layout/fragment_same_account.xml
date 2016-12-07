@@ -16,6 +16,7 @@
             android:text="合计 | 总共 : "/>
 
         <TextView
+            android:id="@+id/tv_account_item_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0条"/>
@@ -41,14 +42,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="月支出"
+            android:text="舍费支出"
             android:textColor="#f00"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="月收入"
+            android:text="舍费收入"
             android:textColor="#36bf36"/>
     </LinearLayout>
 
@@ -59,6 +60,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_show_out_money"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -66,6 +68,7 @@
             android:textColor="#f00"/>
 
         <TextView
+            android:id="@+id/tv_show_in_money"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -82,17 +85,10 @@
         android:text="+ 记一笔"
         android:textColor="#ffff"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#f9f7f7">
-
         <ListView
-            android:id="@+id/lv_account"
+            android:id="@+id/lv_account_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible">
+            android:layout_height="match_parent">
         </ListView>
-    </RelativeLayout>
 
 </LinearLayout>

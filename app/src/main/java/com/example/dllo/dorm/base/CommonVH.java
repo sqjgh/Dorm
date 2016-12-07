@@ -77,6 +77,7 @@ public class CommonVH extends RecyclerView.ViewHolder {
         return this;
     }
 
+    //Volleysingletion解析图片
 //    public CommonVH setImage(int id, String url) {
 //        ImageView imageView = getView(id);
 //        VolleySingleton.getInstance().getImage(url, imageView);
@@ -98,11 +99,8 @@ public class CommonVH extends RecyclerView.ViewHolder {
         return (T) view.findViewById(id);
     }
 
-    public void setTextColor(int id, int color) {
-        TextView textView = getView(id);
-        textView.setTextColor(color);
-    }
 
+    //设置圆头像
 //    public void setCircleImg(int id, String url) {
 //        ImageView imageView = getView(id);
 //        VolleySingleton.getInstance().getCircleImg(url, imageView);
@@ -121,4 +119,12 @@ public class CommonVH extends RecyclerView.ViewHolder {
         textview.setOnClickListener(listener);
         return this;
     }
+
+    //设置item里面textview字体颜色
+    public CommonVH setTextColor(int id ,int color){
+        TextView textView = getView(id);
+        textView.setTextColor(color);
+        return this;
+    }
+
 }

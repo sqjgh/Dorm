@@ -5,10 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 
 
 /**
@@ -20,32 +26,70 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
 
     private TextView total;
     private Button addAccount;
-
+    private ListView lvAccount;
+    private TextView itemCount;
+    private ArrayList<AccountBean> mArrayList;
+    private AccountBean mBean;
+    private TextView showMoneyIn;
+    private TextView showMoneyOut;
+    private Button takeUpMoney;
 
     public static AccountSameFragment getInstence(int position) {
-
         AccountSameFragment accountSameFragment = new AccountSameFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY,position);
+        bundle.putInt(KEY, position);
         accountSameFragment.setArguments(bundle);
         return accountSameFragment;
     }
 
     @Override
-    protected void initData() {
-        setClick(this,addAccount);
-    }
-
-    @Override
-    protected void initView() {
-        total = bindView(R.id.tv_total_account);
-        addAccount = bindView(R.id.add_new_account);
-
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     protected int getLayout() {
         return R.layout.fragment_same_account;
+    }
+
+    @Override
+    protected void initView() {
+        itemCount = bindView(R.id.tv_account_item_count);
+        total = bindView(R.id.tv_total_account);
+        showMoneyOut = bindView(R.id.tv_show_out_money);
+        showMoneyIn = bindView(R.id.tv_show_in_money);
+        addAccount = bindView(R.id.add_new_account);
+        lvAccount = bindView(R.id.lv_account_content);
+    }
+
+    @Override
+    protected void initData() {
+        //TODO  此处xxx应该是月收入和支出  均应从bmob获取  0.00应该是两个的差 大于零绿色 小于零红色
+        showMoneyIn.setText("xxx");
+        showMoneyOut.setText("xxx");
+        total.setText("0.00");
+
+        setClick(this, addAccount, itemCount);
+
+        //TODO 此处需要bmob获取一些数据
+
+
+        mArrayList = new ArrayList<>();
+        if (mBean != null) {
+            mArrayList.add(mBean);
+        }
+        itemCount.setText(mArrayList.size() + "条");
+
+
+        if (mArrayList == null) {
+            //TODO  此处应该查询bmob获取导数据显示
+        } else {
+            LvAdapter adapter = new LvAdapter();
+            lvAccount.setVisibility(View.VISIBLE);
+            adapter.setArrayList(mArrayList);
+            lvAccount.setAdapter(adapter);
+        }
     }
 
     @Override
@@ -59,8 +103,20 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(context,AddAccountActivity.class);
+        Intent intent = new Intent(context, AddAccountActivity.class);
         startActivity(intent);
+    }
+
+    @Subscribe
+    public void getAddAccountItem(AccountBean accountBean) {
+
+        LvAdapter adapter = new LvAdapter();
+        lvAccount.setVisibility(View.VISIBLE);
+        mArrayList.add(accountBean);
+        adapter.setArrayList(mArrayList);
+        adapter.notifyDataSetChanged();
+        lvAccount.setAdapter(adapter);
+
     }
 
 

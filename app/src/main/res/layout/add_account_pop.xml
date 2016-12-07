@@ -12,6 +12,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_account_back"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -37,7 +38,7 @@
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="刷新"
+            android:text="待定"
             android:textColor="#ffff"/>
     </LinearLayout>
 
@@ -80,6 +81,7 @@
         android:background="#ffff">
 
         <TextView
+            android:hint="收支去向"
             android:id="@+id/tv_money_use_by"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -153,14 +155,16 @@
                 android:text="通讯"/>
         </RadioGroup>
 
-        <EditText
-            android:visibility="invisible"
-            android:id="@+id/et_money_add"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/btn_money_add_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rg_layout"
             android:layout_marginTop="10dp"
-            android:hint="舍费收取"/>
+            android:gravity="center"
+            android:visibility="invisible"
+            android:text="舍费收取"/>
 
 
         <EditText
@@ -169,7 +173,8 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="15dp"
             android:background="#ffff"
-            android:hint="添加备注"/>
+            android:hint="添加备注"
+            android:textSize="13sp"/>
 
         <Button
             android:id="@+id/btn_now_time"
