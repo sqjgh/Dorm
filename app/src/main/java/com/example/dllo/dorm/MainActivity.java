@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         for (int i = 0; i < 50; i++) {
             List<String> s = new ArrayList<>();
-            s.add("http://cdnq.duitang.com/uploads/item/201505/06/20150506144122_uvGVP.thumb.700_0.jpeg");
+            s.add(Values.TT_IMAFE_URL_DEFAULT);
             list.add(s);
         }
 

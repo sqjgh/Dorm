@@ -12,6 +12,8 @@ public class Values {
     public static final String TT_IMAGE_URL_FRONT = "http://pic.qiushibaike.com/system/pictures/";
     public static final String TT_IMAGE_URL_CENTRE = "/medium/app";
     public static final String TT_IMAGE_URL_LAST = ".webp";
+    //获取不到图片时候默认显示图片
+    public static final String TT_IMAFE_URL_DEFAULT = "http://cdnq.duitang.com/uploads/item/201505/06/20150506144122_uvGVP.thumb.700_0.jpeg";
     //糗百接口
     public static final String QB_URL_FRONT = "http://m2.qiushibaike.com/article/list/imgrank?page=";
     public static final String QB_URL_LAST = "&count=30";
@@ -28,5 +30,6 @@ public class Values {
     public static String USER_NAME = "";
     // 自动登录
     public static boolean AUTO_LOGIN = false;
+
 
 }
