@@ -6,13 +6,22 @@ import cn.bmob.v3.BmobUser;
  * Created by zhaojun on 16/11/29.
  */
 public class MyUser extends BmobUser{
-    String name;
+    String nickname;
+    String icon;
 
-    public String getName() {
-        return name;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

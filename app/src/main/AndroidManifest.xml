@@ -19,7 +19,13 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
+<!--头像设置需要的权限-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <application
         android:name=".base.MyApp"
         android:allowBackup="true"
@@ -39,7 +45,7 @@
 
         <activity android:name=".welcome.WelcomeActivity"/>
         <activity android:name=".welcome.GuideActivity"/>
-        <activity android:name=".SetUpActivity"/>
+        <activity android:name=".setting.SetUpActivity"/>
 
         <activity android:name=".express.ExpressActivity"/>
         <activity android:name=".todayinhistory.HistoryActivity"/>
@@ -50,7 +56,7 @@
         <activity android:name=".game.game2048.GameActivity"/>
         <activity android:name=".welcome.loginmvp.LoginMainActivity"/>
         <activity android:name=".firstpage.chat.CreateGroupActivity"/>
-
+        <activity android:name=".setting.IDSettingActivity"/>
 
 
 

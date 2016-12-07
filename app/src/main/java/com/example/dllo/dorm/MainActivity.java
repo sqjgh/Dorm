@@ -9,31 +9,30 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dllo.dorm.account.AccountActivity;
 import com.example.dllo.dorm.base.BaseActivity;
+import com.example.dllo.dorm.base.MyApp;
 import com.example.dllo.dorm.base.Values;
-
 import com.example.dllo.dorm.express.ExpressActivity;
-
 import com.example.dllo.dorm.firstpage.chat.ChatInfoActivity;
-
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
-
-
-import com.example.dllo.dorm.todayinhistory.HistoryActivity;
-
 import com.example.dllo.dorm.game.game2048.GameActivity;
-
+import com.example.dllo.dorm.setting.IDSettingActivity;
+import com.example.dllo.dorm.setting.SetUpActivity;
+import com.example.dllo.dorm.todayinhistory.HistoryActivity;
+import com.example.dllo.dorm.tools.DataCleanManager;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
 import com.example.dllo.dorm.welcome.loginmvp.LoginMainActivity;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.exceptions.HyphenateException;
@@ -41,10 +40,23 @@ import com.hyphenate.exceptions.HyphenateException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
+
 //import com.example.dllo.dorm.firstpage.chat.SqjTestChat;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
+    private TextView setLogin;
+
+    private LinearLayout mLinearLayout;
+    private TextView mTextView;
+    private String mCacheSize;
+    private boolean BMOB_OUT = false;
+    private boolean HUANXIN_OUT = false;
+    private LinearLayout setupMy;
 
     private ArrayList<CardMode> al;
     private ArrayList<String> mImageUrls;
@@ -59,9 +71,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private FloatingActionButton mFloatingActionButton;
     private CardAdapter adapter;
     private ImageView refresh;
+    private TextView nicknameLeftSlide;
     private TextView usernameLeftSlide;
+    private TextView cach;
+
+    @Override
+    protected void initViews() {
 
 
+        cach = bindView(R.id.left_test03); // 缓存
+        unLike = bindView(R.id.unlike);
+        like = bindView(R.id.like);
+        usernameLeftSlide = bindView(R.id.username_left_slide);
+        nicknameLeftSlide = bindView(R.id.nickname_left_slide);
+        mFloatingActionButton = bindView(R.id.main_chat);
+        leftSlide = bindView(R.id.left_slide);
+        rightSlide = bindView(R.id.right_slide);
+        refresh = bindView(R.id.refresh);
+        drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
+        setClick(this, unLike, like, mFloatingActionButton, leftSlide, rightSlide, refresh);
+
+    }
 
     @Override
     protected int getLayout() {
@@ -74,22 +104,130 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mImageUrls = new ArrayList<>();
         mContents = new ArrayList<>();
-
-
         // 探探添加数据
         cycleAddUrls();
-        GroupID();
+
     }
 
+    private void initNickname() {
+        BmobQuery<MyUser> query = new BmobQuery<MyUser>();
+        query.getObject(Values.OBJECT_ID, new QueryListener<MyUser>() {
+
+            @Override
+            public void done(MyUser object, BmobException e) {
+                if(e==null){
+                    //获得playerName的信息
+                    Values.NICKNAME = object.getNickname();
+                    if (object.getIcon()!= null){
+                        Values.ICON = object.getIcon();
+                        getIcon();
+                    }
+                    if (Values.USER_NAME.equals("")){
+                        nicknameLeftSlide.setText("用户昵称");
+                    }else {
+                        nicknameLeftSlide.setText(Values.NICKNAME);
+                        usernameLeftSlide.setText(Values.USER_NAME);
+                    }
+                }else{
+                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                }
+            }
+
+        });
+
+
+    }
+
+
+    private void getIcon(){
+
+
+
+
+
+
+
+
+
+
+
+
+    }
     @Override
     protected void onResume() {
         super.onResume();
-        if (Values.USER_NAME.equals("")){
-            usernameLeftSlide.setText("用户昵称");
-        }else {
-            usernameLeftSlide.setText(Values.USER_NAME);
+        // 获得群组ID
+        GroupID();
+        // 获得昵称
+        if (!Values.OBJECT_ID.equals("")){
+            initNickname();
+            // 获得头像
+            getIcon();
         }
-        Log.d("~~~~~~~~~~~~~~~~~~", Values.GROUP_ID);
+
+
+        // 获得程序缓存
+        showSize();
+        cach.setText("清除缓存: \n" + mCacheSize);
+
+
+
+    }
+
+
+
+
+    private void myLogin(){
+        Values.GROUP_ID = "";
+        if (Values.USER_NAME != "") {
+            // 退出环信账号
+            EMClient.getInstance().logout(true, new EMCallBack() {
+                @Override
+                public void onSuccess() {
+                    HUANXIN_OUT = true;
+                    if (HUANXIN_OUT && BMOB_OUT) {
+                        Values.USER_NAME = "";
+                        Values.OBJECT_ID = "";
+                        Intent intent = new Intent(MainActivity.this, LoginMainActivity.class);
+                        startActivity(intent);
+                        ToastUtil.showShortToast("退出成功");
+                    }
+                }
+
+                @Override
+                public void onProgress(int progress, String status) {
+
+                }
+
+                @Override
+                public void onError(int code, String message) {
+                    Log.d("SetUpActivity", "登出账号失败, 请重试");
+                }
+            });
+
+            // 退出Bmob账号
+            MyUser.logOut();
+            BmobUser currentUser = BmobUser.getCurrentUser();
+            if (currentUser == null) {
+                BMOB_OUT = true;
+                if (BMOB_OUT && HUANXIN_OUT) {
+                    ToastUtil.showShortToast("退出成功");
+                    Values.OBJECT_ID = "";
+                    Values.USER_NAME = "";
+                    Intent intent = new Intent(MainActivity.this, LoginMainActivity.class);
+                    startActivity(intent);
+                }
+
+
+            } else {
+                Log.d("SetUpActivity", "登出账号失败");
+            }
+
+        } else {
+            Intent intent = new Intent(MainActivity.this, LoginMainActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     /**
@@ -128,20 +266,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    @Override
-    protected void initViews() {
 
-        unLike = bindView(R.id.unlike);
-        like = bindView(R.id.like);
-        usernameLeftSlide = bindView(R.id.username_left_slide);
-        mFloatingActionButton = bindView(R.id.main_chat);
-        leftSlide = bindView(R.id.left_slide);
-        rightSlide = bindView(R.id.right_slide);
-        refresh = bindView(R.id.refresh);
-        drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_slide);
-        setClick(this, unLike, like, mFloatingActionButton, leftSlide, rightSlide, refresh);
-
-    }
 
     private void cycleAddUrls() {
         for (int i = 0; i < 50; i++) {
@@ -237,7 +362,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
     }
+    private void showSize() {
+        try {
+            mCacheSize = DataCleanManager.getCacheSize(MyApp.getContext().getCacheDir());
+            Log.d("SetUpActivity----", mCacheSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    private void cleanManager() {
+        DataCleanManager.cleanInternalCache(MainActivity.this);
+
+    }
 
     //探探btn监听
     @Override
@@ -270,16 +407,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.left_test01:
-                Toast.makeText(this, "测试01", Toast.LENGTH_SHORT).show();
+                // 账号信息设置页面
+                if (Values.USER_NAME.equals("")) {
+                    Intent intent1 = new Intent(MainActivity.this, LoginMainActivity.class);
+                    startActivity(intent1);
+                } else {
+                    Intent intent2 = new Intent(MainActivity.this, IDSettingActivity.class);
+                    startActivity(intent2);
+                }
+                Toast.makeText(this, "个人设置", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test02:
-                Toast.makeText(this, "测试02", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "恭喜您,这是全球同步最新版本", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test03:
-                Toast.makeText(this, "测试03", Toast.LENGTH_SHORT).show();
+                // 清除缓存
+                cleanManager();
+                Toast.makeText(this, "清除缓存", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test04:
-                Toast.makeText(this, "测试04", Toast.LENGTH_SHORT).show();
+                myLogin();
+//                Toast.makeText(this, "登录/注销/切换账号", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test01:
                 Intent intent3 = new Intent(MainActivity.this,HistoryActivity.class);
