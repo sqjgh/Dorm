@@ -18,6 +18,12 @@ public class Values {
     public static final String QB_URL_FRONT = "http://m2.qiushibaike.com/article/list/imgrank?page=";
     public static final String QB_URL_LAST = "&count=30";
 
+    // 头像
+    public static String ICON = "";
+    // 昵称
+    public static String NICKNAME = "";
+    // bmob ObjectID
+    public static String OBJECT_ID = "";
     // 是否是群主
     public static boolean OWNER = false;
     // 群内成员

@@ -39,6 +39,7 @@ public class MyApp extends Application {
         BmobUser bmobUser = BmobUser.getCurrentUser();
         if (bmobUser != null) {
             String username = bmobUser.getUsername();
+            Values.OBJECT_ID = bmobUser.getObjectId();
             ToastUtil.showShortToast("欢迎回来" + username);
             Values.USER_NAME = username;
         }else {
