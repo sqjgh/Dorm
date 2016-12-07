@@ -6,7 +6,6 @@ import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -111,7 +110,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     ArrayList<String> arrayList = new ArrayList<String>();
                     int id = item.getId();
                     String temp = String.valueOf(id).substring(0, 5);
-                    Log.d("Sysout", temp);
                     String str = Values.TT_IMAGE_URL_FRONT + temp + "/" + item.getId() + Values.TT_IMAGE_URL_CENTRE + item.getId() + Values.TT_IMAGE_URL_LAST;
 
                     arrayList.add(str);
@@ -256,7 +254,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.d("yyyy", Thread.currentThread().getName());
+
                 ToastUtil.showShortToast("lalalalala---");
             }
         }).start();
@@ -302,7 +300,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
                     String temp = String.valueOf(item.getId()).substring(0, 5);
-                    Log.d("Sysout", temp);
                     arrayList.add(Values.TT_IMAGE_URL_FRONT + temp + "/" + item.getId() + Values.TT_IMAGE_URL_CENTRE + item.getId() + Values.TT_IMAGE_URL_LAST);
                     al.add(new CardMode(item.getContent(), 1, arrayList));
                 }

@@ -1,14 +1,16 @@
 package com.example.dllo.dorm.account;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.tools.timeform.TimeUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import static com.example.dllo.dorm.R.id.btn_0;
 import static com.example.dllo.dorm.R.id.btn_1;
@@ -20,6 +22,7 @@ import static com.example.dllo.dorm.R.id.btn_6;
 import static com.example.dllo.dorm.R.id.btn_7;
 import static com.example.dllo.dorm.R.id.btn_8;
 import static com.example.dllo.dorm.R.id.btn_9;
+import static com.example.dllo.dorm.R.id.btn_money_add_logo;
 
 
 /**
@@ -40,7 +43,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     private Button btnPoint;
     private Button btnHied;
     private Button btnOk;
-    private TextView money;
+    private TextView showMoney;
     private Button btnBack;
     private Button btnTime;
     private RadioButton rbCall;
@@ -48,10 +51,11 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
     private RadioButton rbBuy;
     private RadioButton rbTraffic;
     private RadioButton rbFood;
+    private TextView accountBack;
     private TextView tvUseBy;
     private RadioButton moneyOut;
     private RadioButton moneyIn;
-    private EditText etAddMoney;
+    private Button addMoneyLogo;
 
     @Override
     protected int getLayout() {
@@ -60,6 +64,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initViews() {
+        accountBack = bindView(R.id.tv_account_back);
 
         moneyOut = bindView(R.id.rb_money_out);
         moneyIn = bindView(R.id.rb_money_in);
@@ -77,7 +82,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         btnBack = bindView(R.id.btn_back);
         btnPoint = bindView(R.id.btn_point);
         btnOk = bindView(R.id.btn_ok);
-        money = bindView(R.id.tv_money);
+        showMoney = bindView(R.id.tv_money);
 
         rbFood = bindView(R.id.rb_food);
         rbTraffic = bindView(R.id.rb_traffic);
@@ -85,30 +90,34 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         rbHappy = bindView(R.id.rb_happy);
         rbCall = bindView(R.id.rb_call);
 
-        etAddMoney = bindView(R.id.et_money_add);
+        addMoneyLogo = bindView(btn_money_add_logo);
 
         tvUseBy = bindView(R.id.tv_money_use_by);
         btnTime = bindView(R.id.btn_now_time);
 
-        setClick(this, moneyOut, moneyIn,
+        setClick(this,accountBack,
+                moneyOut, moneyIn,
                 btn0, btn1, btn2, btn3, btn4, btn5,
                 btn6, btn7, btn8, btn9,
                 btnPoint, btnOk, btnBack,
                 rbBuy, rbCall, rbFood, rbHappy, rbTraffic,
+                addMoneyLogo,
                 btnTime);
     }
 
     @Override
     protected void initData() {
-
+        btnTime.setText(TimeUtil.getTime());  //显示一下当前时间
     }
 
     String str = "¥ :";
-    String useBy = "";
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_account_back:
+                onBackPressed();
+                break;
             case R.id.rb_money_out:
                 rbBuy.setVisibility(View.VISIBLE);
                 rbTraffic.setVisibility(View.VISIBLE);
@@ -116,11 +125,21 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
                 rbHappy.setVisibility(View.VISIBLE);
                 rbCall.setVisibility(View.VISIBLE);
 
-                etAddMoney.setVisibility(View.INVISIBLE);
+                addMoneyLogo.setVisibility(View.INVISIBLE);
 
+                showMoney.setText("");
                 break;
+
             case R.id.rb_money_in:
-                etAddMoney.setVisibility(View.VISIBLE);
+                addMoneyLogo.setVisibility(View.VISIBLE);
+
+                rbBuy.setVisibility(View.INVISIBLE);
+                rbTraffic.setVisibility(View.INVISIBLE);
+                rbFood.setVisibility(View.INVISIBLE);
+                rbHappy.setVisibility(View.INVISIBLE);
+                rbCall.setVisibility(View.INVISIBLE);
+
+                showMoney.setText("");
                 break;
             case R.id.btn_0:
                 str += 0;
@@ -153,8 +172,15 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
                 str += 9;
                 break;
             case R.id.btn_ok:
-                tvUseBy.getText();   //获取当前消费的项目
-                money.getText();     //获取当前消费金额
+
+
+                AccountBean bean = new AccountBean();
+
+                bean.setUseBy((String) tvUseBy.getText());
+                bean.setUseMoney((String) showMoney.getText());
+                bean.setTabTime((String) btnTime.getText());
+                EventBus.getDefault().post(bean);
+
                 onBackPressed();
                 break;
             case R.id.btn_back:
@@ -167,27 +193,27 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
             case R.id.btn_point:
                 str += ".";
                 break;
-
-            case R.id.btn_now_time:
-                btnTime.setText(TimeUtil.getTime());
+            case R.id.btn_money_add_logo:
+                Log.d("aaaaaAddAccountActivity", "舍费收取");
+                tvUseBy.setText("舍费收取");
                 break;
             case R.id.rb_food:
-                useBy += "餐饮";
+                tvUseBy.setText("餐饮");
                 break;
             case R.id.rb_traffic:
-                useBy += "交通";
+                tvUseBy.setText("交通");
                 break;
             case R.id.rb_buy:
-                useBy += "购物";
+                tvUseBy.setText("购物");
                 break;
             case R.id.rb_happy:
-                useBy += "娱乐";
+                tvUseBy.setText("娱乐");
                 break;
             case R.id.rb_call:
-                useBy += "通讯";
+                tvUseBy.setText("通讯");
                 break;
         }
-        tvUseBy.setText(useBy);
-        money.setText(str);
+
+        showMoney.setText(str);
     }
 }

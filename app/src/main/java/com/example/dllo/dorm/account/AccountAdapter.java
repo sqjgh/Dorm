@@ -3,7 +3,6 @@ package com.example.dllo.dorm.account;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 import android.util.SparseArray;
 
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ public class AccountAdapter extends FragmentPagerAdapter {
         super(fm);
         fragments = new SparseArray<>();
         this.date = date;
-        Log.d("aaaaa", "date.size():" + date.size());
     }
 
     @Override
