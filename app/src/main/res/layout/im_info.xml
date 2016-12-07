@@ -80,6 +80,7 @@
                 android:layout_weight="4" />
 
             <Button
+                android:text="发送"
                 android:id="@+id/send_chat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
