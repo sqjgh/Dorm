@@ -57,7 +57,6 @@ dependencies {
     //EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
 
-
     //liteOrm
     compile files('libs/lite-orm-1.9.2.jar')
 

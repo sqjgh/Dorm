@@ -179,6 +179,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
                 bean.setUseBy((String) tvUseBy.getText());
                 bean.setUseMoney((String) showMoney.getText());
                 bean.setTabTime((String) btnTime.getText());
+
                 EventBus.getDefault().post(bean);
 
                 onBackPressed();

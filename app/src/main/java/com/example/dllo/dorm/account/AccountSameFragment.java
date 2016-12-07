@@ -107,12 +107,16 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
         startActivity(intent);
     }
 
+    int totalMoneyIn = 0;
+    int totalMoneyOut = 0;
+
     @Subscribe
     public void getAddAccountItem(AccountBean accountBean) {
 
         LvAdapter adapter = new LvAdapter();
         lvAccount.setVisibility(View.VISIBLE);
         mArrayList.add(accountBean);
+        itemCount.setText(mArrayList.size() + "条");
         adapter.setArrayList(mArrayList);
         adapter.notifyDataSetChanged();
         lvAccount.setAdapter(adapter);
