@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorDividedLine">#acac2d</color>
+    <color name="colorTabLayout">#ca212c</color>
+    <color name="NO">#00ffffff</color>
 </resources>

@@ -3,7 +3,6 @@ package com.example.dllo.dorm.account;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseActivity;
@@ -40,7 +39,7 @@ public class AccountActivity extends BaseActivity {
         int accountTimeMone = TimeUtil.getTimeMone();
         int accountTimeDay = TimeUtil.getTimeDay();
 
-        for (int j = 0; j < 10; j++) {  //十年的日历
+        for (int j = 0; j < 1; j++) {  //十年的日历
             accountTimeYear += j;
             for (int i = 1; i < 13; i++) { //12个月
                 accountTimeMone += 1;

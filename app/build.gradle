@@ -18,10 +18,17 @@ android {
         }
     }
 
-    //导入OS库目录
-    sourceSets {
+    // 环信
+    sourceSets{
+        main(){
+            // 设置Jni so 文件路径, 如果有jniLibs 目录就不需要设置, 好像手动创建的jnilabs目录无效
+            jniLibs.srcDirs = ['libs']
+        }
+        // Bmob
         main.jniLibs.srcDirs = ['libs']
     }
+
+
 
 }
 
@@ -34,14 +41,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //TanTan
     compile 'com.github.bumptech.glide:glide:3.5.2'
-    //OKHTTP
-
     // 左右侧滑设置菜单
     compile 'com.github.mzule.fantasyslide:library:1.0.4'
     // 图片圆形处理
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support:design:24.2.1'
-
     // Bmob
     compile files('libs/BmobSDK_3.5.2_20161027.jar')
     compile files('libs/gson-2.6.2.jar')
@@ -52,9 +56,6 @@ dependencies {
     compile files('libs/rxjava-1.1.6.jar')
     //EventBus
     compile 'org.greenrobot:eventbus:3.0.0'
-
-
-
 
 
     //liteOrm
