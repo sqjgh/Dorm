@@ -45,7 +45,6 @@
 
         <activity android:name=".welcome.WelcomeActivity"/>
         <activity android:name=".welcome.GuideActivity"/>
-        <activity android:name=".setting.SetUpActivity"/>
 
         <activity android:name=".express.ExpressActivity"/>
         <activity android:name=".todayinhistory.HistoryActivity"/>

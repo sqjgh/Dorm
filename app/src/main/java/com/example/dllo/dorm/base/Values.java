@@ -16,8 +16,9 @@ public class Values {
     public static final String QB_URL_FRONT = "http://m2.qiushibaike.com/article/list/imgrank?page=";
     public static final String QB_URL_LAST = "&count=30";
 
+
     // 头像
-    public static String ICON = "";
+    public static String ICON_URL = "";
     // 昵称
     public static String NICKNAME = "";
     // bmob ObjectID
@@ -32,7 +33,5 @@ public class Values {
     public static String GROUP_ID = "";
     // 用户名
     public static String USER_NAME = "";
-    // 自动登录
-    public static boolean AUTO_LOGIN = false;
 
 }

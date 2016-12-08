@@ -3,19 +3,30 @@
     android:orientation="vertical" android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:src="@mipmap/ic_launcher"
+    <TextView
+        android:id="@+id/chat_nickname_self"
+        android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/chat_self_icon"/>
+        android:text="自己昵称"/>
+
+    <ImageView
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/chat_self_icon"
+        android:layout_below="@+id/chat_nickname_self"
+        android:layout_alignParentEnd="true" />
+
     <TextView
+        android:layout_marginTop="15dp"
         android:textSize="18dp"
-        android:layout_centerVertical="true"
         android:id="@+id/chat_self"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="自己说话"
+        android:layout_below="@+id/chat_nickname_self"
         android:layout_toStartOf="@+id/chat_self_icon" />
 
 </RelativeLayout>

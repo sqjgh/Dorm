@@ -47,6 +47,7 @@
             android:background="#f2001ac6">
 
             <ImageView
+                android:id="@+id/iv_finish_chat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
@@ -109,20 +110,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="如果要加入一个群组, 请让群主邀请您,
-                或者您可以点击下方按钮来创建群组"/>
+                android:text="如果要加入一个群组, 请让群主邀请您,或者您可以点击下方按钮来创建群组"/>
 
             <Button
                 android:id="@+id/btn_create_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="创建群组"/>
-
-
         </LinearLayout>
-
     </RelativeLayout>
-
-
-
 </RelativeLayout>
