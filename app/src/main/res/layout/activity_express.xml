@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:background="@mipmap/background_setup"
+              android:background="@mipmap/bac4"
               android:layout_height="match_parent">
 
     <LinearLayout
@@ -15,8 +15,9 @@
             android:layout_marginLeft="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text="快递单号:"
-            android:textColor="#534e44"
+            android:textColor="#ffff"
             android:textSize="20sp"
             />
         <EditText
@@ -24,6 +25,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/express_id"
             android:hint="单号"
+            android:textColor="#ffff"
+            android:textColorHint="#ffff"
             android:inputType="number"
             android:digits="1234567890"
             />
@@ -42,12 +45,13 @@
             android:id="@+id/company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#534e44"
+            android:textColor="#ffff"
             android:textSize="20sp"
             android:text="快递公司:"/>
         <Spinner
 
             android:layout_width="wrap_content"
+            android:background="#ffff"
             android:layout_height="wrap_content"
             android:id="@+id/spinner"
             android:entries="@array/languages"/>

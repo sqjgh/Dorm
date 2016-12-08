@@ -4,8 +4,8 @@ import android.util.Log;
 
 
 import com.example.dllo.dorm.express.ExpressNetApi;
-import com.example.dllo.dorm.todayinhistory.HistoryBean;
-import com.example.dllo.dorm.todayinhistory.HistoryNetApi;
+import com.example.dllo.dorm.news.HistoryBean;
+import com.example.dllo.dorm.news.HistoryNetApi;
 import com.example.dllo.dorm.base.Values;
 import com.example.dllo.dorm.weather.WeatherBean;
 import com.example.dllo.dorm.weather.WeatherNetApi;

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@mipmap/background_setup"
+              android:background="@mipmap/bac4"
               android:orientation="vertical"
               android:weightSum="10">
 
@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="14dp"
+            android:textColor="#ffff"
             android:text="我的"
             android:textSize="25sp"/>
 
@@ -50,6 +51,7 @@
                 android:id="@+id/my_login_already_username"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
+                android:textColor="#ffff"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:text="显示用户名"
@@ -210,6 +212,7 @@
                 />
             <TextView
                 android:layout_width="280dp"
+                android:textColor="#ffff"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="关于同床"/>

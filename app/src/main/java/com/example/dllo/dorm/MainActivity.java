@@ -25,7 +25,7 @@ import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 import com.example.dllo.dorm.game.game2048.GameActivity;
 import com.example.dllo.dorm.setting.IDSettingActivity;
 import com.example.dllo.dorm.setting.SetUpActivity;
-import com.example.dllo.dorm.todayinhistory.HistoryActivity;
+import com.example.dllo.dorm.news.HistoryActivity;
 import com.example.dllo.dorm.tools.DataCleanManager;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
@@ -117,21 +117,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void done(MyUser object, BmobException e) {
-                if(e==null){
+                if (e == null) {
                     //获得playerName的信息
                     Values.NICKNAME = object.getNickname();
-                    if (object.getIcon()!= null){
+                    if (object.getIcon() != null) {
                         Values.ICON = object.getIcon();
                         getIcon();
                     }
-                    if (Values.USER_NAME.equals("")){
+                    if (Values.USER_NAME.equals("")) {
                         nicknameLeftSlide.setText("用户昵称");
-                    }else {
+                    } else {
                         nicknameLeftSlide.setText(Values.NICKNAME);
                         usernameLeftSlide.setText(Values.USER_NAME);
                     }
-                }else{
-                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                } else {
+                    Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
                 }
             }
 
@@ -141,25 +141,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    private void getIcon(){
-
-
-
-
-
-
-
-
+    private void getIcon() {
 
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         // 获得群组ID
         GroupID();
         // 获得昵称
-        if (!Values.OBJECT_ID.equals("")){
+        if (!Values.OBJECT_ID.equals("")) {
             initNickname();
             // 获得头像
             getIcon();
@@ -169,7 +162,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         // 获得程序缓存
         showSize();
         cach.setText("清除缓存: \n" + mCacheSize);
-
 
 
     }
@@ -186,7 +178,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 //从服务器获取自己加入的和创建的群组列表，此api获取的群组sdk会自动保存到内存和db。
                 try {
                     List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
-                    if (groupList.size() > 0){
+                    if (groupList.size() > 0) {
                         Values.GROUP_ID = groupList.get(0).getGroupId();
                         //根据群组ID从服务器获取群组基本信息
                         EMGroup group = EMClient.getInstance().groupManager().getGroupFromServer(groupList.get(0).getGroupId() + "");
@@ -194,10 +186,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         Values.GROUP_OWNER = group.getOwner();// 获取群主
                         Log.d("MainActivity11111", "Values.GROUP_MEMBERS:" + Values.GROUP_MEMBERS);
                         Log.d("MainActivity11111", Values.GROUP_OWNER);
-                        if (Values.GROUP_OWNER == Values.USER_NAME){
+                        if (Values.GROUP_OWNER == Values.USER_NAME) {
                             Values.OWNER = true;
                         }
-                    }else {
+                    } else {
                         Values.GROUP_MEMBERS = null; // 群成员清空
                         Values.GROUP_OWNER = "";// 群主清空
                     }
@@ -210,7 +202,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    private void myLogin(){
+    private void myLogin() {
         Values.GROUP_ID = "";
         if (Values.USER_NAME != "") {
             // 退出环信账号
@@ -323,13 +315,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override  //左滑监听
             public void onLeftCardExit(Object dataObject) {
 
-                ToastUtil.showShortToast("不喜欢");
+                //ToastUtil.showShortToast("不喜欢");
             }
 
             @Override  //右滑监听
             public void onRightCardExit(Object dataObject) {
 
-                ToastUtil.showShortToast("喜欢");
+                //  ToastUtil.showShortToast("喜欢");
             }
 
             @Override
@@ -363,6 +355,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
     }
+
     private void showSize() {
         try {
             mCacheSize = DataCleanManager.getCacheSize(MyApp.getContext().getCacheDir());
@@ -388,7 +381,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 imgMoveToRight();
                 break;
             case R.id.main_chat:
-                Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
                 initChat();
             case R.id.refresh:
                 newToast();
@@ -428,7 +421,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                Toast.makeText(this, "登录/注销/切换账号", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test01:
-                Intent intent3 = new Intent(MainActivity.this,HistoryActivity.class);
+                Intent intent3 = new Intent(MainActivity.this, HistoryActivity.class);
                 startActivity(intent3);
                 Toast.makeText(this, "搜搜", Toast.LENGTH_SHORT).show();
                 break;
@@ -521,7 +514,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
 
     }
-
 
 
 }

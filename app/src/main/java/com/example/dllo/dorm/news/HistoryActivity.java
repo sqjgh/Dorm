@@ -1,4 +1,4 @@
-package com.example.dllo.dorm.todayinhistory;
+package com.example.dllo.dorm.news;
 
 import android.util.Log;
 import android.view.View;
