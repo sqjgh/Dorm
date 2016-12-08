@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.dllo.dorm.account.AccountActivity;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.MyApp;
@@ -24,7 +25,6 @@ import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 import com.example.dllo.dorm.game.game2048.GameActivity;
 import com.example.dllo.dorm.setting.IDSettingActivity;
-import com.example.dllo.dorm.setting.SetUpActivity;
 import com.example.dllo.dorm.news.HistoryActivity;
 import com.example.dllo.dorm.tools.DataCleanManager;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
@@ -75,10 +75,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView nicknameLeftSlide;
     private TextView usernameLeftSlide;
     private TextView cach;
+    private ImageView icon;
+    private int a;
 
     @Override
     protected void initViews() {
-
+        icon = bindView(R.id.icon_left_slide);
         cach = bindView(R.id.left_test03); // 缓存
         unLike = bindView(R.id.unlike);
         like = bindView(R.id.like);
@@ -112,53 +114,73 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initNickname() {
-        BmobQuery<MyUser> query = new BmobQuery<MyUser>();
-        query.getObject(Values.OBJECT_ID, new QueryListener<MyUser>() {
+        if (!Values.OBJECT_ID.equals("")) {
+            BmobQuery<MyUser> query = new BmobQuery<MyUser>();
+            query.getObject(Values.OBJECT_ID, new QueryListener<MyUser>() {
+                @Override
+                public void done(MyUser object, BmobException e) {
+                    if (e == null) {
+                        //获得昵称
+                        if (object.getNickname() != null) {
+                            Values.NICKNAME = object.getNickname();
+                        } else {
+                            Values.NICKNAME = "";
+                        }
 
-            @Override
-            public void done(MyUser object, BmobException e) {
-                if (e == null) {
-                    //获得playerName的信息
-                    Values.NICKNAME = object.getNickname();
-                    if (object.getIcon() != null) {
-                        Values.ICON = object.getIcon();
-                        getIcon();
-                    }
-                    if (Values.USER_NAME.equals("")) {
-                        nicknameLeftSlide.setText("用户昵称");
+
+                        Values.USER_NAME = object.getUsername();
+                        if (object.getIcon() != null) {
+                            Values.ICON_URL = object.getIcon();
+                            // 获取头像
+                            getIcon();
+                        } else {
+                            icon.setImageResource(R.mipmap.twopeople);
+                        }
+                        if (Values.NICKNAME.equals("")) {
+                            nicknameLeftSlide.setText("用户昵称");
+                            usernameLeftSlide.setText(Values.USER_NAME);
+                        } else {
+                            nicknameLeftSlide.setText(Values.NICKNAME);
+                            usernameLeftSlide.setText(Values.USER_NAME);
+                        }
                     } else {
-                        nicknameLeftSlide.setText(Values.NICKNAME);
-                        usernameLeftSlide.setText(Values.USER_NAME);
+                        Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
                     }
-                } else {
-                    Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
+
                 }
-            }
 
-        });
-
+            });
+        } else {
+            usernameLeftSlide.setText("用户昵称");
+            nicknameLeftSlide.setText("用户账号");
+        }
 
     }
 
 
     private void getIcon() {
-
-
+        Log.d("查看值", Values.ICON_URL);
+        if (!Values.ICON_URL.equals("")) {
+            Glide.with(this)
+                    .load(Values.ICON_URL)
+                    .into(icon);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        a = 0;
         // 获得群组ID
         GroupID();
-        // 获得昵称
+        // 获得昵称 / 头像
         if (!Values.OBJECT_ID.equals("")) {
             initNickname();
-            // 获得头像
-            getIcon();
+        } else {
+            icon.setImageResource(R.mipmap.twopeople);
+            nicknameLeftSlide.setText("用户昵称");
+            usernameLeftSlide.setText("用户账号");
         }
-
-
         // 获得程序缓存
         showSize();
         cach.setText("清除缓存: \n" + mCacheSize);
@@ -166,45 +188,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-    /**
-     * 获得当前账号群组信息
-     */
-    public void GroupID() {
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                //从服务器获取自己加入的和创建的群组列表，此api获取的群组sdk会自动保存到内存和db。
-                try {
-                    List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
-                    if (groupList.size() > 0) {
-                        Values.GROUP_ID = groupList.get(0).getGroupId();
-                        //根据群组ID从服务器获取群组基本信息
-                        EMGroup group = EMClient.getInstance().groupManager().getGroupFromServer(groupList.get(0).getGroupId() + "");
-                        Values.GROUP_MEMBERS = group.getMembers(); // 获取群成员
-                        Values.GROUP_OWNER = group.getOwner();// 获取群主
-                        Log.d("MainActivity11111", "Values.GROUP_MEMBERS:" + Values.GROUP_MEMBERS);
-                        Log.d("MainActivity11111", Values.GROUP_OWNER);
-                        if (Values.GROUP_OWNER == Values.USER_NAME) {
-                            Values.OWNER = true;
-                        }
-                    } else {
-                        Values.GROUP_MEMBERS = null; // 群成员清空
-                        Values.GROUP_OWNER = "";// 群主清空
-                    }
-                } catch (HyphenateException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-    }
-
 
     private void myLogin() {
-        Values.GROUP_ID = "";
-        if (Values.USER_NAME != "") {
+        HUANXIN_OUT = false;
+        BMOB_OUT = false;
+        if (!Values.USER_NAME.equals("")) {
+            Values.GROUP_ID = "";
+            Values.USER_NAME = "";
+            Values.OBJECT_ID = "";
+            Values.ICON_URL = "";
+            Values.NICKNAME = "";
             // 退出环信账号
             EMClient.getInstance().logout(true, new EMCallBack() {
                 @Override
@@ -213,9 +206,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     if (HUANXIN_OUT && BMOB_OUT) {
                         Values.USER_NAME = "";
                         Values.OBJECT_ID = "";
+                        Values.ICON_URL = "";
+                        Values.NICKNAME = "";
+                        Values.GROUP_ID = "";
                         Intent intent = new Intent(MainActivity.this, LoginMainActivity.class);
                         startActivity(intent);
-                        ToastUtil.showShortToast("退出成功");
+//                        ToastUtil.showShortToast("退出成功");
                     }
                 }
 
@@ -236,9 +232,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             if (currentUser == null) {
                 BMOB_OUT = true;
                 if (BMOB_OUT && HUANXIN_OUT) {
-                    ToastUtil.showShortToast("退出成功");
+//                    ToastUtil.showShortToast("退出成功");
                     Values.OBJECT_ID = "";
                     Values.USER_NAME = "";
+                    Values.ICON_URL = "";
+                    Values.NICKNAME = "";
+                    Values.GROUP_ID = "";
                     Intent intent = new Intent(MainActivity.this, LoginMainActivity.class);
                     startActivity(intent);
                 }
@@ -255,7 +254,42 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+
     private void initSlide() {
+    }
+
+    /**
+     * 获得当前账号群组信息
+     */
+    public void GroupID() {
+
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                //从服务器获取自己加入的和创建的群组列表，此api获取的群组sdk会自动保存到内存和db。
+                try {
+                    List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
+                    if (groupList.size() > 0) {
+                        Values.GROUP_ID = groupList.get(0).getGroupId();
+                        //根据群组ID从服务器获取群组基本信息
+                        EMGroup group = EMClient.getInstance().groupManager().getGroupFromServer(groupList.get(0).getGroupId() + "");
+                        Values.GROUP_MEMBERS = group.getMembers(); // 获取群成员
+                        Log.d("LoginModel333", "Values.GROUP_MEMBERS:" + Values.GROUP_MEMBERS);
+                        Log.d("LoginModel333", Values.GROUP_OWNER);
+                        Values.GROUP_OWNER = group.getOwner();// 获取群主
+                        if (Values.GROUP_OWNER == Values.USER_NAME) {
+                            Values.OWNER = true;
+                        }
+                    } else {
+                        Values.GROUP_MEMBERS = null; // 群成员清空
+                        Values.GROUP_OWNER = "";// 群主清空
+                    }
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
     }
 
@@ -351,7 +385,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-             //   ToastUtil.showShortToast("点击图片事件");
+                //   ToastUtil.showShortToast("点击图片事件");
             }
         });
     }
@@ -374,6 +408,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            //注册一个监听连接状态的listener
+//                EMClient.getInstance().addConnectionListener(new MyConnectionListener());
             case R.id.unlike:
                 imgMoveToLeft();
                 break;
@@ -393,9 +429,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 drawerLayout.openDrawer(GravityCompat.END);
                 break;
             case R.id.userInfo:
-                Intent intent = new Intent(MainActivity.this, SetUpActivity.class);
-                startActivity(intent);
-                Toast.makeText(this, "个人中心", Toast.LENGTH_SHORT).show();
+                getIcon();
                 break;
             case R.id.left_test01:
                 // 账号信息设置页面
@@ -409,7 +443,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(this, "个人设置", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test02:
-                Toast.makeText(this, "恭喜您,这是全球同步最新版本", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "恭喜您,当前全球同步最新版本", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test03:
                 // 清除缓存
@@ -417,7 +451,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Toast.makeText(this, "清除缓存", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test04:
-                myLogin();
+                if (a == 0) {
+                    ++a;
+                    myLogin();
+                }
 //                Toast.makeText(this, "登录/注销/切换账号", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.right_test01:
@@ -462,18 +499,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void initChat() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptions options =
-                    ActivityOptions.makeSceneTransitionAnimation(this, mFloatingActionButton, mFloatingActionButton.getTransitionName());
-            startActivity(new Intent(this, ChatInfoActivity.class), options.toBundle());
-        } else {
-            startActivity(new Intent(this, ChatInfoActivity.class));
+            if (Values.USER_NAME.equals("")) {
+                Intent intent = new Intent(MainActivity.this, LoginMainActivity.class);
+                startActivity(intent);
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptions options =
+                            ActivityOptions.makeSceneTransitionAnimation(this, mFloatingActionButton, mFloatingActionButton.getTransitionName());
+                    startActivity(new Intent(this, ChatInfoActivity.class), options.toBundle());
+                } else {
+                    startActivity(new Intent(this, ChatInfoActivity.class));
+                }
+            }
+
+
         }
 
+        //图片左划切换
 
-    }
-
-    //图片左划切换
     public void imgMoveToLeft() {
         flingContainer.getTopCardListener().selectLeft();
     }

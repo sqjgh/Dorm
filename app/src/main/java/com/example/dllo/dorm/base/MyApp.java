@@ -54,9 +54,8 @@ public class MyApp extends Application {
     private void initHuanXin() {
         EMOptions options = new EMOptions();
 // 默认添加好友时，是不需要验证的，改成需要验证
-        options.setAcceptInvitationAlways(false);
-        //获取是否是自动登录
-        Values.AUTO_LOGIN = options.getAutoLogin();
+        options.setAcceptInvitationAlways(true);
+
 
         int pid = android.os.Process.myPid();
         String processAppName = getAppName(pid);

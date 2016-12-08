@@ -63,8 +63,11 @@ public class IDSettingActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initData() {
-        // 进来显示昵称
-        initNickname();
+        if (!Values.OBJECT_ID.equals("")){
+            // 进来显示昵称
+            initNickname();
+        }
+
     }
 
     private void initNickname() {
@@ -105,8 +108,30 @@ public class IDSettingActivity extends BaseActivity implements View.OnClickListe
                 if (bitmap != null){
                     UpLoadIcon();
                 }
+                String nicknameET = nickname.getText().toString();
+                if (nicknameET != null){
+                    nicknameUpDate(nicknameET);
+                }
                 break;
         }
+    }
+
+    private void nicknameUpDate(String str) {
+        MyUser user = new MyUser();
+        user.setNickname(str);
+        user.update(Values.OBJECT_ID, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e==null){
+                    Log.i("bmob","更新成功");
+                }else{
+                    Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+                }
+            }
+        });
+
+
+
     }
 
 

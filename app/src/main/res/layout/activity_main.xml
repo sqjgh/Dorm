@@ -86,7 +86,7 @@
             android:orientation="vertical">
 
             <com.example.dllo.dorm.tools.circleimage.CircleImageView
-                android:id="@+id/icon"
+                android:id="@+id/icon_left_slide"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_margin="10dp"
