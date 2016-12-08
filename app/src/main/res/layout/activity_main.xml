@@ -47,7 +47,7 @@
             app:rotation_degrees="15.5"
             tools:context=".MyActivity" />
 
-        <include layout="@layout/buttons" />
+        <include layout="@layout/cards_buttons" />
 
 
         <android.support.design.widget.FloatingActionButton

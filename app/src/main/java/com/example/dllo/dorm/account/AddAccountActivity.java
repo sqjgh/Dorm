@@ -110,7 +110,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         btnTime.setText(TimeUtil.getTime());  //显示一下当前时间
     }
 
-    String str = "¥ :";
+    String str = "";
 
     @Override
     public void onClick(View v) {
