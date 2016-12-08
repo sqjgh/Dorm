@@ -1,4 +1,4 @@
-package com.example.dllo.dorm.todayinhistory;
+package com.example.dllo.dorm.news;
 
 /**
  * Created by Wanghuan on 16/12/6.

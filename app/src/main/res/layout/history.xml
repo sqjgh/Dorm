@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@mipmap/bac4"
               android:orientation="vertical">
 
     <LinearLayout
@@ -12,9 +13,11 @@
         <EditText
             android:id="@+id/history_input"
             android:layout_width="0dp"
+            android:textColorHint="#ffffff"
+            android:textColor="#ffff"
             android:layout_height="wrap_content"
             android:layout_weight="8"
-            android:hint="实时新闻热点"/>
+            android:hint="实时政治热点"/>
 
         <ImageView
             android:id="@+id/history_search"

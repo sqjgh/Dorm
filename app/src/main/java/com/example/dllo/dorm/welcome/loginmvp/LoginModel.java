@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.dllo.dorm.MyUser;
 import com.example.dllo.dorm.base.Values;
+import com.example.dllo.dorm.tools.toast.ToastUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
@@ -63,6 +64,8 @@ public class LoginModel implements LoginContract.Model {
                         // 登录成功
                         Values.USER_NAME = userName;
                         mPresenter.loginSuccess();
+                        ToastUtil.showShortToast("登录成功");
+                        Values.OBJECT_ID = bmobUser.getObjectId();
                         GroupID();
                     }
 
@@ -85,6 +88,7 @@ public class LoginModel implements LoginContract.Model {
                     // 登录成功
                     Values.USER_NAME = userName;
                     mPresenter.loginSuccess();
+                    ToastUtil.showShortToast("登录成功");
                     GroupID();
                 }
             }
@@ -145,6 +149,7 @@ public class LoginModel implements LoginContract.Model {
                         // 注册成功
                         Values.USER_NAME = userName;
                         mPresenter.registerSuccess();
+                        Values.OBJECT_ID = s.getObjectId();
                     }
 
                 } else {
@@ -215,17 +220,17 @@ public class LoginModel implements LoginContract.Model {
                 //从服务器获取自己加入的和创建的群组列表，此api获取的群组sdk会自动保存到内存和db。
                 try {
                     List<EMGroup> groupList = EMClient.getInstance().groupManager().getJoinedGroupsFromServer();
-                    if (groupList.size() > 0){
+                    if (groupList.size() > 0) {
                         //根据群组ID从服务器获取群组基本信息
                         EMGroup group = EMClient.getInstance().groupManager().getGroupFromServer(groupList.get(0).getGroupId() + "");
                         Values.GROUP_MEMBERS = group.getMembers(); // 获取群成员
                         Log.d("LoginModel333", "Values.GROUP_MEMBERS:" + Values.GROUP_MEMBERS);
                         Log.d("LoginModel333", Values.GROUP_OWNER);
                         Values.GROUP_OWNER = group.getOwner();// 获取群主
-                        if (Values.GROUP_OWNER == Values.USER_NAME){
+                        if (Values.GROUP_OWNER == Values.USER_NAME) {
                             Values.OWNER = true;
                         }
-                    }else {
+                    } else {
                         Values.GROUP_MEMBERS = null; // 群成员清空
                         Values.GROUP_OWNER = "";// 群主清空
                     }

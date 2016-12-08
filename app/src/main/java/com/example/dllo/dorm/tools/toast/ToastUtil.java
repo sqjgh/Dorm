@@ -33,7 +33,7 @@ public class ToastUtil {
     }
 
     private static void otherThreadToastShow(final String msg) {
-        Looper.prepare();
+        //  Looper.prepare();
         Handler mHandler = new Handler(Looper.getMainLooper());  //主线程
 
         if (toast == null) {
@@ -41,11 +41,14 @@ public class ToastUtil {
               因为静态工具类的生存周期*/
             /*这样的话，不管传递什么content进来，都只会引用全局唯一的Content，不会产生内存泄露*/
 //            toast =Toast.makeText(mContext.getApplicationContext(), msg,
-            toast = Toast.makeText(MyApp.getContext(), msg, Toast.LENGTH_SHORT);
+        //    toast = new Toast(MyApp.getContext());
+           // toast.setDuration(Toast.LENGTH_SHORT);
+          //  toast = Toast.makeText(MyApp.getContext(), msg, Toast.LENGTH_SHORT);
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    toast.show();
+                   // toast.setText(msg);
+                    //toast.show();
                 }
             });
 
@@ -77,7 +80,7 @@ public class ToastUtil {
         }
         oneTime = twoTime;
 
-        Looper.loop();
+        //  Looper.loop();
     }
 
     private static void mainThreadToastShow(String msg) {

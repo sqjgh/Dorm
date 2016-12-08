@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
+    android:background="@mipmap/bac4"
     tools:context="com.example.dllo.dorm.MainActivity">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,15 +20,15 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="#f29039e1">
+            android:layout_height="40dp"
+            android:background="@mipmap/bac4">
 
             <ImageView
                 android:id="@+id/left_slide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/my" />
 
             <ImageView
                 android:id="@+id/right_slide"
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/t" />
 
 
         </RelativeLayout>
@@ -55,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:src="@mipmap/weixin"
+            android:src="@mipmap/chat"
             android:transitionName="@string/other_transition_name"
             tools:targetApi="lollipop"
             app:layout_anchorGravity="bottom|left"
@@ -69,12 +70,12 @@
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorPrimary"
+        android:background="@mipmap/bac4"
         app:maxTranslationX="66dp">
 
 
         <LinearLayout
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:id="@+id/userInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,42 +85,50 @@
             android:orientation="vertical">
 
             <com.example.dllo.dorm.tools.circleimage.CircleImageView
+                android:id="@+id/icon"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_margin="10dp"
-                android:src="@mipmap/me"
+                android:src="@mipmap/twopeople"
                 app:civ_border_color="@drawable/menu_text_color"
                 app:civ_border_width="2dp" />
 
             <TextView
-                android:id="@+id/username_left_slide"
+                android:id="@+id/nickname_left_slide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="用户昵称"
                 android:textColor="@drawable/menu_text_color"
                 android:textSize="18sp" />
+            <TextView
+                android:id="@+id/username_left_slide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户账号"
+                android:textColor="@drawable/menu_text_color"
+                android:textSize="12sp" />
         </LinearLayout>
         <!-- 这里是 SideBar 的子视图-->
 
         <TextView
             android:id="@+id/left_test01"
             style="@style/MenuText"
-            android:text="左侧测试01" />
+            android:text="个人设置" />
 
         <TextView
             android:id="@+id/left_test02"
             style="@style/MenuText"
-            android:text="设置测试02" />
+            android:text="检查更新" />
 
         <TextView
             android:id="@+id/left_test03"
             style="@style/MenuText"
-            android:text="添加测试03" />
+            android:text="清除缓存" />
 
         <TextView
             android:id="@+id/left_test04"
             style="@style/MenuText"
-            android:text="登出测试04" />
+            android:text="登录/\n 注销/\n 切换账号" />
     </com.github.mzule.fantasyslide.SideBar>
 
     <!-- 如果需要的话，可以添加右侧边栏-->
@@ -128,7 +137,7 @@
         android:layout_width="135dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="@color/colorPrimary"
+        android:background="@mipmap/bac4"
         android:gravity="center_vertical|right"
         app:maxTranslationX="-25dp">
 

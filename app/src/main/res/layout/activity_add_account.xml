@@ -38,7 +38,7 @@
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:gravity="right"
-            android:text="待定"
+            android:text="刷新"
             android:textColor="#ffff"/>
     </LinearLayout>
 

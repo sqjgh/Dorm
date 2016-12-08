@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/background_setup">
+    android:background="@mipmap/bacend">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,6 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:textColor="#ffff"
                     android:gravity="center_vertical"
                     android:text="+86"
                     android:textSize="18dp" />
@@ -48,6 +49,8 @@
                         android:id="@+id/et_id_login"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textColor="#ffff"
+                        android:textColorHint="#ffff"
                         android:hint="输入11位手机号码"
                         android:imeActionId="@+id/login"
                         android:imeOptions="actionUnspecified"
@@ -81,6 +84,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.10"
+                        android:textColor="#ffff"
+                        android:textColorHint="#ffff"
                         android:hint="输入密码(密码长度大于6位)"
                         android:imeActionId="@+id/login"
                         android:imeOptions="actionUnspecified"
@@ -118,6 +123,7 @@
 
             <TextView
                 android:id="@+id/warn_id"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -165,7 +171,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:text="+86"
-                    android:textSize="18dp" />
+                    android:textColor="#ffff"
+                    />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -176,6 +183,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="输入11位手机号码"
+                        android:textColor="#ffff"
+                        android:textColorHint="#ffff"
                         android:imeActionId="@+id/login"
                         android:imeOptions="actionUnspecified"
                         android:maxLines="1"
@@ -209,6 +218,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.10"
+                        android:textColor="#ffff"
+                        android:textColorHint="#ffff"
                         android:hint="输入密码(密码长度大于6位)"
                         android:imeActionId="@+id/login"
                         android:imeOptions="actionUnspecified"
@@ -241,6 +252,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/ll_id_register"
                 android:text="手机号为11位数字"
+
                 android:textColor="@color/colorTabLayout"
                 android:textSize="10dp"
                 android:visibility="invisible" />

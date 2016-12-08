@@ -44,19 +44,20 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#f2001ac6">
+            android:background="#182732">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:src="@mipmap/back_black" />
+                android:src="@mipmap/backb" />
             <ImageView
                 android:id="@+id/information_chat"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/more"/>
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -80,6 +81,7 @@
                 android:layout_weight="4" />
 
             <Button
+                android:text="发送"
                 android:id="@+id/send_chat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -108,6 +110,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#ffff"
                 android:text="如果要加入一个群组, 请让群主邀请您,
                 或者您可以点击下方按钮来创建群组"/>
 
