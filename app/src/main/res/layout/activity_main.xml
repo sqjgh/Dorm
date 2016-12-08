@@ -59,8 +59,8 @@
             android:src="@mipmap/chat"
             android:transitionName="@string/other_transition_name"
             tools:targetApi="lollipop"
-            app:layout_anchorGravity="bottom|left"
-            android:layout_gravity="top|center_horizontal"/>
+            app:layout_anchorGravity="bottom|right"
+            android:layout_gravity="bottom|center_horizontal"/>
 
     </FrameLayout>
 
