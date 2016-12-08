@@ -59,7 +59,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected int getLayout() {
-        return R.layout.add_account_pop;
+        return R.layout.activity_add_account;
     }
 
     @Override

@@ -72,8 +72,8 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
         adapter = new LvAdapter();
 
         //TODO  此处xxx应该是月收入和支出  均应从bmob获取  0.00应该是两个的差 大于零绿色 小于零红色
-        showMoneyIn.setText("xxx");
-        showMoneyOut.setText("xxx");
+        showMoneyIn.setText("0.00");
+        showMoneyOut.setText("0.00");
         total.setText("0.00");
 
         setClick(this, addAccount, itemCount);
@@ -138,18 +138,12 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
             String useBy = mArrayList.get(i).getUseBy();
 
             if (Values.ACCOUNT_TEXT_CHICKED.equals(useBy)) {
-                Log.d("aaaa", "设置显示收入");
                 int useMoney = Integer.valueOf(mArrayList.get(i).getUseMoney());
                 inMoney+=useMoney;
-                Log.d("AccountSameFragment", "inMoney:" + inMoney);
                 showMoneyIn.setText(String.valueOf(inMoney));
-
             } else {
-                Log.d("aaaa", "设置显示支出");
                 int useMoney = Integer.valueOf(mArrayList.get(i).getUseMoney());
                 outMoney+=useMoney;
-                Log.d("AccountSameFragment", String.valueOf(outMoney / 3));
-                Log.d("AccountSameFragment", "outmoney:" + outMoney);
                 showMoneyOut.setText(String.valueOf(outMoney));
             }
         }
