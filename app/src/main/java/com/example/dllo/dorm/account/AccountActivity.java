@@ -38,8 +38,8 @@ public class AccountActivity extends BaseActivity {
         int accountTimeYear = TimeUtil.getTimeYear();
         int accountTimeMone = TimeUtil.getTimeMone();
         int accountTimeDay = TimeUtil.getTimeDay();
-
-
+        String accountTime = TimeUtil.getTime();
+        String year = accountTime.substring(0,4);
 
         for (int j = 0; j < 1; j++) {  //1年的日历
             accountTimeYear += j;
@@ -48,10 +48,12 @@ public class AccountActivity extends BaseActivity {
                 if (12 < accountTimeMone) {
                     accountTimeMone = 1;
                 }
+
                 for (int k = 1; k < 32; k++) {  //31天
                     String mTab = accountTimeYear + "年" + accountTimeMone + "月" + k + "日";
                     arrayList.add(mTab);
                 }
+
             }
         }
         AccountAdapter accountAdapter = new AccountAdapter(getSupportFragmentManager(), arrayList);
@@ -66,7 +68,7 @@ public class AccountActivity extends BaseActivity {
             String nowTime = TimeUtil.getTimeYear() + "年" + accountTimeMone + "月" + accountTimeDay + "日";
             if (nowTime.equals(pageTitle)){
                 mViewPager.setCurrentItem(i,false);
-                break;
+               break;
             }
 
         }

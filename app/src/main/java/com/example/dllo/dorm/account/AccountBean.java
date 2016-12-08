@@ -7,7 +7,6 @@ public class AccountBean {
     String tabTime;
     String useBy;
     String useMoney;
-    String addMoney;
     String remark;
 
     public String getTabTime() {
@@ -32,14 +31,6 @@ public class AccountBean {
 
     public void setUseMoney(String useMoney) {
         this.useMoney = useMoney;
-    }
-
-    public String getAddMoney() {
-        return addMoney;
-    }
-
-    public void setAddMoney(String addMoney) {
-        this.addMoney = addMoney;
     }
 
     public String getRemark() {

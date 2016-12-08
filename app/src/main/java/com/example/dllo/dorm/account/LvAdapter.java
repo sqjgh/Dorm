@@ -6,6 +6,7 @@ import android.widget.BaseAdapter;
 
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.CommonVH;
+import com.example.dllo.dorm.base.Values;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,7 @@ public class LvAdapter extends BaseAdapter {
         } else {
             viewholder.setText(R.id.tv_account_item_useby, mArrayList.get(position).getUseBy())
                     .setText(R.id.tv_account_item_money, mArrayList.get(position).getUseMoney());
-            if ("舍费收取".equals(mArrayList.get(position).getUseBy())) {
+            if (Values.ACCOUNT_TEXT_CHICKED.equals(mArrayList.get(position).getUseBy())) {
                 viewholder.setTextColor(R.id.tv_account_item_useby, 0xFF53EC20);
                 viewholder.setTextColor(R.id.tv_account_item_money, 0xFF53EC20);
             } else {

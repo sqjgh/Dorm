@@ -110,7 +110,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
         btnTime.setText(TimeUtil.getTime());  //显示一下当前时间
     }
 
-    String str = "¥ :";
+    String str = "";
 
     @Override
     public void onClick(View v) {
@@ -179,6 +179,7 @@ public class AddAccountActivity extends BaseActivity implements View.OnClickList
                 bean.setUseBy((String) tvUseBy.getText());
                 bean.setUseMoney((String) showMoney.getText());
                 bean.setTabTime((String) btnTime.getText());
+
                 EventBus.getDefault().post(bean);
 
                 onBackPressed();

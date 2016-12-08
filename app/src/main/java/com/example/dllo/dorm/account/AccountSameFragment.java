@@ -3,6 +3,7 @@ package com.example.dllo.dorm.account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseFragment;
+import com.example.dllo.dorm.base.Values;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,6 +35,7 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
     private TextView showMoneyIn;
     private TextView showMoneyOut;
     private Button takeUpMoney;
+    private LvAdapter adapter;
 
     public static AccountSameFragment getInstence(int position) {
         AccountSameFragment accountSameFragment = new AccountSameFragment();
@@ -65,6 +68,9 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     protected void initData() {
+
+        adapter = new LvAdapter();
+
         //TODO  此处xxx应该是月收入和支出  均应从bmob获取  0.00应该是两个的差 大于零绿色 小于零红色
         showMoneyIn.setText("xxx");
         showMoneyOut.setText("xxx");
@@ -85,7 +91,7 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
         if (mArrayList == null) {
             //TODO  此处应该查询bmob获取导数据显示
         } else {
-            LvAdapter adapter = new LvAdapter();
+
             lvAccount.setVisibility(View.VISIBLE);
             adapter.setArrayList(mArrayList);
             lvAccount.setAdapter(adapter);
@@ -107,17 +113,54 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
         startActivity(intent);
     }
 
+
     @Subscribe
     public void getAddAccountItem(AccountBean accountBean) {
 
-        LvAdapter adapter = new LvAdapter();
+
         lvAccount.setVisibility(View.VISIBLE);
         mArrayList.add(accountBean);
+        itemCount.setText(mArrayList.size() + "条");
         adapter.setArrayList(mArrayList);
         adapter.notifyDataSetChanged();
         lvAccount.setAdapter(adapter);
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        int inMoney = 0;
+        int outMoney = 0;
+
+        for (int i = 0; i < mArrayList.size(); i++) {
+            String useBy = mArrayList.get(i).getUseBy();
+
+            if (Values.ACCOUNT_TEXT_CHICKED.equals(useBy)) {
+                Log.d("aaaa", "设置显示收入");
+                int useMoney = Integer.valueOf(mArrayList.get(i).getUseMoney());
+                inMoney+=useMoney;
+                Log.d("AccountSameFragment", "inMoney:" + inMoney);
+                showMoneyIn.setText(String.valueOf(inMoney));
+
+            } else {
+                Log.d("aaaa", "设置显示支出");
+                int useMoney = Integer.valueOf(mArrayList.get(i).getUseMoney());
+                outMoney+=useMoney;
+                Log.d("AccountSameFragment", String.valueOf(outMoney / 3));
+                Log.d("AccountSameFragment", "outmoney:" + outMoney);
+                showMoneyOut.setText(String.valueOf(outMoney));
+            }
+        }
+
+        int totalMoney = inMoney - outMoney;
+        if (totalMoney>0){
+            total.setTextColor(0xFF53EC20);
+        }else {
+            total.setTextColor(0xFFED2D44);
+        }
+        total.setText(String.valueOf(totalMoney));
+
+    }
 }
