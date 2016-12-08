@@ -306,10 +306,10 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
                     public void onRevealHide() {
 
                     }
-
                     @Override
                     public void onRevealShow() {
                         initTheViews();
+                        otherFabCircle.setVisibility(View.INVISIBLE);
                     }
                 });
 
@@ -318,7 +318,7 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
 
     private void initTheViews() {
         Animation animation = AnimationUtils.loadAnimation(this, android.R.anim.fade_in);
-        animation.setDuration(300);
+        animation.setDuration(0);
         chatMainLL.startAnimation(animation);
         chatMainLL.setVisibility(View.VISIBLE);
 
