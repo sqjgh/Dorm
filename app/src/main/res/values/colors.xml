@@ -7,4 +7,5 @@
     <color name="colorTabLayout">#ca212c</color>
     <color name="NO">#00ffffff</color>
     <color name="background">#D5AA9D</color>
+    <color name="button">#203341</color>
 </resources>

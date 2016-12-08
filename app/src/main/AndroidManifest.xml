@@ -38,15 +38,17 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop">
+
+        </activity>
+
+        <activity android:name=".welcome.WelcomeActivity"/>
+        <activity android:name=".welcome.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".welcome.WelcomeActivity"/>
-        <activity android:name=".welcome.GuideActivity"/>
         <activity android:name=".setting.SetUpActivity"/>
 
         <activity android:name=".express.ExpressActivity"/>

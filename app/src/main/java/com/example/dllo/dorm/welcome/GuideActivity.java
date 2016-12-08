@@ -2,6 +2,8 @@ package com.example.dllo.dorm.welcome;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -46,6 +48,7 @@ public class GuideActivity extends BaseActivity {
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
         objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
         objectAnimator.start();
+
     }
 
     @Override
@@ -64,25 +67,32 @@ public class GuideActivity extends BaseActivity {
     protected void initViews() {
 //        mViewPager = bindView(R.id.guide);
         mImageView = bindView(R.id.grid_iv);
-        mImageView.setEnabled(false);
+        mImageView.setEnabled(true);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent = new Intent(GuideActivity.this,WelcomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
     @Override
     protected int getLayout() {
-//        SharedPreferences sharedPreferences = this.getSharedPreferences("first", MODE_PRIVATE);
-//        boolean isFirst = sharedPreferences.getBoolean("isFirst", true);
-//        if (!isFirst) {
-//
-//            startActivity(new Intent(this, WelcomeActivity.class));
-//            finish();
-//
-//
-//        }
-//            SharedPreferences mSharedPreferences = getSharedPreferences("first", MODE_PRIVATE);
-//            SharedPreferences.Editor editor = mSharedPreferences.edit();
-//            editor.putBoolean("isFirst", false);
-//            editor.commit();
+        SharedPreferences sharedPreferences = this.getSharedPreferences("first", MODE_PRIVATE);
+        boolean isFirst = sharedPreferences.getBoolean("isFirst", true);
+        if (!isFirst) {
+
+            startActivity(new Intent(this, WelcomeActivity.class));
+            finish();
+
+
+        }
+            SharedPreferences mSharedPreferences = getSharedPreferences("first", MODE_PRIVATE);
+            SharedPreferences.Editor editor = mSharedPreferences.edit();
+            editor.putBoolean("isFirst", false);
+            editor.commit();
             return R.layout.guide;
 
 

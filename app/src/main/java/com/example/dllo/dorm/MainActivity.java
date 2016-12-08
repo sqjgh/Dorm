@@ -351,7 +351,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                ToastUtil.showShortToast("点击图片事件");
+             //   ToastUtil.showShortToast("点击图片事件");
             }
         });
     }
