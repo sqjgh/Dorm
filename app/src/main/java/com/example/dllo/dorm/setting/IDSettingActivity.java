@@ -8,13 +8,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.dllo.dorm.MyUser;
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.Values;
+import com.example.dllo.dorm.tools.circleimage.CircleImageView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,7 +37,7 @@ import cn.bmob.v3.listener.UploadFileListener;
  */
 public class IDSettingActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView icon;
+    private CircleImageView icon;
     private EditText nickname;
     private Button btnIconPhone;
     private Button btnIconPhoto;
@@ -67,7 +68,7 @@ public class IDSettingActivity extends BaseActivity implements View.OnClickListe
             // 进来显示昵称
             initNickname();
         }
-
+        Glide.with(this).load(Values.ICON_URL).into(icon);
     }
 
     private void initNickname() {

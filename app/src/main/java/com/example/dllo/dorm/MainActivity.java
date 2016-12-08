@@ -24,15 +24,14 @@ import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 import com.example.dllo.dorm.game.game2048.GameActivity;
-import com.example.dllo.dorm.setting.IDSettingActivity;
 import com.example.dllo.dorm.news.HistoryActivity;
+import com.example.dllo.dorm.setting.IDSettingActivity;
 import com.example.dllo.dorm.tools.DataCleanManager;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
-import com.example.dllo.dorm.tools.toast.ToastUtil;
 import com.example.dllo.dorm.weather.WeatherActivity;
-import com.example.dllo.dorm.welcome.loginmvp.LoginMainActivity;
+import com.example.dllo.dorm.setting.loginmvp.LoginMainActivity;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
@@ -420,7 +419,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 // Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
                 initChat();
             case R.id.refresh:
-                newToast();
                 break;
             case R.id.left_slide:
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -440,7 +438,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     Intent intent2 = new Intent(MainActivity.this, IDSettingActivity.class);
                     startActivity(intent2);
                 }
-                Toast.makeText(this, "个人设置", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test02:
                 Toast.makeText(this, "恭喜您,当前全球同步最新版本", Toast.LENGTH_SHORT).show();
@@ -487,15 +484,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void newToast() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-                ToastUtil.showShortToast("lalalalala---");
-            }
-        }).start();
-    }
 
     private void initChat() {
 
@@ -539,7 +528,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 List<ContentBean.ItemsBean> items = contentBean.getItems();
 
                 al.clear();
-
                 for (ContentBean.ItemsBean item : items) {
                     ArrayList<String> arrayList = new ArrayList<String>();
                     String temp = String.valueOf(item.getId()).substring(0, 5);

@@ -1,4 +1,4 @@
-package com.example.dllo.dorm.welcome.loginmvp;
+package com.example.dllo.dorm.setting.loginmvp;
 
 import android.util.Log;
 import android.view.View;
@@ -138,8 +138,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void loginSuccess() {
 //        progressDialog.dismiss();
-//        ToastUtil.showShortToast("登录成功");
-        Log.d("LoginFragment", "登录成功");
+        ToastUtil.showShortToast("登录成功");
         Values.USER_NAME = name;
 
     }
@@ -171,7 +170,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void registerSuccess() {
 //        progressDialog.dismiss();
-//        ToastUtil.showShortToast("注册并登录成功");
+        ToastUtil.showShortToast("注册并登录成功");
         Log.d("LoginFragment", "注册并登录成功");
     }
 

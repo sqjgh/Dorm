@@ -12,5 +12,28 @@
         android:background="#99ff0000"
         android:scaleType="fitXY"
         android:src="@mipmap/test"/>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_centerInParent="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/dorm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/dorm"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/dorm_word"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:src="@mipmap/dorm_word"
+        android:layout_below="@id/dorm"
+        android:layout_centerHorizontal="true" />
+
+</LinearLayout>
 
 </RelativeLayout>

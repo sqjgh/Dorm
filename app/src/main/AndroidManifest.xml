@@ -57,7 +57,7 @@
 
         <activity android:name=".firstpage.chat.ChatInfoActivity"/>
         <activity android:name=".game.game2048.GameActivity"/>
-        <activity android:name=".welcome.loginmvp.LoginMainActivity"/>
+        <activity android:name=".setting.loginmvp.LoginMainActivity"/>
         <activity android:name=".firstpage.chat.CreateGroupActivity"/>
 
         <activity android:name=".weather.WeatherActivity"/>
