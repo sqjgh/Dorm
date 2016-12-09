@@ -68,7 +68,12 @@ public class IDSettingActivity extends BaseActivity implements View.OnClickListe
             // 进来显示昵称
             initNickname();
         }
-        Glide.with(this).load(Values.ICON_URL).into(icon);
+        if (Values.ICON_URL!=""){
+            Glide.with(this).load(Values.ICON_URL).into(icon);
+        }else {
+            icon.setImageResource(R.mipmap.twopeople);
+        }
+
     }
 
     private void initNickname() {

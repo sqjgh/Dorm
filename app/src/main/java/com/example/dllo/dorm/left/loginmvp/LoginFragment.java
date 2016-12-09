@@ -138,9 +138,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void loginSuccess() {
 //        progressDialog.dismiss();
-        ToastUtil.showShortToast("登录成功");
         Values.USER_NAME = name;
-
+        ToastUtil.showShortToast("登录成功");
     }
 
 
@@ -153,6 +152,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     public void loginError(String msg) {
 //        progressDialog.dismiss();
         ToastUtil.showShortToast(msg);
+        ToastUtil.showShortToast("登录失败");
 
     }
 /***************************************************************************/
@@ -171,7 +171,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     public void registerSuccess() {
 //        progressDialog.dismiss();
         ToastUtil.showShortToast("注册并登录成功");
-        Log.d("LoginFragment", "注册并登录成功");
+
     }
 
     /**

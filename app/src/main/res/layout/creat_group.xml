@@ -2,7 +2,8 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/bac4">
 
     <LinearLayout
         android:layout_centerInParent="true"
@@ -10,27 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <EditText
+        android:textColorHint="#FFF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="群组名称"
         android:gravity="center"
         android:id="@+id/group_name_create" />
     <EditText
+        android:textColorHint="#FFF"
+
         android:id="@+id/group_information_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="群组简介"
         android:gravity="center"/>
+
     <TextView
+        android:textColor="#ffffff"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="群组最大成员8人"/>
+        android:text="群组最大成员200人"/>
     <Button
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:id="@+id/group_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="确认创建"/>
+        android:text="确认创建"
+        android:background="@color/colorTabLayout" />
     </LinearLayout>
 
 </RelativeLayout>

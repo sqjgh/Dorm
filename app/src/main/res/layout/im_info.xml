@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:transitionName="transition_reveal"
-        app:backgroundTint="@color/button"
+        app:backgroundTint="@color/colorAccent"
         app:elevation="0dp"
         app:fabSize="normal"
         app:pressedTranslationZ="8dp"
@@ -88,11 +88,11 @@
                 android:layout_weight="1"
                 android:text="发送" />
         </LinearLayout>
-
     </LinearLayout>
 
 
     <RelativeLayout
+        android:background="@mipmap/bac4"
         android:id="@+id/group_create"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -108,10 +108,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="如果要加入一个群组, 请让群主邀请您,
+                android:text="如果要加入一个群组, 请让群成员邀请您,\n
                 或者您可以点击下方按钮来创建群组"
                 android:textColor="#ffff" />
             <Button
+                android:layout_marginTop="30dp"
+                android:background="@color/colorTabLayout"
                 android:id="@+id/btn_create_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

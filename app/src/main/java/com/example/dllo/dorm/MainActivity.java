@@ -15,26 +15,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.dllo.dorm.right.account.AccountActivity;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.MyApp;
 import com.example.dllo.dorm.base.Values;
-import com.example.dllo.dorm.right.collection.CollectionActivity;
-import com.example.dllo.dorm.right.collection.CollectionBean;
-import com.example.dllo.dorm.right.express.ExpressActivity;
+import com.example.dllo.dorm.left.IDSettingActivity;
+import com.example.dllo.dorm.left.loginmvp.LoginMainActivity;
 import com.example.dllo.dorm.mainpage.chat.ChatInfoActivity;
 import com.example.dllo.dorm.mainpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.mainpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.mainpage.swipecards.CardMode;
+import com.example.dllo.dorm.right.account.AccountActivity;
+import com.example.dllo.dorm.right.collection.CollectionActivity;
+import com.example.dllo.dorm.right.collection.CollectionBean;
+import com.example.dllo.dorm.right.express.ExpressActivity;
 import com.example.dllo.dorm.right.game2048.GameActivity;
 import com.example.dllo.dorm.right.news.HistoryActivity;
-import com.example.dllo.dorm.left.IDSettingActivity;
+import com.example.dllo.dorm.right.weather.WeatherActivity;
 import com.example.dllo.dorm.tools.DataCleanManager;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
-import com.example.dllo.dorm.right.weather.WeatherActivity;
-import com.example.dllo.dorm.left.loginmvp.LoginMainActivity;
+import com.example.dllo.dorm.tools.toast.ToastUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
@@ -225,7 +226,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         Values.GROUP_ID = "";
                         Intent intent = new Intent(MainActivity.this, LoginMainActivity.class);
                         startActivity(intent);
-//                        ToastUtil.showShortToast("退出成功");
+                        ToastUtil.showShortToast("退出成功");
                     }
                 }
 
