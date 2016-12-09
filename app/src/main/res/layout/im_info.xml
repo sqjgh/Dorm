@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/other_rl_container"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/other_rl_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
@@ -18,28 +17,28 @@
         app:elevation="0dp"
         app:fabSize="normal"
         app:pressedTranslationZ="8dp"
-        tools:targetApi="21"/>
+        tools:targetApi="21" />
 
     <!--<TextView-->
-        <!--android:id="@+id/other_tv_container"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@color/colorAccent"-->
-        <!--android:gravity="center"-->
-        <!--android:text="广告\n(Advertisement)"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:textSize="40sp"-->
-        <!--android:textStyle="bold"-->
-        <!--android:visibility="invisible"-->
-        <!--tools:visibility="visible"/>-->
+    <!--android:id="@+id/other_tv_container"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/colorAccent"-->
+    <!--android:gravity="center"-->
+    <!--android:text="广告\n(Advertisement)"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="40sp"-->
+    <!--android:textStyle="bold"-->
+    <!--android:visibility="invisible"-->
+    <!--tools:visibility="visible"/>-->
 
     <LinearLayout
         android:id="@+id/chat_main"
-        tools:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        tools:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,17 +46,19 @@
             android:background="#182732">
 
             <ImageView
+                android:id="@+id/iv_finish_chat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:src="@mipmap/backb" />
+
             <ImageView
+                android:padding="15dp"
                 android:id="@+id/information_chat"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/more"/>
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/more" />
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -81,17 +82,14 @@
                 android:layout_weight="4" />
 
             <Button
-                android:text="发送"
                 android:id="@+id/send_chat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="发送" />
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 
     <RelativeLayout
@@ -102,29 +100,22 @@
 
 
         <LinearLayout
-            android:layout_centerInParent="true"
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#ffff"
                 android:text="如果要加入一个群组, 请让群主邀请您,
-                或者您可以点击下方按钮来创建群组"/>
-
+                或者您可以点击下方按钮来创建群组"
+                android:textColor="#ffff" />
             <Button
                 android:id="@+id/btn_create_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="创建群组"/>
-
-
+                android:text="创建群组" />
         </LinearLayout>
-
     </RelativeLayout>
-
-
-
 </RelativeLayout>

@@ -49,7 +49,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".setting.SetUpActivity"/>
 
         <activity android:name=".express.ExpressActivity"/>
         <activity android:name=".news.HistoryActivity"/>
@@ -58,7 +57,7 @@
 
         <activity android:name=".firstpage.chat.ChatInfoActivity"/>
         <activity android:name=".game.game2048.GameActivity"/>
-        <activity android:name=".welcome.loginmvp.LoginMainActivity"/>
+        <activity android:name=".setting.loginmvp.LoginMainActivity"/>
         <activity android:name=".firstpage.chat.CreateGroupActivity"/>
 
         <activity android:name=".weather.WeatherActivity"/>

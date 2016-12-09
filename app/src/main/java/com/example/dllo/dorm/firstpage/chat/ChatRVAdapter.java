@@ -5,9 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.dllo.dorm.R;
+import com.example.dllo.dorm.base.Values;
 
 import java.util.ArrayList;
 
@@ -45,8 +48,13 @@ public class ChatRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder.getItemViewType() == CHAT_SELF){
             ((ViewHolderSelf)holder).chatSelfTV.setText(arrayList.get(position).getMsg());
+            ((ViewHolderSelf)holder).chatSelfNickname.setText(arrayList.get(position).getNickname());
+            Glide.with(((ViewHolderSelf)holder).itemView.getContext()).load(Values.ICON_URL).into(((ViewHolderSelf)holder).chatSelfIcon);
         }else {
             ((ViewHolderOthers)holder).chatOthersTV.setText(arrayList.get(position).getMsg());
+            ((ViewHolderOthers)holder).chatOthersNickname.setText(arrayList.get(position).getNickname());
+            Glide.with(((ViewHolderOthers)holder).chatOthersIcon.getContext()).load(arrayList.get(position).getIconUrl()).into(((ViewHolderOthers)holder).chatOthersIcon);
+
         }
     }
 
@@ -68,20 +76,29 @@ public class ChatRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     class ViewHolderOthers extends RecyclerView.ViewHolder {
 
         private TextView chatOthersTV;
+        private ImageView chatOthersIcon;
+        private TextView chatOthersNickname;
 
         public ViewHolderOthers(View itemView) {
             super(itemView);
             chatOthersTV = (TextView) itemView.findViewById(R.id.chat_others);
+            chatOthersNickname = (TextView) itemView.findViewById(R.id.chat_nickname_others);
+            chatOthersIcon = (ImageView) itemView.findViewById(R.id.chat_others_icon);
+
         }
     }
 
     class ViewHolderSelf extends RecyclerView.ViewHolder {
 
         private TextView chatSelfTV;
+        private TextView chatSelfNickname;
+        private ImageView chatSelfIcon;
 
         public ViewHolderSelf(View itemView) {
             super(itemView);
             chatSelfTV = (TextView) itemView.findViewById(R.id.chat_self);
+            chatSelfNickname = (TextView) itemView.findViewById(R.id.chat_nickname_self);
+            chatSelfIcon = (ImageView) itemView.findViewById(R.id.chat_self_icon);
         }
     }
 }

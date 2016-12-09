@@ -1,6 +1,6 @@
-package com.example.dllo.dorm.welcome.loginmvp;
+package com.example.dllo.dorm.setting.loginmvp;
 
-import android.app.ProgressDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +28,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     private EditText usernameEt, passwordEt;
     private Button loginBtn;
     private LoginContract.Presenter mPresenter;
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
 
 
 
@@ -125,7 +125,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void showLoading() {
         // TODO 这里可能会有问题
-        progressDialog = ProgressDialog.show(getContext(), "请稍后", "请稍后");
+
+//            progressDialog = ProgressDialog.show(getContext(), "请稍后", "请稍后");
+
+
 
     }
 
@@ -134,7 +137,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
      */
     @Override
     public void loginSuccess() {
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
         ToastUtil.showShortToast("登录成功");
         Values.USER_NAME = name;
 
@@ -148,7 +151,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
      */
     @Override
     public void loginError(String msg) {
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
         ToastUtil.showShortToast(msg);
 
     }
@@ -158,7 +161,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
      */
     @Override
     public void showRegisterLoading() {
-        progressDialog.show();
+//        progressDialog.show();
     }
 
     /**
@@ -166,8 +169,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
      */
     @Override
     public void registerSuccess() {
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
         ToastUtil.showShortToast("注册并登录成功");
+        Log.d("LoginFragment", "注册并登录成功");
     }
 
     /**
@@ -177,8 +181,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
      */
     @Override
     public void registerError(String msg) {
-        progressDialog.dismiss();
+//        progressDialog.dismiss();
         ToastUtil.showShortToast("注册失败");
+        Log.d("LoginFragment", "注册失败");
     }
 
 

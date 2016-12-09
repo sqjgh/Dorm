@@ -42,7 +42,6 @@ public class CreateGroupActivity extends BaseActivity {
 
 
     private void create() {
-
         // 创建群组
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,14 +60,14 @@ public class CreateGroupActivity extends BaseActivity {
                  * @throws HyphenateException
                  */
                 EMGroupManager.EMGroupOptions option = new EMGroupManager.EMGroupOptions();
-                option.maxUsers = 8;
-                option.style = EMGroupManager.EMGroupStyle.EMGroupStylePrivateOnlyOwnerInvite;
+                option.maxUsers = 200;
+                option.style = EMGroupManager.EMGroupStyle.EMGroupStylePublicOpenJoin;
                 String people[] = {};
                 try {
                     EMGroup emGroup = EMClient.getInstance().groupManager().createGroup(information, name, people, "createGroup", option);
                     Log.d("ECMainActivity", emGroup.getGroupId());
-                    ToastUtil.showShortToast("群组创建成功");
                     Values.GROUP_ID = emGroup.getGroupId();
+                    ToastUtil.showShortToast("群组创建成功");
                     finish();
                 } catch (HyphenateException e) {
                     e.printStackTrace();

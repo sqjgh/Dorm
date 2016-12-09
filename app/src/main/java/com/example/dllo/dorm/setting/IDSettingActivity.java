@@ -8,13 +8,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.dllo.dorm.MyUser;
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.Values;
+import com.example.dllo.dorm.tools.circleimage.CircleImageView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,7 +37,7 @@ import cn.bmob.v3.listener.UploadFileListener;
  */
 public class IDSettingActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView icon;
+    private CircleImageView icon;
     private EditText nickname;
     private Button btnIconPhone;
     private Button btnIconPhoto;
@@ -63,8 +64,11 @@ public class IDSettingActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initData() {
-        // 进来显示昵称
-        initNickname();
+        if (!Values.OBJECT_ID.equals("")){
+            // 进来显示昵称
+            initNickname();
+        }
+        Glide.with(this).load(Values.ICON_URL).into(icon);
     }
 
     private void initNickname() {
@@ -105,8 +109,30 @@ public class IDSettingActivity extends BaseActivity implements View.OnClickListe
                 if (bitmap != null){
                     UpLoadIcon();
                 }
+                String nicknameET = nickname.getText().toString();
+                if (nicknameET != null){
+                    nicknameUpDate(nicknameET);
+                }
                 break;
         }
+    }
+
+    private void nicknameUpDate(String str) {
+        MyUser user = new MyUser();
+        user.setNickname(str);
+        user.update(Values.OBJECT_ID, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if(e==null){
+                    Log.i("bmob","更新成功");
+                }else{
+                    Log.i("bmob","更新失败："+e.getMessage()+","+e.getErrorCode());
+                }
+            }
+        });
+
+
+
     }
 
 

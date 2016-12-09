@@ -1,4 +1,4 @@
-package com.example.dllo.dorm.welcome.loginmvp;
+package com.example.dllo.dorm.setting.loginmvp;
 
 /**
  * Created by dllo on 16/11/22.

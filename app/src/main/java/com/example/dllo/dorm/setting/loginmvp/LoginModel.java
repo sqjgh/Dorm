@@ -1,4 +1,4 @@
-package com.example.dllo.dorm.welcome.loginmvp;
+package com.example.dllo.dorm.setting.loginmvp;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.example.dllo.dorm.MyUser;
 import com.example.dllo.dorm.base.Values;
-import com.example.dllo.dorm.tools.toast.ToastUtil;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
@@ -60,19 +59,21 @@ public class LoginModel implements LoginContract.Model {
             public void done(BmobUser bmobUser, BmobException e) {
                 if (e == null) {
                     BMOB_LOGIN = true;
+                    Values.OBJECT_ID = bmobUser.getObjectId();
+                    Values.USER_NAME = userName;
                     if (BMOB_LOGIN && HUANXIN_LOGIN) {
                         // 登录成功
-                        Values.USER_NAME = userName;
                         mPresenter.loginSuccess();
-                        ToastUtil.showShortToast("登录成功");
-                        Values.OBJECT_ID = bmobUser.getObjectId();
-                        GroupID();
+//                        ToastUtil.showShortToast("登录成功");
+                        Log.d("LoginModel", "登录成功");
                     }
 
                 } else {
+                    Log.d("LoginModel", "bmob登录失败");
                     BMOB_LOGIN = false;
                     if (!(BMOB_LOGIN && HUANXIN_LOGIN)) {
                         // 登录失败
+
                         Exception exception = new Exception("用户名/密码错误");
                         mPresenter.loginError(exception);
                     }
@@ -84,18 +85,19 @@ public class LoginModel implements LoginContract.Model {
             @Override
             public void onSuccess() {
                 HUANXIN_LOGIN = true;
+                Values.USER_NAME = userName;
                 if (BMOB_LOGIN && HUANXIN_LOGIN) {
                     // 登录成功
                     Values.USER_NAME = userName;
                     mPresenter.loginSuccess();
-                    ToastUtil.showShortToast("登录成功");
-                    GroupID();
+//                    ToastUtil.showShortToast("登录成功");
                 }
             }
 
             @Override
             public void onError(int i, String s) {
                 HUANXIN_LOGIN = false;
+                Log.d("LoginModel", "环信登录失败");
                 if (!(BMOB_LOGIN && HUANXIN_LOGIN)) {
                     // 登录失败
                     Exception exception = new Exception("用户名/密码错误");
@@ -170,40 +172,26 @@ public class LoginModel implements LoginContract.Model {
             public void run() {
                 try {
                     EMClient.getInstance().createAccount(userName, password);//同步方法
+                    HUANXIN_REGISTER = true;
+                    if (BMOB_REGISTER && HUANXIN_REGISTER) {
+                        // 登录成功
+                        Values.USER_NAME = userName;
+                        mPresenter.registerSuccess();
+                    }
                 } catch (HyphenateException e) {
                     e.printStackTrace();
                     HUANXIN_REGISTER = false;
                     Log.d("LoginModel", "环信注册失败");
+                    HUANXIN_LOGIN = false;
+                    if (!(BMOB_REGISTER && HUANXIN_REGISTER)) {
+                        // 登录失败
+                        Exception exception = new Exception("注册失败, 请重试");
+                        mPresenter.registerError(exception);
+                    }
                 }
             }
         }).start();
 
-        EMClient.getInstance().login(userName, password, new EMCallBack() {
-            @Override
-            public void onSuccess() {
-                HUANXIN_REGISTER = true;
-                if (BMOB_REGISTER && HUANXIN_REGISTER) {
-                    // 登录成功
-                    Values.USER_NAME = userName;
-                    mPresenter.registerSuccess();
-                }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                HUANXIN_LOGIN = false;
-                if (!(BMOB_REGISTER && HUANXIN_REGISTER)) {
-                    // 登录失败
-                    Exception exception = new Exception("注册失败, 请重试");
-                    mPresenter.registerError(exception);
-                }
-            }
-
-            @Override
-            public void onProgress(int i, String s) {
-                Log.d("1111111", "i:" + i + "s" + s);
-            }
-        });
 
     }
 
@@ -241,6 +229,9 @@ public class LoginModel implements LoginContract.Model {
         }).start();
 
     }
+
+
+
 
 
 }
