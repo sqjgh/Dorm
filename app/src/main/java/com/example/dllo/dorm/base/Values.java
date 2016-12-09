@@ -6,7 +6,7 @@ import java.util.List;
  * Created by zhaojun on 16/11/25.
  */
 
-public class Values {
+public final class Values {
 
     //探探界面图片网址
     public static final String TT_IMAGE_URL_FRONT = "http://pic.qiushibaike.com/system/pictures/";
