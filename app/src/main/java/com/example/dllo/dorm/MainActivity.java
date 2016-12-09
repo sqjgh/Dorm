@@ -15,26 +15,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.dllo.dorm.account.AccountActivity;
+import com.example.dllo.dorm.right.account.AccountActivity;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.MyApp;
 import com.example.dllo.dorm.base.Values;
-import com.example.dllo.dorm.collection.CollectionActivity;
-import com.example.dllo.dorm.collection.CollectionBean;
-import com.example.dllo.dorm.express.ExpressActivity;
-import com.example.dllo.dorm.firstpage.chat.ChatInfoActivity;
-import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
-import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
-import com.example.dllo.dorm.firstpage.swipecards.CardMode;
-import com.example.dllo.dorm.game.game2048.GameActivity;
-import com.example.dllo.dorm.news.HistoryActivity;
-import com.example.dllo.dorm.setting.IDSettingActivity;
+import com.example.dllo.dorm.right.collection.CollectionActivity;
+import com.example.dllo.dorm.right.collection.CollectionBean;
+import com.example.dllo.dorm.right.express.ExpressActivity;
+import com.example.dllo.dorm.mainpage.chat.ChatInfoActivity;
+import com.example.dllo.dorm.mainpage.flingswipe.SwipeFlingAdapterView;
+import com.example.dllo.dorm.mainpage.swipecards.CardAdapter;
+import com.example.dllo.dorm.mainpage.swipecards.CardMode;
+import com.example.dllo.dorm.right.game2048.GameActivity;
+import com.example.dllo.dorm.right.news.HistoryActivity;
+import com.example.dllo.dorm.left.IDSettingActivity;
 import com.example.dllo.dorm.tools.DataCleanManager;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
 import com.example.dllo.dorm.tools.okhttp.ResponseCallBack;
-import com.example.dllo.dorm.weather.WeatherActivity;
-import com.example.dllo.dorm.setting.loginmvp.LoginMainActivity;
+import com.example.dllo.dorm.right.weather.WeatherActivity;
+import com.example.dllo.dorm.left.loginmvp.LoginMainActivity;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
@@ -441,20 +441,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 imgMoveToRight();
                 break;
             case R.id.main_chat:
-                // Toast.makeText(this, "这里跳转一个framgent", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "聊天", Toast.LENGTH_SHORT).show();
                 initChat();
             case R.id.refresh:
+                //暂时不用
                 break;
             case R.id.left_slide:
+                // 左侧菜单
                 drawerLayout.openDrawer(GravityCompat.START);
                 break;
             case R.id.right_slide:
+                // 右侧菜单
                 drawerLayout.openDrawer(GravityCompat.END);
                 break;
             case R.id.userInfo:
+                // 刷新头像
                 getIcon();
                 break;
-            case R.id.left_test01:
+            case R.id.left_mysetting:
                 // 账号信息设置页面
                 if (Values.USER_NAME.equals("")) {
                     Intent intent1 = new Intent(MainActivity.this, LoginMainActivity.class);
@@ -464,7 +468,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     startActivity(intent2);
                 }
                 break;
-            case R.id.left_test02:
+            case R.id.left_update:
                 Toast.makeText(this, "恭喜您,当前全球同步最新版本", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.left_test03:
@@ -479,33 +483,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
 //                Toast.makeText(this, "登录/注销/切换账号", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.right_test01:
+            case R.id.right_search:
                 Intent intent3 = new Intent(MainActivity.this, HistoryActivity.class);
                 startActivity(intent3);
                 Toast.makeText(this, "搜搜", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.right_test02:
+            case R.id.right_weather:
                 Intent intent4 = new Intent(MainActivity.this, WeatherActivity.class);
                 startActivity(intent4);
                 Toast.makeText(this, "看天气撒", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.right_test03:
+            case R.id.right_express:
 
                 Intent intentExpress = new Intent(MainActivity.this, ExpressActivity.class);
                 startActivity(intentExpress);
                 Toast.makeText(this, "查快递啦", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.right_test04:
+            case R.id.right_2048:
                 Toast.makeText(this, "欢迎进入 2048 @_@", Toast.LENGTH_SHORT).show();
                 Intent intentGame = new Intent(MainActivity.this, GameActivity.class);
                 startActivity(intentGame);
                 break;
-            case R.id.right_test05:
+            case R.id.right_mybook:
                 Toast.makeText(this, "记账本", Toast.LENGTH_SHORT).show();
                 Intent intentAccount = new Intent(MainActivity.this, AccountActivity.class);
                 startActivity(intentAccount);
                 break;
-            case R.id.right_test06:
+            case R.id.right_like:
+                // 收藏
                 Intent intentShape = new Intent(MainActivity.this, CollectionActivity.class);
                 startActivity(intentShape);
                 break;
@@ -528,8 +533,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     startActivity(new Intent(this, ChatInfoActivity.class));
                 }
             }
-
-
         }
 
         //图片左划切换

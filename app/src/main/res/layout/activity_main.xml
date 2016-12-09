@@ -41,7 +41,7 @@
 
         </RelativeLayout>
 
-        <com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView
+        <com.example.dllo.dorm.mainpage.flingswipe.SwipeFlingAdapterView
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -112,12 +112,12 @@
         <!-- 这里是 SideBar 的子视图-->
 
         <TextView
-            android:id="@+id/left_test01"
+            android:id="@+id/left_mysetting"
             style="@style/MenuText"
             android:text="个人设置" />
 
         <TextView
-            android:id="@+id/left_test02"
+            android:id="@+id/left_update"
             style="@style/MenuText"
             android:text="检查更新" />
 
@@ -144,27 +144,27 @@
 
         <!-- 这里是 SideBar 的子视图-->
         <TextView
-            android:id="@+id/right_test01"
+            android:id="@+id/right_search"
             style="@style/MenuText"
             android:text="搜搜" />
         <TextView
-            android:id="@+id/right_test02"
+            android:id="@+id/right_weather"
             style="@style/MenuText"
             android:text="天气" />
         <TextView
-            android:id="@+id/right_test03"
+            android:id="@+id/right_express"
             style="@style/MenuText"
             android:text="查快递" />
         <TextView
-            android:id="@+id/right_test04"
+            android:id="@+id/right_2048"
             style="@style/MenuText"
             android:text="2048" />
         <TextView
-            android:id="@+id/right_test05"
+            android:id="@+id/right_mybook"
             style="@style/MenuText"
             android:text="记账本" />
         <TextView
-            android:id="@+id/right_test06"
+            android:id="@+id/right_like"
             style="@style/MenuText"
             android:text="I Like" />
     </com.github.mzule.fantasyslide.SideBar>

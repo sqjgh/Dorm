@@ -50,20 +50,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".express.ExpressActivity"/>
-        <activity android:name=".news.HistoryActivity"/>
-        <activity android:name=".account.AccountActivity"/>
-        <activity android:name=".account.AddAccountActivity"/>
+        <activity android:name=".right.express.ExpressActivity"/>
+        <activity android:name=".right.news.HistoryActivity"/>
+        <activity android:name=".right.account.AccountActivity"/>
+        <activity android:name=".right.account.AddAccountActivity"/>
 
-        <activity android:name=".firstpage.chat.ChatInfoActivity"/>
-        <activity android:name=".game.game2048.GameActivity"/>
-        <activity android:name=".setting.loginmvp.LoginMainActivity"/>
-        <activity android:name=".firstpage.chat.CreateGroupActivity"/>
+        <activity android:name=".mainpage.chat.ChatInfoActivity"/>
+        <activity android:name=".right.game2048.GameActivity"/>
+        <activity android:name=".left.loginmvp.LoginMainActivity"/>
+        <activity android:name=".mainpage.chat.CreateGroupActivity"/>
 
-        <activity android:name=".weather.WeatherActivity"/>
-        <activity android:name=".setting.IDSettingActivity"/>
+        <activity android:name=".right.weather.WeatherActivity"/>
+        <activity android:name=".left.IDSettingActivity"/>
 
-        <activity android:name=".collection.CollectionActivity"/>
+        <activity android:name=".right.collection.CollectionActivity"/>
 
         <!-- 设置环信应用的AppKey -->
         <meta-data

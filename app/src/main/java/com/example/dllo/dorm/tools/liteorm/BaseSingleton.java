@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.example.dllo.dorm.base.MyApp;
-import com.example.dllo.dorm.game.ChartBean;
+import com.example.dllo.dorm.right.game2048.ChartBean;
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.assit.WhereBuilder;
 

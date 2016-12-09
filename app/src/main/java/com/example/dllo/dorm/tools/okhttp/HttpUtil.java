@@ -3,12 +3,12 @@ package com.example.dllo.dorm.tools.okhttp;
 import android.util.Log;
 
 
-import com.example.dllo.dorm.express.ExpressNetApi;
-import com.example.dllo.dorm.news.HistoryBean;
-import com.example.dllo.dorm.news.HistoryNetApi;
+import com.example.dllo.dorm.right.express.ExpressNetApi;
+import com.example.dllo.dorm.right.news.HistoryBean;
+import com.example.dllo.dorm.right.news.HistoryNetApi;
 import com.example.dllo.dorm.base.Values;
-import com.example.dllo.dorm.weather.WeatherBean;
-import com.example.dllo.dorm.weather.WeatherNetApi;
+import com.example.dllo.dorm.right.weather.WeatherBean;
+import com.example.dllo.dorm.right.weather.WeatherNetApi;
 
 
 /**
