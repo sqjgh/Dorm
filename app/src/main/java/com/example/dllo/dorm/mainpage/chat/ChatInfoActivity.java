@@ -180,7 +180,7 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
 
     }
 
-    //显示历史评分
+
     private void showChart() {
 //        new GroupInformationFragment().show(getFragmentManager(),"dialog");
         builder = new AlertDialog.Builder(this);
@@ -205,7 +205,7 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
                     public void run() {
                         //私有群里，如果开放了群成员邀请，群成员邀请调用下面方法
                         try {
-                            EMClient.getInstance().groupManager().inviteUser(Values.GROUP_ID, ID, null);//需异步处理
+                            EMClient.getInstance().groupManager().addUsersToGroup(Values.GROUP_ID, ID);//需异步处理
                             ToastUtil.showShortToast("成员添加成功");
                         } catch (HyphenateException e) {
                             e.printStackTrace();
