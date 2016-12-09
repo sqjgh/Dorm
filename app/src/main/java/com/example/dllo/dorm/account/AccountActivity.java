@@ -58,7 +58,7 @@ public class AccountActivity extends BaseActivity {
         }
         AccountAdapter accountAdapter = new AccountAdapter(getSupportFragmentManager(), arrayList);
         mViewPager.setAdapter(accountAdapter);
-        mTabLayout.setTabTextColors(Color.BLACK, Color.RED);
+        mTabLayout.setTabTextColors(Color.WHITE, Color.RED);
         mTabLayout.setSelectedTabIndicatorColor(Color.RED);
         //tablayout滑动
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);

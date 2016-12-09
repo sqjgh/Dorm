@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 /**
  * Created by dllo on 16/10/31.
  */
@@ -84,6 +86,17 @@ public class CommonVH extends RecyclerView.ViewHolder {
 //        return this;
 //    }
 
+    //Glide解析图片
+    public CommonVH glideSetImage(ViewGroup parent,int id, String url) {
+        ImageView imageView = getView(id);
+        Context context = parent.getContext();
+                Glide.with(context)
+                .load(url)
+                .into(imageView);
+        return this;
+    }
+
+
     public CommonVH setViewClick(int id, View.OnClickListener listener) {
         getView(id).setOnClickListener(listener);
         return this;
@@ -121,7 +134,7 @@ public class CommonVH extends RecyclerView.ViewHolder {
     }
 
     //设置item里面textview字体颜色
-    public CommonVH setTextColor(int id ,int color){
+    public CommonVH setTextColor(int id, int color) {
         TextView textView = getView(id);
         textView.setTextColor(color);
         return this;

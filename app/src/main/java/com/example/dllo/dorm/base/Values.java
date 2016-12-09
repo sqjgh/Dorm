@@ -38,7 +38,6 @@ public class Values {
     public static boolean AUTO_LOGIN = false;
     // 记账本字体颜色判断
     public static String ACCOUNT_TEXT_CHICKED = "舍费收取";
-
-
-
+    //
+    public static int POSITION = 0;
 }

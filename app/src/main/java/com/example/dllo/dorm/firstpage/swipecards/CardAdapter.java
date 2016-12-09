@@ -4,11 +4,12 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.dllo.dorm.R;
+import com.example.dllo.dorm.collection.CollectionBean;
 import com.example.dllo.dorm.base.CommonVH;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -49,10 +50,21 @@ public class CardAdapter extends BaseAdapter {
 
         CommonVH viewHolder= CommonVH.getViewHolder(convertView,parent,R.layout.card_item);
 
-        Glide.with(mContext)
-                .load(mCardList.get(position).getImages().get(0))
-                .into((ImageView) viewHolder.getView(R.id.helloText));
-        viewHolder.setText(R.id.card_name,mCardList.get(position).getName());
+//        Glide.with(mContext)
+//                .load(mCardList.get(position).getImages().get(0))
+//                .into((ImageView) viewHolder.getView(R.id.helloText));
+
+        CollectionBean collectionBean = new CollectionBean();
+        collectionBean.setContent(mCardList.get(position).getName());
+        collectionBean.setCollectionUrl(mCardList.get(position).getImages().get(0));
+        collectionBean.setNum(position);
+        EventBus.getDefault().post(collectionBean);
+
+        viewHolder.setText(R.id.card_name,mCardList.get(position).getName())
+                .glideSetImage(parent
+                        ,R.id.helloText
+                        ,mCardList.get(position).getImages().get(0));
+
 
         return viewHolder.getItemView();
     }

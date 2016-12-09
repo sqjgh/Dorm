@@ -14,6 +14,7 @@ import android.widget.Adapter;
 import android.widget.FrameLayout;
 
 import com.example.dllo.dorm.R;
+import com.example.dllo.dorm.base.Values;
 
 /**
  * Created by dionysis_lorentzos on 5/8/14
@@ -252,21 +253,28 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
                         mFlingListener.removeFirstObjectInAdapter();
                     }
 
+                    int position = 0;
+
+
                     @Override
                     public void leftExit(Object dataObject) {
                         p = 0f;
+                        Values.POSITION +=1;
                         mFlingListener.onLeftCardExit(dataObject);
                     }
 
                     @Override
                     public void rightExit(Object dataObject) {
+                        Values.POSITION +=1;
                         mFlingListener.onRightCardExit(dataObject);
                     }
+
 
                     @Override
                     public void onClick(Object dataObject) {
                         if (mOnItemClickListener != null)
-                            mOnItemClickListener.onItemClicked(0, dataObject);
+                            position = Values.POSITION;
+                            mOnItemClickListener.onItemClicked(position, dataObject);
 
                     }
 

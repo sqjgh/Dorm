@@ -3,6 +3,7 @@ package com.example.dllo.dorm;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,15 +18,17 @@ import com.example.dllo.dorm.account.AccountActivity;
 import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.MyApp;
 import com.example.dllo.dorm.base.Values;
+import com.example.dllo.dorm.collection.CollectionActivity;
+import com.example.dllo.dorm.collection.CollectionBean;
 import com.example.dllo.dorm.express.ExpressActivity;
 import com.example.dllo.dorm.firstpage.chat.ChatInfoActivity;
 import com.example.dllo.dorm.firstpage.flingswipe.SwipeFlingAdapterView;
 import com.example.dllo.dorm.firstpage.swipecards.CardAdapter;
 import com.example.dllo.dorm.firstpage.swipecards.CardMode;
 import com.example.dllo.dorm.game.game2048.GameActivity;
+import com.example.dllo.dorm.news.HistoryActivity;
 import com.example.dllo.dorm.setting.IDSettingActivity;
 import com.example.dllo.dorm.setting.SetUpActivity;
-import com.example.dllo.dorm.news.HistoryActivity;
 import com.example.dllo.dorm.tools.DataCleanManager;
 import com.example.dllo.dorm.tools.okhttp.ContentBean;
 import com.example.dllo.dorm.tools.okhttp.HttpUtil;
@@ -37,6 +40,9 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.exceptions.HyphenateException;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +81,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView nicknameLeftSlide;
     private TextView usernameLeftSlide;
     private TextView cach;
+
+    private ArrayList<CollectionBean> collectionList = new ArrayList<>();
+    private int mNum;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected void initViews() {
@@ -315,13 +330,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override  //左滑监听
             public void onLeftCardExit(Object dataObject) {
 
-                //ToastUtil.showShortToast("不喜欢");
             }
 
             @Override  //右滑监听
             public void onRightCardExit(Object dataObject) {
 
-                //  ToastUtil.showShortToast("喜欢");
             }
 
             @Override
@@ -348,13 +361,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
 
 
+        //点击图片收藏
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-             //   ToastUtil.showShortToast("点击图片事件");
+                itemPosition += 1;
+                String content = collectionList.get(itemPosition).getContent();
+                String shapeUrl = collectionList.get(itemPosition).getCollectionUrl();
+                Log.d("qqqqq", content);
+                Log.d("qqqqq", shapeUrl);
+
             }
         });
     }
+
+    @Subscribe
+    public void getShapeContent(CollectionBean event) {
+
+        collectionList.add(event);
+        mNum = event.getNum();
+
+    }
+
 
     private void showSize() {
         try {
@@ -446,7 +474,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Intent intentAccount = new Intent(MainActivity.this, AccountActivity.class);
                 startActivity(intentAccount);
                 break;
-
+            case R.id.right_test06:
+                Intent intentShape = new Intent(MainActivity.this, CollectionActivity.class);
+                startActivity(intentShape);
+                break;
         }
     }
 

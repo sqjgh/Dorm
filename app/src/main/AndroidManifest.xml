@@ -62,8 +62,9 @@
         <activity android:name=".firstpage.chat.CreateGroupActivity"/>
 
         <activity android:name=".weather.WeatherActivity"/>
-
         <activity android:name=".setting.IDSettingActivity"/>
+
+        <activity android:name=".collection.CollectionActivity"/>
 
         <!-- 设置环信应用的AppKey -->
         <meta-data
