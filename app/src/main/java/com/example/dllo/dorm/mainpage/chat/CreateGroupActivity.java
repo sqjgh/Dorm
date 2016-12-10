@@ -38,7 +38,10 @@ public class CreateGroupActivity extends BaseActivity {
     @Override
     protected void initData() {
         create();
+        // 群组邀请监听
     }
+
+
 
 
     private void create() {

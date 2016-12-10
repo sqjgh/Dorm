@@ -126,9 +126,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     public void showLoading() {
         // TODO 这里可能会有问题
 
-//            progressDialog = ProgressDialog.show(getContext(), "请稍后", "请稍后");
-
-
+//            progressDialog = ProgressDialog.sh(getCotext(), "请稍后", "请稍后");
 
     }
 

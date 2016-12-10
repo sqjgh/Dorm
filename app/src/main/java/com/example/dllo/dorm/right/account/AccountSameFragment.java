@@ -130,24 +130,24 @@ public class AccountSameFragment extends BaseFragment implements View.OnClickLis
     public void onResume() {
         super.onResume();
 
-        int inMoney = 0;
-        int outMoney = 0;
+        float inMoney = 0.0f;
+        float outMoney = 0.0f;
 
         for (int i = 0; i < mArrayList.size(); i++) {
             String useBy = mArrayList.get(i).getUseBy();
 
             if (Values.ACCOUNT_TEXT_CHICKED.equals(useBy)) {
-                int useMoney = Integer.valueOf(mArrayList.get(i).getUseMoney());
+                float useMoney = Float.valueOf(mArrayList.get(i).getUseMoney());
                 inMoney+=useMoney;
                 showMoneyIn.setText(String.valueOf(inMoney));
             } else {
-                int useMoney = Integer.valueOf(mArrayList.get(i).getUseMoney());
+                float useMoney = Float.valueOf(mArrayList.get(i).getUseMoney());
                 outMoney+=useMoney;
                 showMoneyOut.setText(String.valueOf(outMoney));
             }
         }
 
-        int totalMoney = inMoney - outMoney;
+        float totalMoney = inMoney - outMoney;
         if (totalMoney>0){
             total.setTextColor(0xFF53EC20);
         }else {

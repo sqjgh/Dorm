@@ -1,10 +1,10 @@
 package com.example.dllo.dorm.right.weather;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dllo.dorm.R;
 import com.example.dllo.dorm.base.BaseActivity;
@@ -53,17 +53,28 @@ public class WeatherActivity extends BaseActivity {
                 HttpUtil.getWeather(keyWords, new ResponseCallBack<WeatherBean>() {
                     @Override
                     public void OnResponse(WeatherBean weatherBean) {
-                        Log.d("WeatherActivity-------", weatherBean.getResult().getRealtime().getCity_name());
-                        city.setText(weatherBean.getResult().getRealtime().getCity_name());
-                        time.setText(weatherBean.getResult().getRealtime().getDate());
-                        weather.setText(weatherBean.getResult().getRealtime().getWeather().getInfo());
-                        temperature.setText(weatherBean.getResult().getRealtime().getWeather().getTemperature());
-                        sport.setText(weatherBean.getResult().getLife().getInfo().getYundong().toString());
-                        uv.setText(weatherBean.getResult().getLife().getInfo().getZiwaixian().toString());
-                        code.setText(weatherBean.getResult().getLife().getInfo().getGanmao().toString());
-                        wear.setText(weatherBean.getResult().getLife().getInfo().getChuanyi().toString());
-                        pm.setText(weatherBean.getResult().getPm25().getPm25().getPm25());
-                        tip.setText(weatherBean.getResult().getPm25().getPm25().getDes());
+                        if (weatherBean.getResult() == null){
+
+                            Toast.makeText(WeatherActivity.this, "请查询国内天气", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(WeatherActivity.this, weatherBean.getReason(), Toast.LENGTH_SHORT).show();
+
+
+                        }else {
+
+                            city.setText(weatherBean.getResult().getRealtime().getCity_name());
+                            time.setText(weatherBean.getResult().getRealtime().getDate());
+                            weather.setText(weatherBean.getResult().getRealtime().getWeather().getInfo());
+                            temperature.setText(weatherBean.getResult().getRealtime().getWeather().getTemperature());
+                            sport.setText(weatherBean.getResult().getLife().getInfo().getYundong().toString());
+                            uv.setText(weatherBean.getResult().getLife().getInfo().getZiwaixian().toString());
+                            code.setText(weatherBean.getResult().getLife().getInfo().getGanmao().toString());
+                            wear.setText(weatherBean.getResult().getLife().getInfo().getChuanyi().toString());
+                            pm.setText(weatherBean.getResult().getPm25().getPm25().getPm25());
+                            tip.setText(weatherBean.getResult().getPm25().getPm25().getDes());
+
+                        }
+//                        Log.d("WeatherActivity-------", weatherBean.getResult().getRealtime().getCity_name());
+
 
                     }
 

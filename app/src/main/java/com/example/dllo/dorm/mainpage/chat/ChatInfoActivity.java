@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.dllo.dorm.MyUser;
 import com.example.dllo.dorm.R;
@@ -29,6 +30,7 @@ import com.example.dllo.dorm.base.BaseActivity;
 import com.example.dllo.dorm.base.Values;
 import com.example.dllo.dorm.tools.toast.ToastUtil;
 import com.hyphenate.EMCallBack;
+import com.hyphenate.EMGroupChangeListener;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
@@ -45,6 +47,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 import static android.media.CamcorderProfile.get;
+import static com.hyphenate.chat.a.a.a.h;
 
 /**
  * Created by Wanghuan on 16/11/24.
@@ -75,6 +78,8 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
     private List<String> membersList;
     private String owner;
     private ImageView back;
+    private TextView groupName;
+    private String groupNameStr;
 
 
     @Override
@@ -95,12 +100,12 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
         otherRlContainer = bindView(R.id.other_rl_container);
         otherFabCircle = bindView(R.id.other_fab_circle);
         createGroupBtn = (Button) findViewById(R.id.btn_create_group);
+        groupName = bindView(R.id.group_name);
         setClick(this, createGroupBtn, groupInformation, sendChat, back);
     }
 
     @Override
     protected void initData() {
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setupEnterAnimation(); // 入场动画
             setupExitAnimation(); // 退场动画
@@ -112,9 +117,12 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
             if (Values.GROUP_ID.equals("")) { // 如果没有群组
                 groupCreateRL.setVisibility(View.VISIBLE);
                 chatMainLL.setVisibility(View.INVISIBLE);
+                groupName.setVisibility(View.INVISIBLE);
+                invent();
             } else { // 如果有群组
                 chatMainLL.setVisibility(View.VISIBLE);
                 groupCreateRL.setVisibility(View.INVISIBLE);
+                groupName.setVisibility(View.VISIBLE);
                 // 注册当前类可以监听消息
                 EMClient.getInstance().chatManager().addMessageListener(ChatInfoActivity.this);
             }
@@ -129,6 +137,65 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
         // 获取当前对话的对话记录
         initChatData();
     }
+
+
+        private void invent() {
+            EMClient.getInstance().groupManager().addGroupChangeListener(new EMGroupChangeListener() {
+                @Override
+                public void onUserRemoved(String groupId, String groupName) {
+                    //当前用户被管理员移除出群组
+                }
+
+                @Override
+                public void onGroupDestroyed(String s, String s1) {
+
+                }
+
+                @Override
+                public void onAutoAcceptInvitationFromGroup(String s, String s1, String s2) {
+                    ToastUtil.showShortToast("收到群主:"+s1 +"群"+ s + "的邀请");
+                    Log.d("CreateGroupActivity123", s);
+                    Log.d("CreateGroupActivity123", s1);
+                    Log.d("CreateGroupActivity123", s2);
+                }
+
+                @Override
+                public void onInvitationReceived(String groupId, String groupName, String inviter, String reason) {
+                    //收到加入群组的邀请
+                }
+                @Override
+                public void onInvitationDeclined(String groupId, String invitee, String reason) {
+                    //群组邀请被拒绝
+                }
+
+                public void onInvitationAccpted(String groupId, String inviter, String reason) {
+                    //群组邀请被接受
+
+                }
+
+                public void onGroupDestroy(String groupId, String groupName) {
+                    //群组被创建者解散
+                }
+                @Override
+                public void onApplicationReceived(String groupId, String groupName, String applyer, String reason) {
+                    //收到加群申请
+                }
+                @Override
+                public void onApplicationAccept(String groupId, String groupName, String accepter) {
+                    //加群申请被同意
+                }
+                @Override
+                public void onApplicationDeclined(String groupId, String groupName, String decliner, String reason) {
+                    // 加群申请被拒绝
+                }
+
+                @Override
+                public void onInvitationAccepted(String s, String s1, String s2) {
+
+                }
+            });
+        }
+
 
 
     @Override
@@ -167,7 +234,7 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
                 break;
             case R.id.iv_finish_chat:
                 finish();
-                break;
+      break;
 
 
         }
@@ -184,9 +251,10 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
     private void showChart() {
 //        new GroupInformationFragment().show(getFragmentManager(),"dialog");
         builder = new AlertDialog.Builder(this);
-        builder.setTitle("群组信息").setIcon(R.mipmap.ic_launcher);
+        builder.setTitle(groupNameStr).setIcon(R.mipmap.dormxxx);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_chat_view, null);
         builder.setView(view);
+
         dialogLV = (ListView) view.findViewById(R.id.lv_dialog_chat);
         inventBtn = (Button) view.findViewById(R.id.btn_chat_invent);
         inventEt = (EditText) view.findViewById(R.id.et_chat_invent);
@@ -245,6 +313,8 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
                 Log.d("群组群主信息", "Values.OWNER:" + Values.OWNER);
                 try {
                     group = EMClient.getInstance().groupManager().getGroupFromServer(Values.GROUP_ID);
+                    groupNameStr = group.getGroupName();
+//                    groupName.setText(group.getGroupName());
                     membersList = group.getMembers();
                     owner = group.getOwner();
                     Log.d("群组成员信息", "group.getMembers():" + group.getMembers());
@@ -400,6 +470,7 @@ public class ChatInfoActivity extends BaseActivity implements EMMessageListener,
                 public void run() {
                     Log.d("ChatInfoActivity", message.getUserName());
                     // 通过接收到的信息查询Bmob
+                    rvChat.smoothScrollToPosition(arrayList.size());
                     query(message.getUserName(), ((EMTextMessageBody) message.getBody()).getMessage());
 
                 }

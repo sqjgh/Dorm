@@ -51,7 +51,15 @@
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:src="@mipmap/backb" />
-
+            <TextView
+                android:layout_centerVertical="true"
+                android:textColor="#ffffff"
+                android:id="@+id/group_name"
+                android:layout_toRightOf="@id/iv_finish_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="群组聊天"
+                 />
             <ImageView
                 android:padding="15dp"
                 android:id="@+id/information_chat"
@@ -108,7 +116,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="如果要加入一个群组, 请让群成员邀请您,\n
+                android:text="如果要加入一个群组, 请在此页面停顿,同时让群成员邀请您,\n
                 或者您可以点击下方按钮来创建群组"
                 android:textColor="#ffff" />
             <Button

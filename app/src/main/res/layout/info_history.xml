@@ -11,7 +11,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:text="测试"
-        android:textColor="#693939"
+        android:textColor="@color/colorTabLayout"
         android:textSize="15sp"/>
 
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.23"
-        android:textColor="#d28e8e"
+        android:textColor="#ffffff"
         android:textSize="15sp"/>
 
 

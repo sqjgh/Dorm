@@ -363,7 +363,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             @Override  //左滑监听
             public void onLeftCardExit(Object dataObject) {
-
+                Log.d("MainActivity-----", dataObject.getClass().getSimpleName());
             }
 
             @Override  //右滑监听

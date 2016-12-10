@@ -112,7 +112,7 @@ public class IDSettingActivity extends BaseActivity implements View.OnClickListe
             case R.id.setup_id_icon_save:
                 // 保存
                 if (bitmap != null){
-                    UpLoadIcon();
+                    upLoadIcon();
                 }
                 String nicknameET = nickname.getText().toString();
                 if (nicknameET != null){
@@ -234,7 +234,7 @@ public class IDSettingActivity extends BaseActivity implements View.OnClickListe
 /******************************************************/
 
     //上传头像
-    private void UpLoadIcon() {
+    private void upLoadIcon() {
         final MyUser myUser = MyUser.getCurrentUser(MyUser.class); // 注意填 MyUser.class
         if (myUser == null) {
             Toast.makeText(this, "先登录", Toast.LENGTH_SHORT).show();
@@ -266,6 +266,7 @@ public class IDSettingActivity extends BaseActivity implements View.OnClickListe
 
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
                 fileOutputStream.close();
+                // TODO 放到线程
                 // 图片就存到了File里面
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

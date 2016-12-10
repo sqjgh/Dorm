@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <EditText
+        android:textColor="#FFF"
         android:textColorHint="#FFF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +20,7 @@
         android:id="@+id/group_name_create" />
     <EditText
         android:textColorHint="#FFF"
-
+        android:textColor="#FFF"
         android:id="@+id/group_information_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
